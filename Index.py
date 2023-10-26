@@ -1,3 +1,45 @@
+from LogAndReg import * 
+
+class App:
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import datetime
 
 class Hotel:
