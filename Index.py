@@ -2,7 +2,7 @@ from LogAndReg import *
 from managers import *
 #class App:
    
-
+#abril
 
 start = input("¿Desea iniciar sesión? (s/n): ")
 while start == "s":
