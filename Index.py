@@ -19,8 +19,10 @@ while start == "s":
         inputapellido = input("Ingrese su apellido: ")
         inputemail = input("Ingrese su email: ")
         inputpassword = input("Ingrese su contraseña: ")
-        
-        userManager.createUser(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
+        if inputtypeuser == "admin":
+            adminManager.createUser(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
+        elif   
+            userManager.createUser(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
 
     elif opcion == "2":
         inputemail = input("Ingrese su email: ")
@@ -28,7 +30,11 @@ while start == "s":
         
         userManager.validateUser(inputemail,inputpassword)
         if True:
-            pass
+            
+
+            
+
+
 
     elif opcion == "3":
         pass
