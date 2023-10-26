@@ -21,8 +21,7 @@ while start == "s":
         inputpassword = input("Ingrese su contraseña: ")
         if inputtypeuser == "admin":
             adminManager.createUser(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
-        elif   
-            userManager.createUser(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
+       
 
     elif opcion == "2":
         inputemail = input("Ingrese su email: ")
