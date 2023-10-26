@@ -3,38 +3,27 @@ class userManager:
     def __init__(self) -> None:
         self.totalUsers = []
         
+        pass
 
-    # Defines an Array that Contains Every Instantiated User Class added
+     # Defines an Array that Contains Every Instantiated User Class added
    
     
     # Returns a new instantiation of the User Class for storage in a variable
     # Instantiations can be accessed later by accessing the __totalUsers array
-    def createUser(self,name, surname, email, password):
-        user = User(name, surname, email, password)
+    def createUser(self, typeUser ,name, surname, email, password):
+        user = User(typeUser,name, surname, email, password)
         self.totalUsers.append(user)
         return user
-
-    # Returns a new instantiation of the User Class based off of user inputs
-    # Will return the User if the entries are valid, but will return False if they are not
-    def inputUser(self, nameEntry, surnameEntry, emailEntry, passwordEntry):
-        name = str(input(nameEntry + " : "))
-        surname = str(input(surnameEntry + " : "))
-        email = str(input(emailEntry + " : "))
-        password = str(input(passwordEntry + " : "))
-        if validateInputs(name, surname, email, password): #tengo que ver como hacer esta funcion validadora
-            return self.createUser(name, surname, email, password)
-        else:
-            return False
-
-
 
     # Validates the password of a specific user against a preset password
     # This will return  if the password is valid and False if it is not
     def validateUser(self, user, password):
     
         if user.password == password:
+            print ("Bienvenido, usted ha ingresado correctamente al sistema")
             return True
         else:
+            print("La contraseña es incorrecta")
             return False
 
     #Lists all Users inside the totalUsers array without displaying passwords

@@ -7,7 +7,8 @@ class User:
 
     # User Class Constructor, Defines Variable Names in a Global Reach within the Class Object
     # Also appends the Object to the __totalUsers array on it's creation
-    def __init__(self, name, surname, email, password):
+    def __init__(self,typeUser ,name, surname, email, password):
+        self.typeUser = typeUser
         self.name = name
         self.surname = surname
         self.email = email
@@ -16,6 +17,7 @@ class User:
 
     # Returns all info about a given user object
     def getInfo(self):
+        print(self.typeUser)
         print(self.name)
         print(self.surname)
         print(self.email)
@@ -37,16 +39,14 @@ class User:
     def getPassword(self):
         return self.password
 
-# Returns a new instantiation of the User Class for storage in a variable
-# Instantiations can be accessed later by accessing the __totalUsers array
-def createUser(name, surname, email, password):
-    user = User(name, surname, email, password)
-    totalUsers.append(user)
-    return user
+    # Returns the Type of User
+    def getType(self):
+        return self.typeUser
+
 
 # Returns a new instantiation of the User Class based off of user inputs
 # Will return the User if the entries are valid, but will return False if they are not
-def inputUser(nameEntry, surnameEntry, emailEntry, passwordEntry):
+""" def inputUser(nameEntry, surnameEntry, emailEntry, passwordEntry):
     name = str(input(nameEntry + " : "))
     surname = str(input(surnameEntry + " : "))
     email = str(input(emailEntry + " : "))
@@ -55,8 +55,15 @@ def inputUser(nameEntry, surnameEntry, emailEntry, passwordEntry):
         return createUser(name, surname, email, password)
     else:
         return False
+ """
 
+# Validates the inputs of a user to ensure they are not empty
 
+def validateInputs(typeUser ,name, surname, email, password):
+    if typeUser == "" or name == "" or surname == "" or email == "" or password == "":
+        print ("Por favor completa todos los campos")
+    else:
+        
 
 # Validates the password of a specific user against a preset password
 # This will return  if the password is valid and False if it is not
