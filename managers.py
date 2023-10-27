@@ -2,11 +2,6 @@ from LogAndReg import User
 class userManager:
     def __init__(self) -> None:
         self.totalUsers = []
-        
-        pass
-
-     # Defines an Array that Contains Every Instantiated User Class added
-   
     
     # Returns a new instantiation of the User Class for storage in a variable
     # Instantiations can be accessed later by accessing the __totalUsers array
@@ -72,17 +67,29 @@ class userManager:
         return True
 
 
-class Personal_Manager():
+class adminManager:
+    def __init__(self) -> None:
+        self.totalAdmins = []
+    
+    def createAdmin(self, name, surname, email, password):
+        admin = User(name, surname, email, password)
+        self.totalAdmins.append(admin)
+        return admin
+
+class personalManager():
         def __init__(self):
             self.lista_empleado=set()
             self.lista_tareas=[]         
+
         def agregar_personal(self,personal):
             self.lista_empleado.add(personal)
+
         def dar_de_baja(self,personal):
             self.lista_empleado.remove(personal)
+            #Aca necesitamos generar un metodo que elimine al personal de la lista de empleados en el CSV
         def nuevatarea(self,tarea):
             self.lista_tareas.append(tarea)
-        def asignacion_tareas(self,user): #Asignarle una tarea a un determinado empleado
+        def asignacion_tareas(self,user): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
             if user.tarea == None:
                 for i in range(len(self.lista_tareas)):
                     if user.cargo==self.lista_tareas[i].cargo:
@@ -101,9 +108,16 @@ class Personal_Manager():
                             print('No hay tareas disponibles para el cargo')
                 else:
                     print('Empleado {} no disponible'.format(self.lista_empleado[i].nombre))
+class clienteManager():
+    def __init__(self):
+        self.lista_cliente=[]
+    def agregar_cliente(self,cliente):
+        self.lista_cliente.append(cliente)
+    def dar_de_baja(self,cliente):
+        self.lista_cliente.remove(cliente)
+        #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV
 
-
-class Habitacion_Manager():
+class roomManager():
     def __init__ (self):
           self.lista_habitaciones=[]
     def agregar_(self,habitacion):
@@ -117,7 +131,7 @@ class Habitacion_Manager():
                         self.lista_habitaciones[i].ocupacion = True
                         
                         
-class Reserva_Manager():
+class reservaManager():
     def __init__ (self):
         self.reservas={ }
     def agregar_reserva (self, reserva):

@@ -7,17 +7,17 @@ class User:
 
     # User Class Constructor, Defines Variable Names in a Global Reach within the Class Object
     # Also appends the Object to the __totalUsers array on it's creation
-    def __init__(self,typeUser ,name, surname, email, password):
-        self.typeUser = typeUser
+    def __init__(self,name, surname, email, password):
         self.name = name
         self.surname = surname
         self.email = email
         self.password = password
        
-
+    def __str__(self) -> str:
+        return (str(self.name) + " " + str(self.surname) + " " + str(self.email) + " " + str(self.password) )
     # Returns all info about a given user object
     def getInfo(self):
-        print(self.typeUser)
+    
         print(self.name)
         print(self.surname)
         print(self.email)
@@ -39,9 +39,7 @@ class User:
     def getPassword(self):
         return self.password
 
-    # Returns the Type of User
-    def getType(self):
-        return self.typeUser
+
 
 
 # Returns a new instantiation of the User Class based off of user inputs
@@ -59,8 +57,8 @@ class User:
 
 # Validates the inputs of a user to ensure they are not empty
 
-def validateInputs(typeUser ,name, surname, email, password):
-    if typeUser == "" or name == "" or surname == "" or email == "" or password == "":
+def validateInputs(name, surname, email, password):
+    if name == "" or surname == "" or email == "" or password == "":
         print ("Por favor completa todos los campos")
     else:
         
