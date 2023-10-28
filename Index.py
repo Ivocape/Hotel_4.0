@@ -39,6 +39,7 @@ class Hotel:
                     self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 opcion = 2
                 print("Usuario creado con éxito, por favor inicie sesión")
+                print(self.clienteManager.lista_cliente)
                 print("-------------------------------------------------------------------------")
             elif opcion == "2":
                 inputnombre = input("Ingrese su nombre: ")
@@ -48,8 +49,14 @@ class Hotel:
                 if True: 
                     print("Bienvenido")
                     print("-------------------------------------------------------------------------")
-                    
-                    
+            elif opcion == "3":
+                # inputnombre = input("Ingrese su nombre: ")
+                # inputpassword = input("Ingrese su contraseña: ")
+                # self.userManager.modifyUser(inputnombre,inputpassword)
+                print("-------------------------------------------------------------------------")
+            elif opcion == "4":
+                print("Gracias por utilizar nuestros servicios")
+                break
 instance = Hotel()           
 
 if __name__ == "__main__":

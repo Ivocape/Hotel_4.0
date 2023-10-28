@@ -43,7 +43,7 @@ class userManager:
                 return True
         else:
             return False
-
+    
     # Checks all the Users to see if a password and email match is found
     # This will return True if a match is found, and False if not
     def userExists(self,email, password):
@@ -121,6 +121,7 @@ class personalManager():
 class clienteManager():
     def __init__(self):
         self.lista_cliente=[]
+        
     def agregar_cliente(self,cliente):
         self.lista_cliente.append(cliente)
     def dar_de_baja(self,cliente):
