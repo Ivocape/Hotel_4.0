@@ -9,8 +9,13 @@ class Hotel:
         self.reservaManager=reservaManager()
         self.userManager=userManager()
         
+        #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
+
+        
 
     def run(self):
+        self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
+        print("Bienvenido al hotel")
         start = input("¿Desea iniciar sesión? (s/n): ")
         while start == "s":
             print("1. Registrarse")
@@ -27,26 +32,27 @@ class Hotel:
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
                 if inputtypeuser == "admin 1234":
-                    adminManager.createAdmin(inputnombre,inputapellido,inputemail,inputpassword)
+                    self.adminManager.createAdmin(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 elif inputtypeuser == "cliente": 
-                    userManager.createUser(inputnombre,inputapellido,inputemail,inputpassword)
+                    self.clienteManager.createCliente(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 elif inputtypeuser == "personal 1234":
-                    personalManager.createPersonal(inputnombre,inputapellido,inputemail,inputpassword)
+                    self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 opcion = 2
                 print("Usuario creado con éxito, por favor inicie sesión")
                 print("-------------------------------------------------------------------------")
             elif opcion == "2":
-                inputemail = input("Ingrese su email: ")
+                inputnombre = input("Ingrese su nombre: ")
                 inputpassword = input("Ingrese su contraseña: ")
                 
-                userManager.validateUser(inputemail,inputpassword)
+                self.userManager.validateUser(inputnombre,inputpassword)
                 if True: 
-                    pass
+                    print("Bienvenido")
+                    print("-------------------------------------------------------------------------")
                     
-            
+                    
+instance = Hotel()           
 
 if __name__ == "__main__":
-    instance=Hotel()
     
     instance.run()
         
