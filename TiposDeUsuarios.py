@@ -4,6 +4,7 @@ class Personal(User):
         super().__init__(name, surname, email, password)
         self.cargo = cargo
         self.sueldo = sueldo
+        self.tarea=''
   
 class Cliente(User):
     def __init__(self, name, surname, email, password, dni=0, fecha_nacimiento=""):
@@ -27,7 +28,3 @@ class Administrador(User):
     #     self.ingresos_y_egresos
     #     #FALTA
         
-    # class Tarea():
-    #     def __init__(self,tarea,cargo):
-    #         self.tarea=tarea
-    #         self.cargo=cargo
