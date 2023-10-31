@@ -1,4 +1,6 @@
 from TiposDeUsuarios import *
+from discoDuro import *
+
 class userManager:
     def __init__(self) -> None:
         self.totalUsers = [] ######### Aca Vamos a tener un problema #####
@@ -12,7 +14,7 @@ class userManager:
 
     # Validates the password of a specific user against a preset password
     # This will return  if the password is valid and False if it is not
-    def validateUser(self, user, password):
+    def validateUser(self,user, password):
         #aca tengo que hacer un for para leer una lista de usuarios y encontrar el usuario que quiero. luego comparar las contraseñas.
         if user.password == password:
             print ("Bienvenido, usted ha ingresado correctamente al sistema")
@@ -83,7 +85,7 @@ class personalManager():
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
         self.lista_tareas=[]         
     def createPersonal(self,typeUser ,name, surname, email, password): 
-        ####### El error estaba en que en el metodo createPersonal no debia esta el self #######
+     
         personal = Personal(name, surname, email, password)
         print(personal)
         #self.lista_empleado.add(personal)
@@ -130,6 +132,8 @@ class clienteManager():
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
+        DiscoDuro().escribir(name, surname, email, password)
+        DiscoDuro().leer()
         from Index import instance #Aca importamos la instancia de la clase Hotel
         instance.userManager.createUser(typeUser, name, surname, email, password)
         return cliente

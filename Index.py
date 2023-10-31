@@ -37,7 +37,7 @@ class Hotel:
                     self.clienteManager.createCliente(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 elif inputtypeuser == "personal 1234":
                     self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
-                opcion = 2
+                
                 print("Usuario creado con éxito, por favor inicie sesión")
                 print(self.clienteManager.lista_cliente)
                 print("-------------------------------------------------------------------------")
@@ -57,6 +57,7 @@ class Hotel:
             elif opcion == "4":
                 print("Gracias por utilizar nuestros servicios")
                 break
+
 instance = Hotel()           
 
 if __name__ == "__main__":

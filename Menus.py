@@ -20,7 +20,7 @@ class menuCliente():
 
             from Index import instance
             instance.reservaManager.agregar_reserva()
-            
+            print("Reserva generada con éxito")
             print("-------------------------------------------------------------------------")
         elif opcion == "2":
             print("Ver mis datos")
