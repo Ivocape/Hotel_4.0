@@ -1,13 +1,18 @@
 import csv
+#####################################################################################
+# ESTE DISCO DURO DEBE DE ENCARGARSE DE GUARDAR TODA INFORMACION DE USUARIOS, CLIENTES, PERSONAL, ADMINS,
+#
+#####################################################################################
 class DiscoDuro():
+    # Create a list to store the user information
+    def __init__(self) -> None:
+        self.users = []
+
     def leer (self):    
         # Open the CSV file
         with open('users.csv', newline='') as csvfile:
             # Create a CSV reader object
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-            
-            # Create a list to store the user information
-            users = []
             
             # Loop through each row in the CSV file
             for row in reader:
@@ -17,12 +22,12 @@ class DiscoDuro():
                 email = row[2]
                 password = row[3]
                 # Add the user information to the list
-                users.append({'name': name, 'surname': surname, 'email': email , 'password': password})
+                self.users.append({'name': name, 'surname': surname, 'email': email , 'password': password})
                 
         # Print the user information
-        for user in users:
+        for user in self.users:
             print(user['name'], user['surname'], user['email'], user['password'])
-
+       
 
 
     def escribir (self,name, surname, email, password):
@@ -33,3 +38,5 @@ class DiscoDuro():
             
             # Write the user information to the CSV file
             writer.writerow([name, surname, email, password])
+
+discoHotel1 = DiscoDuro()

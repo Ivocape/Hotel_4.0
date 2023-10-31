@@ -11,8 +11,6 @@ class Hotel:
         
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
 
-        
-
     def run(self):
         self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
         print("Bienvenido al hotel")
@@ -42,13 +40,17 @@ class Hotel:
                 print(self.clienteManager.lista_cliente)
                 print("-------------------------------------------------------------------------")
             elif opcion == "2":
-                inputnombre = input("Ingrese su nombre: ")
+                inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
                 
-                self.userManager.validateUser(inputnombre,inputpassword)
-                if True: 
+               
+                if  self.userManager.validateUser(inputemail,inputpassword): 
                     print("Bienvenido")
                     print("-------------------------------------------------------------------------")
+                else:
+                    print("Usuario o contraseña incorrectos")
+                    print("-------------------------------------------------------------------------")
+                    
             elif opcion == "3":
                 # inputnombre = input("Ingrese su nombre: ")
                 # inputpassword = input("Ingrese su contraseña: ")

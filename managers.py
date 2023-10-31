@@ -14,14 +14,19 @@ class userManager:
 
     # Validates the password of a specific user against a preset password
     # This will return  if the password is valid and False if it is not
-    def validateUser(self,user, password):
+    def validateUser(self,email, password):
         #aca tengo que hacer un for para leer una lista de usuarios y encontrar el usuario que quiero. luego comparar las contraseñas.
-        if user.password == password:
-            print ("Bienvenido, usted ha ingresado correctamente al sistema")
-            return True
-        else:
-            print("La contraseña es incorrecta")
-            return False
+        for user in discoHotel1.users:
+            if user['email'] == email:    
+                if password == user['password']:
+                    print ("Bienvenido, usted ha ingresado correctamente al sistema")
+                    return True
+                else:
+                    print("La contraseña es incorrecta")
+                    return False
+            else:
+                print("El usuario no existe")
+                return False
 
     #Lists all Users inside the totalUsers array without displaying passwords
     def listUsers(self):
