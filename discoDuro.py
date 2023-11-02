@@ -8,26 +8,36 @@ class DiscoDuro():
     def __init__(self) -> None:
         self.users = []
 
-    def leer (self):    
+    def leer (self, carpeta):    
         # Open the CSV file
-        from Index import instance
         with open(carpeta, newline='') as csvfile: 
             # Create a CSV reader object
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             
-            # Loop through each row in the CSV file
-            for row in reader:
-                # Extract the user information from the row
-                name = row[0]
-                surname = row[1]
-                email = row[2]
-                password = row[3]
-                # Add the user information to the list
-                self.users.append({'name': name, 'surname': surname, 'email': email , 'password': password})
-                
-        # Print the user information
-        for user in self.users:
-            print(user['name'], user['surname'], user['email'], user['password'])
+            match carpeta:
+#'users.csv', 'reservas.csv', 'room.csv','buffet.csv' BORRAR ESTO #####
+                case "users.csv":
+                     # Loop through each row in the CSV file
+                    for row in reader:
+                     # Extract the user information from the row
+                        name = row[0]
+                        surname = row[1]
+                        email = row[2]
+                        password = row[3]
+                    # Add the user information to the list
+                        self.users.append({'name': name, 'surname': surname, 'email': email , 'password': password})
+                     # Print the user information
+                    for user in self.users:
+                     print(user['name'], user['surname'], user['email'], user['password'])
+                    pass
+                case 'reservas.csv':
+                    for row in reader:
+                        #falta dustin
+
+                    pass
+                case 'room.csv':
+                    pass
+
        
 
 
@@ -39,5 +49,6 @@ class DiscoDuro():
             
             # Write the user information to the CSV file
             writer.writerow([name, surname, email, password])
+            self.users.append({'name': name, 'surname': surname, 'email': email , 'password': password})
 
 discoHotel1 = DiscoDuro()
