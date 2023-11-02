@@ -15,6 +15,7 @@ class HotelGUI:
         master (tk.Tk): The root window of the GUI.
         """
 
+
         self.master = master
         master.title("Hotel Management System")
 

@@ -137,8 +137,8 @@ class clienteManager():
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
-        DiscoDuro().escribir(name, surname, email, password)
-        DiscoDuro().leer()
+        discoHotel1.escribir(name, surname, email, password)
+        discoHotel1.leer()
         from Index import instance #Aca importamos la instancia de la clase Hotel
         instance.userManager.createUser(typeUser, name, surname, email, password)
         return cliente
