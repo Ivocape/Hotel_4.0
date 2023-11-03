@@ -1,5 +1,6 @@
 class Habitacion:
-    def __init__(self,tipo,capacidad,precio,bano,balcon):
+    def __init__(self,nro_habitacion,tipo,capacidad,precio,bano,balcon):
+        self.nro_habitacion=nro_habitacion
         self.tipo=tipo
         self.capacidad=capacidad
         self.precio=precio
@@ -9,3 +10,9 @@ class Habitacion:
     def ocuparhabitacion(self):
         if self.ocupacion==False:
             self.ocupacion == True
+            
+            
+class Nodo:
+    def __init__(self, value):
+        self.valor = value
+        self.prox = None
