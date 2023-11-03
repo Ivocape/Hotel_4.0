@@ -12,7 +12,7 @@ class Hotel:
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
 
     def run(self):
-        self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
+        #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
         print("Bienvenido al hotel")
         start = input("¿Desea iniciar sesión? (s/n): ")
         while start == "s":

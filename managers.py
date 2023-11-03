@@ -10,6 +10,7 @@ class userManager:
     def createUser(self, typeUser ,name, surname, email, password):
         user = User(typeUser,name, surname, email, password)
         self.totalUsers.append(user)
+        discoHotel1.escribir(typeUser,name, surname, email, password)
         
         return user
 
@@ -82,18 +83,20 @@ class adminManager:
     def createAdmin(self,typeUser ,name, surname, email, password):
         admin = Administrador(name, surname, email, password)
         self.totalAdmins.append(admin)
-        userManager.createUser(self ,typeUser, name, surname, email, password)
+        from Index import instance #Aca importamos la instancia de la clase Hotel
+        instance.userManager.createUser(typeUser, name, surname, email, password)
 
         return admin
 
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
-        self.lista_tareas=[]         
+        self.lista_tareas=[]
+        self.totalPersonal = []         
     def createPersonal(self,typeUser ,name, surname, email, password): 
      
         personal = Personal(name, surname, email, password)
-        print(personal)
+        self.totalPersonal.append(personal)
         #self.lista_empleado.add(personal)
         from Index import instance #Aca importamos la instancia de la clase Hotel
         instance.userManager.createUser(typeUser, name, surname, email, password)
@@ -138,8 +141,9 @@ class clienteManager():
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
-        discoHotel1.escribir(typeUser,name, surname, email, password)
-        discoHotel1.leer()
+        from Index import instance
+        instance.userManager.createUser(typeUser, name, surname, email, password)
+       
         
     
 class roomManager():

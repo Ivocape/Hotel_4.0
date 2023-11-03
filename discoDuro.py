@@ -22,27 +22,24 @@ class DiscoDuro():
                 surname = row[1]
                 email = row[2]
                 password = row[3]
+                typeUser = row[4]
                 # Add the user information to the list
                 from Index import instance #Aca importamos la instancia de la clase Hotel
-                instance.userManager.createUser(row[4], name, surname, email, password)
-                if inputtypeuser == "admin 1234":
-                    instance.adminManager.createAdmin(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
-                elif inputtypeuser == "cliente": 
-                    instance.clienteManager.createCliente(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
-                elif inputtypeuser == "personal 1234":
-                    instance.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
+                if typeUser == "admin 1234":
+                    instance.adminManager.createAdmin(typeUser,name,surname,email,password)
+                elif typeUser == "cliente": 
+                    instance.clienteManager.createCliente(typeUser,name,surname,email,password)
+                elif typeUser == "personal 1234":
+                    instance.personalManager.createPersonal(typeUser,name,surname,email,password)
 
         # Print the user information
-        for user in self.users:
-            print(user['name'], user['surname'], user['email'], user['password'])
+        for user in instance.userManager.totalUsers:
+            print(user.name, user.surname, user.email, user.password, user.typeUser)
        
 
 
     def escribir (self,typeUser,name, surname, email, password):
         # Open the CSV file in append mode
-        from Index import instance #Aca importamos la instancia de la clase Hotel
-        instance.userManager.createUser(typeUser, name, surname, email, password)
-        
         with open('users.csv', 'a', newline='') as csvfile:
             # Create a CSV writer object
             writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
