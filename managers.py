@@ -10,6 +10,7 @@ class userManager:
     def createUser(self, typeUser ,name, surname, email, password):
         user = User(typeUser,name, surname, email, password)
         self.totalUsers.append(user)
+        
         return user
 
     # Validates the password of a specific user against a preset password
@@ -137,11 +138,9 @@ class clienteManager():
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
-        discoHotel1.escribir(name, surname, email, password)
+        discoHotel1.escribir(typeUser,name, surname, email, password)
         discoHotel1.leer()
-        from Index import instance #Aca importamos la instancia de la clase Hotel
-        instance.userManager.createUser(typeUser, name, surname, email, password)
-        return cliente
+        
     
 class roomManager():
     def __init__ (self):
