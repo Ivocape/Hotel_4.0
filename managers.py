@@ -129,16 +129,14 @@ class personalManager():
 class clienteManager():
     def __init__(self):
         self.lista_cliente=[]
-        
-    def agregar_cliente(self,cliente):
-        self.lista_cliente.append(cliente)
     def dar_de_baja(self,cliente):
         self.lista_cliente.remove(cliente)
-        #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV
+        #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
-        discoHotel1.escribir(typeUser,name, surname, email, password)
+        carpeta='users.csv'
+        discoHotel1.escribir(carpeta=carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
         discoHotel1.leer()
         
     
@@ -146,7 +144,7 @@ class roomManager():
     def __init__ (self):
           self.lista_habitaciones=[]
     def agregar_(self,habitacion):
-        self.lista_habitaciones.append(habitacion)
+        self.lista_habitaciones.append(habitacion) #esto tiene que ir al csv
     def ocupar_habitacion (self,nro_habitacion):
             for i in range(len(self.lista_habitaciones)):
                 if self.lista_habitaciones[i].nro_habitacion==nro_habitacion:

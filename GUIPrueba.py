@@ -30,6 +30,7 @@ class HotelGUI:
         # Create a label with the text "Bienvenido al hotel" and pack it into the master window
         self.label = tk.Label(master, text="Bienvenido al hotel")
         self.label.pack()
+        # Add photo
 
         # Create a button with the text "Registrar" and a command to call the register method, then pack it into the master window
         self.register_button = tk.Button(master, text="Registrar", command=self.register)
