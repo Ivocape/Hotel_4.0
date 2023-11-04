@@ -8,7 +8,7 @@ class DiscoDuro():
     def __init__(self) -> None:
         pass
 
-    def leer (self):    
+    def leerSETUP (self):    
         # Open the CSV file
         with open('users.csv', newline='') as csvfile:
             # Create a CSV reader object
@@ -24,15 +24,27 @@ class DiscoDuro():
                 password = row[3]
                 typeUser = row[4]
                 # Add the user information to the list
-                from Index import instance #Aca importamos la instancia de la clase Hotel
+                from Index import instance 
                 if typeUser == "admin 1234":
-                    instance.adminManager.createAdmin(typeUser,name,surname,email,password)
-                elif typeUser == "cliente": 
-                    instance.clienteManager.createCliente(typeUser,name,surname,email,password)
+                    instance.adminManager.cache(typeUser,name, surname, email, password)
+                elif typeUser == "cliente":
+                    instance.clienteManager.cache(typeUser,name, surname, email, password)
                 elif typeUser == "personal 1234":
-                    instance.personalManager.createPersonal(typeUser,name,surname,email,password)
-
+                    instance.personalManager.cache(typeUser,name, surname, email, password)
+            
         # Print the user information
+        for user in instance.userManager.totalUsers:
+            print(user.name, user.surname, user.email, user.password, user.typeUser)
+            print ("-------------------------------------------------------------------------")
+
+    def leer (self):    
+        # Open the CSV file
+        with open('users.csv', newline='') as csvfile:
+            # Create a CSV reader object
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        
+        # Print the user information
+        from Index import instance
         for user in instance.userManager.totalUsers:
             print(user.name, user.surname, user.email, user.password, user.typeUser)
        
@@ -47,5 +59,4 @@ class DiscoDuro():
             # Write the user information to the CSV file
             writer.writerow([name, surname, email, password,typeUser])
 
-discoHotel1 = DiscoDuro()
 
