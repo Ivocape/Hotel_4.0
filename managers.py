@@ -1,25 +1,57 @@
 from TiposDeUsuarios import *
+<<<<<<< HEAD
 from discoDuro import *
 from habitacion import *
 import datetime
 from reservas import *
+=======
+
+>>>>>>> bcf75a339808a98328426fdf5af4824bc3519723
 
 class userManager:
     def __init__(self) -> None:
         self.totalUsers = [] ######### Aca Vamos a tener un problema #####
-    
+    def mostrarlista(self):
+        print(self.totalUsers)
     # Returns a new instantiation of the User Class for storage in a variable
     # Instantiations can be accessed later by accessing the __totalUsers array
+    def cacheUser(self, typeUser ,name, surname, email, password):
+        user = User(typeUser,name, surname, email, password)
+        self.totalUsers.append(user)
+
+        print ("cache sumado")
+        print(self.totalUsers)  
+        if typeUser == "admin 1234":
+            admin = Administrador(name, surname, email, password)
+            from Index import instance
+            instance.adminManager.totalAdmins.append(admin)
+        elif typeUser == "cliente":
+            cliente = Cliente(name, surname, email, password)
+            from Index import instance 
+            instance.clienteManager.lista_cliente.append(cliente)
+            
+        elif typeUser == "personal 1234":
+            personal = Personal(name, surname, email, password)
+            from Index import instance 
+            instance.personalManager.totalPersonal.append(personal)
+
+        return user
     def createUser(self, typeUser ,name, surname, email, password):
         user = User(typeUser,name, surname, email, password)
         self.totalUsers.append(user)
-        return user
+        print(self.totalUsers)
+        print(self)
+        from Index import instance 
+        instance.discoHotel1.escribir(typeUser,name, surname, email, password)
+        
+        return self.totalUsers
 
     # Validates the password of a specific user against a preset password
     # This will return  if the password is valid and False if it is not
     def validateUser(self,email, password):
         #aca tengo que hacer un for para leer una lista de usuarios y encontrar el usuario que quiero. luego comparar las contraseñas.
-        for user in discoHotel1.users:
+        from Index import instance
+        for user in instance.discoHotel1.users:
             if user['email'] == email:    
                 if password == user['password']:
                     print ("Bienvenido, usted ha ingresado correctamente al sistema")
@@ -31,6 +63,7 @@ class userManager:
                 print("El usuario no existe")
                 return False
 
+<<<<<<< HEAD
 
     #Lists all Users inside the totalUsers array without displaying passwords
     def listUsers(self):
@@ -78,6 +111,8 @@ class userManager:
         return True
 
 
+=======
+>>>>>>> bcf75a339808a98328426fdf5af4824bc3519723
 class adminManager:
     def __init__(self) -> None:
         self.totalAdmins = []
@@ -85,22 +120,34 @@ class adminManager:
     def createAdmin(self,typeUser ,name, surname, email, password):
         admin = Administrador(name, surname, email, password)
         self.totalAdmins.append(admin)
-        userManager.createUser(self ,typeUser, name, surname, email, password)
-
+        from Index import instance 
+        instance.discoHotel1.escribir(typeUser,name, surname, email, password)
         return admin
-
+    def cache(self,typeUser ,name, surname, email, password):
+        admin = Administrador(name, surname, email, password)
+        self.totalAdmins.append(admin)
+        return admin
+    
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
+<<<<<<< HEAD
         self.lista_tareas=[]      
         self.registros=[]
+=======
+        self.lista_tareas=[]
+        self.totalPersonal = []         
+>>>>>>> bcf75a339808a98328426fdf5af4824bc3519723
     def createPersonal(self,typeUser ,name, surname, email, password): 
      
         personal = Personal(name, surname, email, password)
-        print(personal)
-        #self.lista_empleado.add(personal)
-        from Index import instance #Aca importamos la instancia de la clase Hotel
-        instance.userManager.createUser(typeUser, name, surname, email, password)
+        self.totalPersonal.append(personal)
+        from Index import instance 
+        instance.discoHotel1.escribir(typeUser,name, surname, email, password)
+    def cache(self,typeUser ,name, surname, email, password):
+        personal = Personal(name, surname, email, password)
+        self.totalPersonal.append(personal)
+        return personal
 
     def agregar_personal(self,personal):
         self.lista_empleado.add(personal) ####### no entiendo como funciona esto #######
@@ -148,10 +195,14 @@ class clienteManager():
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
-        discoHotel1.escribir(name, surname, email, password)
-        discoHotel1.leer()
-        from Index import instance #Aca importamos la instancia de la clase Hotel
-        instance.userManager.createUser(typeUser, name, surname, email, password)
+        from Index import instance 
+        instance.discoHotel1.escribir(typeUser,name, surname, email, password)
+    
+    def cache (self,typeUser ,name, surname, email, password):
+        cliente = Cliente(name, surname, email, password)
+        self.lista_cliente.append(cliente)
+        print(self.lista_cliente)
+        print(cliente.name)
         return cliente
     
 class roomManager():
