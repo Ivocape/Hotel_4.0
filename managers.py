@@ -1,12 +1,4 @@
 from TiposDeUsuarios import *
-<<<<<<< HEAD
-from discoDuro import *
-from habitacion import *
-import datetime
-from reservas import *
-=======
-
->>>>>>> bcf75a339808a98328426fdf5af4824bc3519723
 
 class userManager:
     def __init__(self) -> None:
@@ -63,56 +55,6 @@ class userManager:
                 print("El usuario no existe")
                 return False
 
-<<<<<<< HEAD
-
-    #Lists all Users inside the totalUsers array without displaying passwords
-    def listUsers(self):
-        safeUsers = []
-        for user in self.totalUsers:
-            safeUsers.append({user.name, user.surname, user.email})
-        return safeUsers
-
-    # Lists all Users in the totalUsers array while displaying passwords
-    def unsafeList(self):
-        print("This function should only be used by Admins!")
-        print("Make sure there are no other onlookers to this screen or it's output")
-        print("Confirmation is required before displaying this information")
-        conf = str(input("Are you sure you would like to display this information? (y/n)"))
-        if conf == "y":
-            for user in self.totalUsers:
-                print(user.name)
-                print(user.surname)
-                print(user.email)
-                print(user.password)
-                return True
-        else:
-            return False
-    
-    # Checks all the Users to see if a password and email match is found
-    # This will return True if a match is found, and False if not
-    def userExists(self,email, password):
-        for user in self.totalUsers:
-            if user.email == email and user.password == password:
-                return True
-            else:
-                return False
-
-    # Removes a user based on their email as a primary key
-    # Uses a list comprehension to reassign the totalUsers array with a filter for the email
-    def removeUser(self, email):
-        count = 0
-        indexStore = []
-        while count < len(self.totalUsers):
-            if(self.totalUsers[count].email == email):
-                indexStore.append(count)
-            count += 1
-        for index in indexStore:
-            del(self.totalUsers[index])
-        return True
-
-
-=======
->>>>>>> bcf75a339808a98328426fdf5af4824bc3519723
 class adminManager:
     def __init__(self) -> None:
         self.totalAdmins = []
@@ -131,13 +73,8 @@ class adminManager:
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
-<<<<<<< HEAD
-        self.lista_tareas=[]      
-        self.registros=[]
-=======
         self.lista_tareas=[]
         self.totalPersonal = []         
->>>>>>> bcf75a339808a98328426fdf5af4824bc3519723
     def createPersonal(self,typeUser ,name, surname, email, password): 
      
         personal = Personal(name, surname, email, password)

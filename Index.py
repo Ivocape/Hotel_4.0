@@ -9,21 +9,12 @@ class Hotel:
         self.roomManager=roomManager()
         self.reservaManager=reservaManager()
         self.userManager=userManager()
-<<<<<<< HEAD
-        
-        #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
-    def setup(self):
-        listacsv=['users.csv', 'clientes.csv', 'personal.csv', 'reservas.csv', 'room.csv','buffet.csv']
-        for carpeta in listacsv:
-            discoHotel1.leer()
-=======
         self.discoHotel1 = DiscoDuro()
 
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
     def setup(self):
         self.discoHotel1.leerSETUP()
         pass
->>>>>>> bcf75a339808a98328426fdf5af4824bc3519723
     def run(self):
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
         print("Bienvenido al hotel")
