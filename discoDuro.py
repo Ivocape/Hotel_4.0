@@ -10,7 +10,8 @@ class DiscoDuro():
 
     def leer (self):    
         # Open the CSV file
-        with open('users.csv', newline='') as csvfile:
+        from Index import instance
+        with open(carpeta, newline='') as csvfile: 
             # Create a CSV reader object
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             
