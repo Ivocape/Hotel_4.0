@@ -5,4 +5,6 @@ class Reserva:
         self.fecha_fin=fecha_fin
         self.balcon=balcon
         self.bano=bano
-        self.nro_reserva= cliente.dni+fecha_inicio
+        self.tipo_habit=tipo_habit
+        self.nro_reserva= cliente.dni+str(fecha_inicio.date())
+        self.nro_habitacion=0

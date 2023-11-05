@@ -10,9 +10,12 @@ class Habitacion:
     def ocuparhabitacion(self):
         if self.ocupacion==False:
             self.ocupacion == True
+    
+    def liberarhabitacion(self):
+        self.ocupacion = False
             
             
 class Nodo:
-    def __init__(self, value):
-        self.valor = value
+    def __init__(self, habitacion):
+        self.habitacion = habitacion
         self.prox = None

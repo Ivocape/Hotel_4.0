@@ -1,4 +1,8 @@
 from TiposDeUsuarios import *
+from discoDuro import *
+from habitacion import *
+import datetime
+from reservas import *
 
 class userManager:
     def __init__(self) -> None:
@@ -141,6 +145,12 @@ class clienteManager():
         print(self.lista_cliente)
         print(cliente.name)
         return cliente
+    def reservar (self,cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
+        from Index import instance
+        instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+    def pedir_comida(self, cliente, alimento, cant_pedida):
+        from Index import instance
+        instance.Buffet.tomar_pedido(cliente, alimento, cant_pedida)
     
 class roomManager():
     
@@ -149,16 +159,12 @@ class roomManager():
         
     def is_empty(self):
        return self.head is None
-    def add_to_end(self, habitacion):
+    def add_to_start(self, habitacion):
     
         new_node=Nodo(habitacion)
-        if self.is_empty():
-            self.head = new_node
-            return
-        current=self.head
-        while current.prox:
-            current = current.prox
-        current.prox = new_node
+        new_node.prox = self.head
+        self.head = new_node
+       
     def delete(self, value):
         
         if self.is_empty():
@@ -174,18 +180,79 @@ class roomManager():
                 current.prox = current.prox.prox
                 return
             current = current.prox
-    def ocupar_habitacion (self,tipo,bano,balcon,fecha_inicio,fecha_fin):
+            
+    def ocupar_habitacion (self,nro_habitacion):
         current=self.head
-        while current.prox: 
-            if tipo == current.tipo and current.ocupacion ==False and current.bano==bano and current.balcon==balcon:        
-                current.ocuparhabitacion = True 
-            current=current.prox                
-        print('No hay disponibilidad de la habitacion requerida')
+        while current is not None: 
+            if current.habitacion-nro_habitacion == nro_habitacion:
+                if current.habitacion.ocupacion == True:
+                    print(f'la habitacion {nro_habitacion} ya esta ocupada')
+                else:
+                    current.habitacion.ocuparhabitacion()
+                return
+            current=current.prox
+            
+    def liberar_habitacion(self,nro_habitacion):
+        current=self.head
+        while current is not None:
+            if current.habitacion.nro_habitacion == nro_habitacion:
+                if current.habitacion.ocupacion:
+                    current.habitacion.liberar_habitacion()
+                else:
+                    print('La habitacion no esta ocupada')
+                return
+            current=current.prox
+                    
+                          
                         
                         
 class reservaManager():
     def __init__ (self):
         self.reservas={ }
-    def reservar (self, cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano):
-        reserva=Reserva(cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+    def agregar_reserva(self,reserva):
         self.reservas[reserva.nro_reserva]= reserva
+        
+    def reservar (self, cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano):
+        from Index import instance
+        current=instance.roomManager.habitaciones.head
+        
+        while current is not None:
+            if tipo_habit == current.habitacion.tipo and  not current.habitacion.ocupacion and bano == current.habitacion.bano and balcon == current.habitacion.balcon:
+                superpuesta = False
+                for reserva in self.reservas.values():
+                    if (
+                        reserva.tipo_habit == tipo_habit
+                        and bano == reserva.bano
+                        and balcon == reserva.balcon
+                        and (
+                            (fecha_inicio >= reserva.fecha_inicio and fecha_inicio <= reserva.fecha_fin)
+                            or (fecha_fin >= reserva.fecha_inicio and fecha_fin <= reserva.fecha_fin)
+                        )
+                    ):
+                        superpuesta = True
+                        break
+                if not superpuesta:    
+                    reserva=Reserva(cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+                    reserva.nro_habitacion=current.habitacion.nro_habitacion
+                    self.agregar_reserva(reserva)
+                    current.habitacion.ocuparhabitacion()
+                    total=current.habitacion.precio*((fecha_fin-fecha_inicio).days+1)
+                    print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {total}')
+                    return
+            current=current.prox
+            
+        print(f'No hay habitaciones disponibles para el tipo {tipo_habit} con las caracteristicas solicitadas')
+        
+    def cancelar_reserva(self,nro_reserva):
+        if nro_reserva in self.reservas:
+            from Index import instance
+            reserva = self.reservas[nro_reserva]
+            nro_habitacion = reserva.nro_habitacion
+            current=instance.roomManager.habitaciones.head
+            while current is not None:
+                if current.habitacion.nro_habitacion == nro_habitacion:
+                    current.habitacion.liberarhabitacion()
+                    break
+                current=current.prox
+        del self.reservas[nro_reserva]
+        print('La reserva se cancelo con exito')
