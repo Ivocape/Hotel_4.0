@@ -51,7 +51,7 @@ class DiscoDuro():
         match carpeta:
             case 'users.csv':
                 # Open the CSV file in append mode
-                instance.userManager.createUser(kwargs["typeUser"],kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'])
+                #instance.clienteManager.createCliente(kwargs["typeUser"],kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'])
                 
                 with open('users.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object

@@ -132,8 +132,10 @@ class clienteManager():
         self.lista_cliente.remove(cliente)
         #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA
     def createCliente(self,typeUser ,name, surname, email, password):
+        print(self.lista_cliente)
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
+        print(self.lista_cliente)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)

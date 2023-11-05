@@ -1,4 +1,3 @@
-
 from managers import * 
 from discoDuro import DiscoDuro
 class Hotel:
@@ -13,9 +12,8 @@ class Hotel:
 
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
     def setup(self):
-        self.discoHotel1.leerSETUP()
-        pass
-        listacsv=['users.csv', 'clientes.csv', 'personal.csv', 'reservas.csv', 'room.csv','buffet.csv']
+
+        listacsv=['users.csv', 'reservas.csv', 'room.csv','buffet.csv']
         for carpeta in listacsv:
             self.discoHotel1.leerSETUP(carpeta)
     def run(self):
@@ -49,8 +47,7 @@ class Hotel:
                 print(self.clienteManager.lista_cliente)
                 print(self.personalManager.lista_empleado)
                 print(self.adminManager.totalAdmins)
-
-                print("-------------------------------------------------------------------------")
+               
             elif opcion == "2":
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
