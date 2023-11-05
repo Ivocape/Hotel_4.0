@@ -7,20 +7,47 @@ from reservas import *
 class userManager:
     def __init__(self) -> None:
         self.totalUsers = [] ######### Aca Vamos a tener un problema #####
-    
+    def mostrarlista(self):
+        print(self.totalUsers)
     # Returns a new instantiation of the User Class for storage in a variable
     # Instantiations can be accessed later by accessing the __totalUsers array
+    def cacheUser(self, typeUser ,name, surname, email, password):
+        user = User(typeUser,name, surname, email, password)
+        self.totalUsers.append(user)
+
+        print ("cache sumado")
+        print(self.totalUsers)  
+        if typeUser == "admin 1234":
+            admin = Administrador(name, surname, email, password)
+            from Index import instance
+            instance.adminManager.totalAdmins.append(admin)
+        elif typeUser == "cliente":
+            cliente = Cliente(name, surname, email, password)
+            from Index import instance 
+            instance.clienteManager.lista_cliente.append(cliente)
+            
+        elif typeUser == "personal 1234":
+            personal = Personal(name, surname, email, password)
+            from Index import instance 
+            instance.personalManager.totalPersonal.append(personal)
+
+        return user
     def createUser(self, typeUser ,name, surname, email, password):
         user = User(typeUser,name, surname, email, password)
         self.totalUsers.append(user)
+        print(self.totalUsers)
+        print(self)
+        from Index import instance 
+        instance.discoHotel1.escribir(typeUser,name, surname, email, password) #NO LO VAMOS A USAR MAS NO CAMBIAR CSV
         
-        return user
+        return self.totalUsers
 
     # Validates the password of a specific user against a preset password
     # This will return  if the password is valid and False if it is not
     def validateUser(self,email, password):
         #aca tengo que hacer un for para leer una lista de usuarios y encontrar el usuario que quiero. luego comparar las contraseñas.
-        for user in discoHotel1.users:
+        from Index import instance
+        for user in instance.discoHotel1.users:
             if user['email'] == email:    
                 if password == user['password']:
                     print ("Bienvenido, usted ha ingresado correctamente al sistema")
@@ -32,53 +59,6 @@ class userManager:
                 print("El usuario no existe")
                 return False
 
-
-    #Lists all Users inside the totalUsers array without displaying passwords
-    def listUsers(self):
-        safeUsers = []
-        for user in self.totalUsers:
-            safeUsers.append({user.name, user.surname, user.email})
-        return safeUsers
-
-    # Lists all Users in the totalUsers array while displaying passwords
-    def unsafeList(self):
-        print("This function should only be used by Admins!")
-        print("Make sure there are no other onlookers to this screen or it's output")
-        print("Confirmation is required before displaying this information")
-        conf = str(input("Are you sure you would like to display this information? (y/n)"))
-        if conf == "y":
-            for user in self.totalUsers:
-                print(user.name)
-                print(user.surname)
-                print(user.email)
-                print(user.password)
-                return True
-        else:
-            return False
-    
-    # Checks all the Users to see if a password and email match is found
-    # This will return True if a match is found, and False if not
-    def userExists(self,email, password):
-        for user in self.totalUsers:
-            if user.email == email and user.password == password:
-                return True
-            else:
-                return False
-
-    # Removes a user based on their email as a primary key
-    # Uses a list comprehension to reassign the totalUsers array with a filter for the email
-    def removeUser(self, email):
-        count = 0
-        indexStore = []
-        while count < len(self.totalUsers):
-            if(self.totalUsers[count].email == email):
-                indexStore.append(count)
-            count += 1
-        for index in indexStore:
-            del(self.totalUsers[index])
-        return True
-
-
 class adminManager:
     def __init__(self) -> None:
         self.totalAdmins = []
@@ -86,22 +66,29 @@ class adminManager:
     def createAdmin(self,typeUser ,name, surname, email, password):
         admin = Administrador(name, surname, email, password)
         self.totalAdmins.append(admin)
-        userManager.createUser(self ,typeUser, name, surname, email, password)
-
+        from Index import instance 
+        instance.discoHotel1.escribir(typeUser,name, surname, email, password)
         return admin
-
+    def cache(self,typeUser ,name, surname, email, password):
+        admin = Administrador(name, surname, email, password)
+        self.totalAdmins.append(admin)
+        return admin
+    
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
-        self.lista_tareas=[]      
-        self.registros=[]
+        self.lista_tareas=[]
+        self.totalPersonal = []         
     def createPersonal(self,typeUser ,name, surname, email, password): 
      
         personal = Personal(name, surname, email, password)
-        print(personal)
-        #self.lista_empleado.add(personal)
-        from Index import instance #Aca importamos la instancia de la clase Hotel
-        instance.userManager.createUser(typeUser, name, surname, email, password)
+        self.totalPersonal.append(personal)
+        from Index import instance 
+        instance.discoHotel1.escribir(typeUser,name, surname, email, password)
+    def cache(self,typeUser ,name, surname, email, password):
+        personal = Personal(name, surname, email, password)
+        self.totalPersonal.append(personal)
+        return personal
 
     def agregar_personal(self,personal):
         self.lista_empleado.add(personal) ####### no entiendo como funciona esto #######
@@ -146,10 +133,24 @@ class clienteManager():
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
+        from Index import instance 
         carpeta='users.csv'
-        discoHotel1.escribir(carpeta=carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
-        discoHotel1.leer()
+        instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
+ 
         
+    
+    def cache (self,typeUser ,name, surname, email, password):
+        cliente = Cliente(name, surname, email, password)
+        self.lista_cliente.append(cliente)
+        print(self.lista_cliente)
+        print(cliente.name)
+        return cliente
+    def reservar (self,cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
+        from Index import instance
+        instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+    def pedir_comida(self, cliente, alimento, cant_pedida):
+        from Index import instance
+        instance.Buffet.tomar_pedido(cliente, alimento, cant_pedida)
     
 class roomManager():
     
@@ -158,16 +159,12 @@ class roomManager():
         
     def is_empty(self):
        return self.head is None
-    def add_to_end(self, habitacion):
+    def add_to_start(self, habitacion):
     
         new_node=Nodo(habitacion)
-        if self.is_empty():
-            self.head = new_node
-            return
-        current=self.head
-        while current.prox:
-            current = current.prox
-        current.prox = new_node
+        new_node.prox = self.head
+        self.head = new_node
+       
     def delete(self, value):
         
         if self.is_empty():
@@ -183,18 +180,79 @@ class roomManager():
                 current.prox = current.prox.prox
                 return
             current = current.prox
-    def ocupar_habitacion (self,tipo,bano,balcon,fecha_inicio,fecha_fin):
+            
+    def ocupar_habitacion (self,nro_habitacion):
         current=self.head
-        while current.prox: 
-            if tipo == current.tipo and current.ocupacion ==False and current.bano==bano and current.balcon==balcon:        
-                current.ocuparhabitacion = True 
-            current=current.prox                
-        print('No hay disponibilidad de la habitacion requerida')
+        while current is not None: 
+            if current.habitacion-nro_habitacion == nro_habitacion:
+                if current.habitacion.ocupacion == True:
+                    print(f'la habitacion {nro_habitacion} ya esta ocupada')
+                else:
+                    current.habitacion.ocuparhabitacion()
+                return
+            current=current.prox
+            
+    def liberar_habitacion(self,nro_habitacion):
+        current=self.head
+        while current is not None:
+            if current.habitacion.nro_habitacion == nro_habitacion:
+                if current.habitacion.ocupacion:
+                    current.habitacion.liberar_habitacion()
+                else:
+                    print('La habitacion no esta ocupada')
+                return
+            current=current.prox
+                    
+                          
                         
                         
 class reservaManager():
     def __init__ (self):
         self.reservas={ }
-    def reservar (self, cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano):
-        reserva=Reserva(cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+    def agregar_reserva(self,reserva):
         self.reservas[reserva.nro_reserva]= reserva
+        
+    def reservar (self, cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano):
+        from Index import instance
+        current=instance.roomManager.habitaciones.head
+        
+        while current is not None:
+            if tipo_habit == current.habitacion.tipo and  not current.habitacion.ocupacion and bano == current.habitacion.bano and balcon == current.habitacion.balcon:
+                superpuesta = False
+                for reserva in self.reservas.values():
+                    if (
+                        reserva.tipo_habit == tipo_habit
+                        and bano == reserva.bano
+                        and balcon == reserva.balcon
+                        and (
+                            (fecha_inicio >= reserva.fecha_inicio and fecha_inicio <= reserva.fecha_fin)
+                            or (fecha_fin >= reserva.fecha_inicio and fecha_fin <= reserva.fecha_fin)
+                        )
+                    ):
+                        superpuesta = True
+                        break
+                if not superpuesta:    
+                    reserva=Reserva(cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+                    reserva.nro_habitacion=current.habitacion.nro_habitacion
+                    self.agregar_reserva(reserva)
+                    current.habitacion.ocuparhabitacion()
+                    total=current.habitacion.precio*((fecha_fin-fecha_inicio).days+1)
+                    print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {total}')
+                    return
+            current=current.prox
+            
+        print(f'No hay habitaciones disponibles para el tipo {tipo_habit} con las caracteristicas solicitadas')
+        
+    def cancelar_reserva(self,nro_reserva):
+        if nro_reserva in self.reservas:
+            from Index import instance
+            reserva = self.reservas[nro_reserva]
+            nro_habitacion = reserva.nro_habitacion
+            current=instance.roomManager.habitaciones.head
+            while current is not None:
+                if current.habitacion.nro_habitacion == nro_habitacion:
+                    current.habitacion.liberarhabitacion()
+                    break
+                current=current.prox
+        del self.reservas[nro_reserva]
+        print('La reserva se cancelo con exito')
