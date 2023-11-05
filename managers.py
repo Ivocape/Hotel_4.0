@@ -84,7 +84,8 @@ class personalManager():
         personal = Personal(name, surname, email, password)
         self.totalPersonal.append(personal)
         from Index import instance 
-        instance.discoHotel1.escribir(typeUser,name, surname, email, password)
+        carpeta='users.csv'
+        instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
     def cache(self,typeUser ,name, surname, email, password):
         personal = Personal(name, surname, email, password)
         self.totalPersonal.append(personal)
@@ -136,8 +137,7 @@ class clienteManager():
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
- 
-        
+  
     
     def cache (self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
@@ -151,7 +151,8 @@ class clienteManager():
     def pedir_comida(self, cliente, alimento, cant_pedida):
         from Index import instance
         instance.Buffet.tomar_pedido(cliente, alimento, cant_pedida)
-    
+
+
 class roomManager():
     
     def __init__ (self):
@@ -256,3 +257,9 @@ class reservaManager():
                 current=current.prox
         del self.reservas[nro_reserva]
         print('La reserva se cancelo con exito')
+
+# Crea una instancia de clienteManager
+cliente_manager = clienteManager()
+
+# Llama al método createCliente para crear un cliente
+cliente_manager.createCliente('cliente', 'abi', 'dksj', 'nfk,', 'jkfd')

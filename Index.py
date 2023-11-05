@@ -17,7 +17,7 @@ class Hotel:
         pass
         listacsv=['users.csv', 'clientes.csv', 'personal.csv', 'reservas.csv', 'room.csv','buffet.csv']
         for carpeta in listacsv:
-            self.discoHotel1.leer(carpeta)
+            self.discoHotel1.leerSETUP(carpeta)
     def run(self):
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
         print("Bienvenido al hotel")
