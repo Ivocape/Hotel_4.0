@@ -44,11 +44,10 @@ class DiscoDuro():
 
 
     def escribir (self, carpeta, **kwargs):
+        from Index import instance #Aca importamos la instancia de la clase Hotel
         match carpeta:
             case 'users.csv':
-               # carpeta=carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
                 # Open the CSV file in append mode
-                from Index import instance #Aca importamos la instancia de la clase Hotel
                 instance.userManager.createUser(kwargs["typeUser"],kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'])
                 
                 with open('users.csv', 'a', newline='') as csvfile:

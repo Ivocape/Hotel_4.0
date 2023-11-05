@@ -1,5 +1,8 @@
 from TiposDeUsuarios import *
 from discoDuro import *
+from habitacion import *
+import datetime
+from reservas import *
 
 class userManager:
     def __init__(self) -> None:
@@ -28,6 +31,7 @@ class userManager:
             else:
                 print("El usuario no existe")
                 return False
+
 
     #Lists all Users inside the totalUsers array without displaying passwords
     def listUsers(self):
@@ -89,7 +93,8 @@ class adminManager:
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
-        self.lista_tareas=[]         
+        self.lista_tareas=[]      
+        self.registros=[]
     def createPersonal(self,typeUser ,name, surname, email, password): 
      
         personal = Personal(name, surname, email, password)
@@ -125,6 +130,12 @@ class personalManager():
                         print('No hay tareas disponibles para el cargo')
             else:
                 print('Empleado {} no disponible'.format(self.lista_empleado[i].nombre))
+                
+    def registrar_ingreso(self,empleado):
+        self.registros.append(['Ingreso',empleado,datetime.datetime.now()])
+    def registrar_egreso(self,empleado):
+        self.registros.append(['Egreso',empleado,datetime.datetime.now()])
+    
     
 class clienteManager():
     def __init__(self):
@@ -141,21 +152,49 @@ class clienteManager():
         
     
 class roomManager():
+    
     def __init__ (self):
-          self.lista_habitaciones=[]
-    def agregar_(self,habitacion):
-        self.lista_habitaciones.append(habitacion) #esto tiene que ir al csv
-    def ocupar_habitacion (self,nro_habitacion):
-            for i in range(len(self.lista_habitaciones)):
-                if self.lista_habitaciones[i].nro_habitacion==nro_habitacion:
-                    if self.lista_habitaciones[i].ocupacion == True:
-                        print('La habitacion esta ocupada')
-                    else: 
-                        self.lista_habitaciones[i].ocupacion = True
+        self.head=None
+        
+    def is_empty(self):
+       return self.head is None
+    def add_to_end(self, habitacion):
+    
+        new_node=Nodo(habitacion)
+        if self.is_empty():
+            self.head = new_node
+            return
+        current=self.head
+        while current.prox:
+            current = current.prox
+        current.prox = new_node
+    def delete(self, value):
+        
+        if self.is_empty():
+            return
+
+        if self.head.valor == value:
+            self.head = self.head.prox
+            return
+
+        current = self.head
+        while current.prox:
+            if current.prox.valor == value:
+                current.prox = current.prox.prox
+                return
+            current = current.prox
+    def ocupar_habitacion (self,tipo,bano,balcon,fecha_inicio,fecha_fin):
+        current=self.head
+        while current.prox: 
+            if tipo == current.tipo and current.ocupacion ==False and current.bano==bano and current.balcon==balcon:        
+                current.ocuparhabitacion = True 
+            current=current.prox                
+        print('No hay disponibilidad de la habitacion requerida')
                         
                         
 class reservaManager():
     def __init__ (self):
         self.reservas={ }
-    def agregar_reserva (self, reserva):
+    def reservar (self, cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano):
+        reserva=Reserva(cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
         self.reservas[reserva.nro_reserva]= reserva
