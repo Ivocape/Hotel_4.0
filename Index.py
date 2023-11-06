@@ -88,7 +88,3 @@ instance = Hotel()
 
 instance.setup()
 instance.run()
-            
-        
-        
-
