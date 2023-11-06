@@ -79,7 +79,9 @@ class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
         self.lista_tareas=[]
-        self.totalPersonal = []         
+        self.totalPersonal = []     
+    def __str__(self) -> str:
+        return (str(self.lista_empleado))    
     def createPersonal(self,typeUser ,name, surname, email, password): 
      
         personal = Personal(name, surname, email, password)
@@ -129,6 +131,9 @@ class personalManager():
 class clienteManager():
     def __init__(self):
         self.lista_cliente=[] 
+    def __str__(self) -> str:
+        return (str(self.lista_cliente))
+    
     def dar_de_baja(self,cliente):
         self.lista_cliente.remove(cliente)
         #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA
@@ -144,21 +149,20 @@ class clienteManager():
         self.lista_cliente.append(cliente)
         return cliente
     def verificacion(self,email,password):
+        ######## WHAT THE FUCK IS GOING ONNNNNN######################################
         for cliente in self.lista_cliente:
-            print(self.lista_cliente)
-            print(cliente.email)
-            print(cliente.password)
-
-            if cliente.email == email and cliente.password == password:
+            if  password == cliente.email:
+    
                 return True
-        return False
+          
+        
     def reservar (self,cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
         from Index import instance
         instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
     def pedir_comida(self, cliente, alimento, cant_pedida):
         from Index import instance
         instance.buffet.tomar_pedido(cliente, alimento, cant_pedida)
-
+    
 
 class roomManager():
     

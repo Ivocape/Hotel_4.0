@@ -51,7 +51,9 @@ class Hotel:
             elif opcion == "2":
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
-                if self.clienteManager.verificacion(inputemail,inputpassword) == True:   
+               
+                print(self.clienteManager.verificacion(inputemail,inputpassword))
+                if   self.clienteManager.verificacion(inputemail,inputpassword) == True:
                     print("-------------------------------------------------------------------------")
                     print("Bienvenido al hotel")
                     print("-------------------------------------------------------------------------")
