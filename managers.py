@@ -143,6 +143,15 @@ class clienteManager():
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
         return cliente
+    def verificacion(self,email,password):
+        for cliente in self.lista_cliente:
+            print(self.lista_cliente)
+            print(cliente.email)
+            print(cliente.password)
+
+            if cliente.email == email and cliente.password == password:
+                return True
+        return False
     def reservar (self,cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
         from Index import instance
         instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
