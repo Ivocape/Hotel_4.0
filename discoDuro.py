@@ -10,7 +10,7 @@ class DiscoDuro():
 
     def leerSETUP (self, carpeta):    
         # Open the CSV file
-        with open(carpeta, newline='') as csvfile: 
+        with open(carpeta,'r', newline='') as csvfile: 
             # Create a CSV reader object
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             match carpeta:
@@ -33,10 +33,10 @@ class DiscoDuro():
                         elif typeUser == "personal 1234":
                             instance.personalManager.cache(typeUser,name, surname, email, password)
                     
-                    # Print the user information
-                    for user in instance.userManager.totalUsers:
-                        print(user.name, user.surname, user.email, user.password, user.typeUser)
-                        print ("-------------------------------------------------------------------------")
+                    # # Print the user information
+                    # for user in instance.userManager.totalUsers:
+                    #     print(user.name, user.surname, user.email, user.password, user.typeUser)
+                    #     print ("-------------------------------------------------------------------------")
 
                 case 'reservas.csv':
                     pass

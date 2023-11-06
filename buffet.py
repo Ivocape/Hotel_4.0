@@ -56,3 +56,4 @@ class Buffet:
                 print(f"Alimento: {alimento}, Cantidad Pedida: {cant_pedida}, precio {total}, fecha de compra {timestamp}")
         else:
             print(f"No se encontraron pedidos para {cliente}.")
+            
