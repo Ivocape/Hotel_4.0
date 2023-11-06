@@ -7,7 +7,6 @@ class Hotel:
         self.adminManager=adminManager()
         self.roomManager=roomManager()
         self.reservaManager=reservaManager()
-        self.userManager=userManager()
         self.discoHotel1 = DiscoDuro()
         self.buffet = Buffet()
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
@@ -34,7 +33,7 @@ class Hotel:
                 inputapellido = input("Ingrese su apellido: ")
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
-                print(self.userManager)
+                
                 if inputtypeuser == "admin 1234":
                     self.adminManager.createAdmin(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 elif inputtypeuser == "cliente": 
@@ -43,11 +42,6 @@ class Hotel:
                     self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 
                 print("Usuario creado con éxito, por favor inicie sesión")
-                
-                
-                listacsv=['users.csv', 'reservas.csv', 'room.csv','buffet.csv']
-                for carpeta in listacsv:
-                    self.discoHotel1.leerSETUP(carpeta)
 
                 print(self.clienteManager.lista_cliente)
                 print(self.personalManager.lista_empleado)
@@ -74,13 +68,12 @@ class Hotel:
             elif opcion == "4":
                 print("Gracias por utilizar nuestros servicios")
                 break
-
 instance = Hotel()           
 
-if __name__ == "__main__":
-    instance.setup()
-    instance.run()
-        
+
+instance.setup()
+instance.run()
+            
         
         
 

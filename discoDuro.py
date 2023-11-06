@@ -24,14 +24,14 @@ class DiscoDuro():
                         email = row[2]
                         password = row[3]
                         typeUser = row[4]
-                        # Add the user information to the list
-                        from Index import instance 
+                        from Index import instance #Aca importamos la instancia de la clase Hotel 
                         if typeUser == "admin 1234":
                             instance.adminManager.cache(typeUser,name, surname, email, password)
                         elif typeUser == "cliente":
                             instance.clienteManager.cache(typeUser,name, surname, email, password)
                         elif typeUser == "personal 1234":
                             instance.personalManager.cache(typeUser,name, surname, email, password)
+                          
                     
                     # # Print the user information
                     # for user in instance.userManager.totalUsers:
