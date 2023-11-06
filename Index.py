@@ -58,13 +58,19 @@ class Hotel:
                    
                 while True:
                     print("A. Ver Menú del Buffet")
-                    print("B. Salir")
+                    print("B. Tomar pedido")
+                    print("C. Ver mis pedidos")
+                    print("D. Salir")
         
                     opcion_menu = input("Ingrese una opción: ")
         
                     if opcion_menu == "A":
                         self.buffet.mostrar_menu()
-                    elif opcion_menu == "B":
+                    elif opcion_menu=="B":
+                        self.buffet.tomar_pedido()
+                    elif opcion_menu=="C":
+                        self.buffet.mostrar_pedido()
+                    elif opcion_menu =="D":
                         print("Gracias por utilizar nuestros servicios")
                         break
                         
