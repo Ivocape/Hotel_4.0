@@ -1,5 +1,6 @@
 from managers import * 
 from discoDuro import DiscoDuro
+from buffet import mostrar_menu
 class Hotel:
     def __init__(self):
         self.clienteManager=clienteManager()
@@ -50,21 +51,35 @@ class Hotel:
             elif opcion == "2":
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
-                
-               
+                               
                 if  self.userManager.validateUser(inputemail,inputpassword): 
                     print("Bienvenido")
                     print("-------------------------------------------------------------------------")
+                   
+                    while True:
+                        print("A. Ver Menú del Buffet")
+                        print("B. Salir")
+            
+                        opcion_menu = input("Ingrese una opción: ")
+            
+                        if opcion_menu == "A":
+                            mostrar_menu()
+                        elif opcion_menu == "B":
+                            print("Gracias por utilizar nuestros servicios")
+                            break
+                         
                 else:
                     print("Usuario o contraseña incorrectos")
                     print("-------------------------------------------------------------------------")
-                #######################ACA DEBEMOS AGREGAR EL BUFFET EJECUTABLE #######################
+                                
                 self.clienteManager.pedir_comida(inputemail)
+
             elif opcion == "3":
                 # inputnombre = input("Ingrese su nombre: ")
                 # inputpassword = input("Ingrese su contraseña: ")
                 # self.userManager.modifyUser(inputnombre,inputpassword)
                 print("-------------------------------------------------------------------------")
+           
             elif opcion == "4":
                 print("Gracias por utilizar nuestros servicios")
                 break
