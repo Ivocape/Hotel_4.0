@@ -9,7 +9,6 @@ class Hotel:
         self.reservaManager=reservaManager()
         self.userManager=userManager()
         self.discoHotel1 = DiscoDuro()
-
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
     def setup(self):
 
@@ -59,7 +58,7 @@ class Hotel:
                 else:
                     print("Usuario o contraseña incorrectos")
                     print("-------------------------------------------------------------------------")
-                    
+                #ACA    
             elif opcion == "3":
                 # inputnombre = input("Ingrese su nombre: ")
                 # inputpassword = input("Ingrese su contraseña: ")

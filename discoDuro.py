@@ -39,10 +39,13 @@ class DiscoDuro():
                         print ("-------------------------------------------------------------------------")
 
                 case 'reservas.csv':
+                    #numero de reserva, cliente, numero de habitacion, numero de reserva, fecha de inicio, fecha de fin, precio total
                     pass
                 case 'room.csv':
+                    #numero de habitacion, tipo, baño, balcon, precio de la noche
                     pass
                 case 'buffet.csv':
+                      #menu, precio, stock 
                       pass
 
 

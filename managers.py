@@ -1,5 +1,4 @@
 from TiposDeUsuarios import *
-from discoDuro import *
 from habitacion import *
 import datetime
 from reservas import *
