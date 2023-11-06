@@ -18,20 +18,16 @@ class User:
 
 
 class Personal(User):
-    def __init__(self,name, surname, email, password, cargo="", sueldo=""):
+    def __init__(self,name, surname, email, password):
         super().__init__(name, surname, email, password)
-        self.cargo = cargo
-        self.sueldo = sueldo
-        self.tarea=''
+      
   
 class Cliente(User):
-    def __init__(self, name, surname, email, password, dni=0, fecha_nacimiento=""):
+    def __init__(self, name, surname, email, password):
         super().__init__(name, surname, email, password)
         
-        self.dni = dni
-        self.fecha_nacimiento = fecha_nacimiento
 
 class Administrador(User):
-    def __init__(self, name, surname, email, password, nivel_acceso="3"):
+    def __init__(self, name, surname, email, password):
         super().__init__(name, surname, email, password)
         

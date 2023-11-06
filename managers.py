@@ -2,6 +2,7 @@ from TiposDeUsuarios import *
 from habitacion import *
 import datetime
 from reservas import *
+from buffet import *
 
 class userManager:
     def __init__(self) -> None:
@@ -126,7 +127,7 @@ class personalManager():
     
 class clienteManager():
     def __init__(self):
-        self.lista_cliente=[]
+        self.lista_cliente=[] 
     def dar_de_baja(self,cliente):
         self.lista_cliente.remove(cliente)
         #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA
@@ -144,14 +145,13 @@ class clienteManager():
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
         print(self.lista_cliente)
-        print(cliente.name)
         return cliente
     def reservar (self,cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
         from Index import instance
         instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
     def pedir_comida(self, cliente, alimento, cant_pedida):
         from Index import instance
-        instance.Buffet.tomar_pedido(cliente, alimento, cant_pedida)
+        instance.buffet.tomar_pedido(cliente, alimento, cant_pedida)
 
 
 class roomManager():
