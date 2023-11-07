@@ -166,7 +166,7 @@ class clienteManager():
         fecha_inicio=datetime.datetime(año_inicio,mes_inicio,dia_inicio,15,0)
         fecha_fin=datetime.datetime(año_fin,mes_fin,dia_fin,10,0)
         from Index import instance
-        instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+        instance.reservaManager.reservar(cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
     def pedir_comida(self, cliente, alimento, cant_pedida):
         from Index import instance
         instance.buffet.tomar_pedido(cliente, alimento, cant_pedida)
@@ -245,7 +245,7 @@ class reservaManager():
         else: 
             balcon = False
         from Index import instance
-        current=instance.roomManager.habitaciones.head
+        current=instance.roomManager.head
         
         while current is not None:
             if tipo_habit == current.habitacion.tipo and  not current.habitacion.ocupacion and bano == current.habitacion.bano and balcon == current.habitacion.balcon:
