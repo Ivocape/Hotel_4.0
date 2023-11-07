@@ -20,14 +20,19 @@ class User:
 class Personal(User):
     def __init__(self,name, surname, email, password):
         super().__init__(name, surname, email, password)
-      
-  
+    def __str__(self) -> str:
+        return (str(self.typeUser)+" "+ str(self.name) + " " + str(self.surname) + " " + str(self.email) + " " + str(self.password) )
+    
 class Cliente(User):
     def __init__(self, name, surname, email, password):
         super().__init__(name, surname, email, password)
+    def __str__(self) -> str:
+        return (str(self.typeUser)+" "+ str(self.name) + " " + str(self.surname) + " " + str(self.email) + " " + str(self.password) )
         
 
 class Administrador(User):
     def __init__(self, name, surname, email, password):
         super().__init__(name, surname, email, password)
-        
+    def __str__(self) -> str:
+        return (str(self.typeUser)+" "+ str(self.name) + " " + str(self.surname) + " " + str(self.email) + " " + str(self.password) )
+    
