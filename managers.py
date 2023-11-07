@@ -64,14 +64,14 @@ class adminManager:
         self.totalAdmins = []
     
     def createAdmin(self,typeUser ,name, surname, email, password):
-        admin = Administrador(name, surname, email, password)
+        admin = Administrador(name, surname, email, password, typeUser)
         self.totalAdmins.append(admin)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
         return admin
     def cache(self,typeUser ,name, surname, email, password):
-        admin = Administrador(name, surname, email, password)
+        admin = Administrador(name, surname, email, password, typeUser)
         self.totalAdmins.append(admin)
         return admin
     
@@ -84,16 +84,21 @@ class personalManager():
         return (str(self.lista_empleado))    
     def createPersonal(self,typeUser ,name, surname, email, password): 
      
-        personal = Personal(name, surname, email, password)
+        personal = Personal(name, surname, email, password, typeUser)
         self.lista_empleado.append(personal)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
     def cache(self,typeUser ,name, surname, email, password):
-        personal = Personal(name, surname, email, password)
+        personal = Personal(name, surname, email, password, typeUser)
         self.lista_empleado.append(personal)
         return personal
-
+ 
+    def verificacion(self,email,password):
+        for personal in self.lista_empleado:
+            if  password == personal.password and email== personal.email:
+                return True
+            return False
     def agregar_personal(self,personal):
         self.lista_empleado.add(personal) ####### no entiendo como funciona esto #######
 
@@ -138,24 +143,25 @@ class clienteManager():
         self.lista_cliente.remove(cliente)
         #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA yo(abi) no daria de baja
     def createCliente(self,typeUser ,name, surname, email, password):
-        cliente = Cliente(name, surname, email, password)
+        cliente = Cliente(name, surname, email, password, typeUser)
         self.lista_cliente.append(cliente)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
   
     def cache (self,typeUser ,name, surname, email, password):
-        cliente = Cliente(name, surname, email, password)
+        cliente = Cliente(name, surname, email, password, typeUser)
         self.lista_cliente.append(cliente)
         return cliente
     def verificacion(self,email,password):
-        ######## WHAT THE FUCK IS GOING ONNNNNN######################################
+        ######## VALIDACION DE USUARIOS #########
         for cliente in self.lista_cliente:
-            if  password == cliente.email:
-    
+
+            if  password == cliente.password and email== cliente.email:
+                
                 return True
-          
-        
+            return False
+    
     def reservar (self,cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
         from Index import instance
         instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)

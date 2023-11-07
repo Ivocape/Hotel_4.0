@@ -51,7 +51,7 @@ class Hotel:
             elif opcion == "2":
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
-               
+                
                 print(self.clienteManager.verificacion(inputemail,inputpassword))
                 if   self.clienteManager.verificacion(inputemail,inputpassword) == True:
                     print("-------------------------------------------------------------------------")
@@ -104,6 +104,7 @@ class Hotel:
                         print("Menú del Buffet")
                         print("-------------------------------------------------------------------------")  
                         self.buffet.mostrar_menu()
+                        ########################## TATI TENES QUE SEGUIR ACA CON EL BUFFET #
                     elif opcion_menu == "4":
                             print("Gracias por utilizar nuestros servicios")
                             break         
@@ -125,9 +126,6 @@ class Hotel:
 instance = Hotel()           
 
 
-instance.setup()
-instance.run()
-            
-        
+
         
 
