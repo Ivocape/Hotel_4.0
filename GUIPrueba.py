@@ -25,7 +25,7 @@ class HotelGUI:
         self.adminManager=adminManager()
         self.roomManager=roomManager()
         self.reservaManager=reservaManager()
-        self.userManager=userManager()
+       
 
         # Create a label with the text "Bienvenido al hotel" and pack it into the master window
         self.label = tk.Label(master, text="Bienvenido al hotel")

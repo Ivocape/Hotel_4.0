@@ -51,34 +51,67 @@ class Hotel:
             elif opcion == "2":
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
-                               
-                # if  self.userManager.validateUser(inputemail,inputpassword): 
-                #     print("Bienvenido")
-                #     print("-------------------------------------------------------------------------")
-                   
-                while True:
-                    print("A. Ver Menú del Buffet")
-                    print("B. Tomar pedido")
-                    print("C. Ver mis pedidos")
-                    print("D. Salir")
-        
+                
+                print(self.clienteManager.verificacion(inputemail,inputpassword))
+                if   self.clienteManager.verificacion(inputemail,inputpassword) == True:
+                    print("-------------------------------------------------------------------------")
+                    print("Bienvenido al hotel")
+                    print("-------------------------------------------------------------------------")
+                    print ("1. Reservar habitación")
+                    print ("2. Ver mis reservas")
+                    print ("3. Ver Menú del Buffet")
+                    print ("4. Salir")
+                    
                     opcion_menu = input("Ingrese una opción: ")
-        
-                    if opcion_menu == "A":
+            
+                    if opcion_menu == "1":
+                        print("-------------------------------------------------------------------------")
+                        inputanoinicio=int(input('Ingrese el año de inicio de su estadia: '))
+                        inputmesinicio=int(input('Ingrese el mes de inicio de su estadia: '))
+                        inputdiainicio=int(input('Ingrese el dia de inicio de su estadia: '))
+                        inputanofin=int(input('Ingrese el año de fin de su estadia: '))
+                        inputmesfin=int(input('Ingrese el mes de fin de su estadia: '))
+                        inputdiafin=int(input('Ingrese el dia de fin de su estadia: '))
+                        inputtipo=input('Ingrese el tipo de habitacion que desea: ')
+                        inputbano=input('Ingrese si desea baño privado (s/n): ')
+                        inputbalcon=input('Ingrese si desea balcon (s/n): ')
+                        print("-------------------------------------------------------------------------")
+                        self.clienteManager.reservar(inputemail,inputanoinicio,inputmesinicio,inputdiainicio,inputanofin,inputmesfin,inputdiafin,inputtipo,inputbano,inputbalcon)
+                        print("-------------------------------------------------------------------------")  
+                    elif opcion_menu == "2":
+                        print("-------------------------------------------------------------------------")
+                        print("Mis reservas")
+                        print("-------------------------------------------------------------------------")
+                        self.reservaManager.mostrar_reservas(inputemail)
+                        inputcancelar=input('Desea cancelar alguna reserva? (s/n): ')
+                        if inputcancelar=='s':
+                            inputnroreserva=input('Ingrese el numero de reserva que desea cancelar: ')
+                            self.reservaManager.cancelar_reserva(inputnroreserva)
+                        print("-------------------------------------------------------------------------")
+                    elif opcion_menu == "3":
+                        print("-------------------------------------------------------------------------")
+                        print("Menú del Buffet")
+                        print("-------------------------------------------------------------------------")  
                         self.buffet.mostrar_menu()
-                    elif opcion_menu=="B":
-                        self.buffet.tomar_pedido()
-                    elif opcion_menu=="C":
-                        self.buffet.mostrar_pedido()
-                    elif opcion_menu =="D":
-                        print("Gracias por utilizar nuestros servicios")
-                        break
-                        
-                # else:
-                #     print("Usuario o contraseña incorrectos")
-                #     print("-------------------------------------------------------------------------")
+                        inputpedir=input('Desea realizar algun pedido? (s/n): ')
+                        if inputpedir=='s':
+                            inputalimento=input('Ingrese el alimento que desea pedir: ')
+                            inputcant=int(input('Ingrese la cantidad que desea pedir: '))
+                            self.buffet.tomar_pedido(inputemail,inputalimento,inputcant)
+                        else:
+                            inputver=input('Desea ver sus pedidos? (s/n): ')
+                            if inputver=='s':
+                                self.buffet.mostrar_pedido(inputemail)
+                        print("-------------------------------------------------------------------------")
+                    
+                    elif opcion_menu == "4":
+                            print("Gracias por utilizar nuestros servicios")
+                            break         
+                else:
+                    print("Usuario o contraseña incorrectos")
+                    print("-------------------------------------------------------------------------")
                                 
-                # self.clienteManager.pedir_comida(inputemail)
+                
 
             elif opcion == "3":
                 # inputnombre = input("Ingrese su nombre: ")
@@ -92,5 +125,6 @@ class Hotel:
 instance = Hotel()           
 
 
-instance.setup()
-instance.run()
+
+        
+

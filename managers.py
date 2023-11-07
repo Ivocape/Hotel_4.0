@@ -64,14 +64,14 @@ class adminManager:
         self.totalAdmins = []
     
     def createAdmin(self,typeUser ,name, surname, email, password):
-        admin = Administrador(name, surname, email, password)
+        admin = Administrador(name, surname, email, password, typeUser)
         self.totalAdmins.append(admin)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
         return admin
     def cache(self,typeUser ,name, surname, email, password):
-        admin = Administrador(name, surname, email, password)
+        admin = Administrador(name, surname, email, password, typeUser)
         self.totalAdmins.append(admin)
         return admin
     
@@ -79,19 +79,26 @@ class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
         self.lista_tareas=[]
-        self.totalPersonal = []         
+        self.totalPersonal = []     
+    def __str__(self) -> str:
+        return (str(self.lista_empleado))    
     def createPersonal(self,typeUser ,name, surname, email, password): 
      
-        personal = Personal(name, surname, email, password)
+        personal = Personal(name, surname, email, password, typeUser)
         self.lista_empleado.append(personal)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
     def cache(self,typeUser ,name, surname, email, password):
-        personal = Personal(name, surname, email, password)
+        personal = Personal(name, surname, email, password, typeUser)
         self.lista_empleado.append(personal)
         return personal
-
+ 
+    def verificacion(self,email,password):
+        for personal in self.lista_empleado:
+            if  password == personal.password and email== personal.email:
+                return True
+            return False
     def agregar_personal(self,personal):
         self.lista_empleado.add(personal) ####### no entiendo como funciona esto #######
 
@@ -129,27 +136,41 @@ class personalManager():
 class clienteManager():
     def __init__(self):
         self.lista_cliente=[] 
+    def __str__(self) -> str:
+        return (str(self.lista_cliente))
+    
     def dar_de_baja(self,cliente):
         self.lista_cliente.remove(cliente)
-        #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA
+        #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA yo(abi) no daria de baja
     def createCliente(self,typeUser ,name, surname, email, password):
-        cliente = Cliente(name, surname, email, password)
+        cliente = Cliente(name, surname, email, password, typeUser)
         self.lista_cliente.append(cliente)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
   
     def cache (self,typeUser ,name, surname, email, password):
-        cliente = Cliente(name, surname, email, password)
+        cliente = Cliente(name, surname, email, password, typeUser)
         self.lista_cliente.append(cliente)
         return cliente
-    def reservar (self,cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
+    def verificacion(self,email,password):
+        ######## VALIDACION DE USUARIOS #########
+        for cliente in self.lista_cliente:
+
+            if  password == cliente.password and email== cliente.email:
+                
+                return True
+            return False
+    
+    def reservar (self, cliente, año_inicio, mes_inicio,dia_inicio, año_fin,mes_fin,dia_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
+        fecha_inicio=datetime.datetime(año_inicio,mes_inicio,dia_inicio,15,0)
+        fecha_fin=datetime.datetime(año_fin,mes_fin,dia_fin,10,0)
         from Index import instance
         instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
     def pedir_comida(self, cliente, alimento, cant_pedida):
         from Index import instance
         instance.buffet.tomar_pedido(cliente, alimento, cant_pedida)
-
+    
 
 class roomManager():
     
@@ -201,7 +222,9 @@ class roomManager():
                     print('La habitacion no esta ocupada')
                 return
             current=current.prox
-                    
+    def cache(self,nro_habitacion,tipo,capacidad,precio,bano,balcon):
+        habitacion=Habitacion(nro_habitacion,tipo,capacidad,precio,bano,balcon)
+        self.add_to_start(habitacion)               
                           
                         
                         
@@ -211,7 +234,16 @@ class reservaManager():
     def agregar_reserva(self,reserva):
         self.reservas[reserva.nro_reserva]= reserva
         
-    def reservar (self, cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano):
+    def reservar (self, cliente, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
+        
+        if bano == 's':
+            bano = True
+        else:
+            bano = False
+        if balcon == 's':
+            balcon = True
+        else: 
+            balcon = False
         from Index import instance
         current=instance.roomManager.habitaciones.head
         
@@ -256,3 +288,11 @@ class reservaManager():
         del self.reservas[nro_reserva]
         print('La reserva se cancelo con exito')
 
+    def mostrar_reservas(self,cliente):
+        for reserva in self.reservas.values():
+            if reserva.mail == cliente:
+                print(reserva)
+            else:
+                print('No hay reservas para el cliente')    
+            
+                    
