@@ -39,7 +39,18 @@ class DiscoDuro():
                     #     print ("-------------------------------------------------------------------------")
 
                 case 'reservas.csv':
-                    #numero de reserva, cliente, numero de habitacion, numero de reserva, fecha de inicio, fecha de fin, precio total
+                    #cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano, numero de reserva, precio
+                    for row in reader:
+                        # Extract the user information from the row
+                        
+                        cliente = row[0]
+                        fecha_inicio = row[1]
+                        fecha_fin = row[2]
+                        tipo_habit = row[3]
+                        balcon = row[4]
+                        bano= row[5]
+                        numero_reserva= row[6]
+                        total_reserva= row[7]
                     pass
                 case 'room.csv':
                     #numero de habitacion, tipo, baño, balcon, precio de la noche
@@ -63,6 +74,12 @@ class DiscoDuro():
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"]])
             case 'reservas.csv':
+                with open('reservas.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                    
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['cliente'], kwargs['fecha_inicio'], kwargs['fecha_fin'],kwargs['tipo_habit'],kwargs['bacon'], kwargs['baño'], kwargs['numero_reserva'],kwargs['total_reserva']])
                 pass
             case 'room.csv':
                 pass
