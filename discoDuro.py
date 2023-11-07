@@ -42,7 +42,21 @@ class DiscoDuro():
                     #numero de reserva, cliente, numero de habitacion, numero de reserva, fecha de inicio, fecha de fin, precio total
                     pass
                 case 'room.csv':
-                    #numero de habitacion, tipo, baño, balcon, precio de la noche
+                    #numero de habitacion, tipo, capacidad, baño, balcon, precio de la noche
+                    #nro_habitacion,tipo,capacidad,precio,bano,balcon
+                             # Loop through each row in the CSV file
+                    for row in reader:
+                        # Extract the user information from the row
+                        
+                        nro_habitacion = row[0]
+                        tipo = row[1]
+                        capacidad = row[2]
+                        precio= row[3]
+                        baño = row[4]
+                        balcon = row[5] 
+
+                        from Index import instance
+                        instance.roomManager.cache(nro_habitacion,tipo,capacidad,precio,baño,balcon)
                     pass
                 case 'buffet.csv':
                       #menu, precio, stock 
