@@ -162,7 +162,9 @@ class clienteManager():
                 return True
             return False
     
-    def reservar (self,cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
+    def reservar (self, cliente, año_inicio, mes_inicio,dia_inicio, año_fin,mes_fin,dia_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
+        fecha_inicio=datetime.datetime(año_inicio,mes_inicio,dia_inicio,15,0)
+        fecha_fin=datetime.datetime(año_fin,mes_fin,dia_fin,10,0)
         from Index import instance
         instance.reservaManager.reservar(self, cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
     def pedir_comida(self, cliente, alimento, cant_pedida):
@@ -232,9 +234,8 @@ class reservaManager():
     def agregar_reserva(self,reserva):
         self.reservas[reserva.nro_reserva]= reserva
         
-    def reservar (self, cliente, año_inicio, mes_inicio,dia_inicio, año_fin,mes_fin,dia_fin, tipo_habit,balcon,bano):
-        fecha_inicio=datetime.datetime(año_inicio,mes_inicio,dia_inicio,15,0)
-        fecha_fin=datetime.datetime(año_fin,mes_fin,dia_fin,10,0)
+    def reservar (self, cliente, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
+        
         if bano == 's':
             bano = True
         else:

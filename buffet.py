@@ -38,10 +38,13 @@ class Buffet:
                     self.menu[alimento]=[self.menu[alimento][0],self.menu[alimento][1]-cant_pedida]
                     precio_unitario = int(self.menu[alimento][0].replace("$",""))
                     self.lista_pedidos.append([cliente,alimento,cant_pedida,precio_unitario*cant_pedida,datetime.datetime.now()])
+                    print(f'{cant_pedida} de {alimento} solicitada con exito')
             elif self.menu[alimento][1]<cant_pedida and self.menu[alimento][1]>0: 
                     precio_unitario = int(self.menu[alimento][0].replace("$",""))
                     self.lista_pedidos.append([cliente,alimento,self.menu[alimento][1],precio_unitario*self.menu[alimento][1],datetime.datetime.now()])
+                    print(print(f'{self.menu[alimento][1]} de {alimento} solicitada con exito'))
                     self.menu[alimento]=[self.menu[alimento][0],0]
+                    
                     
                     
             else:
