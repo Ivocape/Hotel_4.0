@@ -220,7 +220,9 @@ class roomManager():
                     print('La habitacion no esta ocupada')
                 return
             current=current.prox
-                    
+    def cache(self,nro_habitacion,tipo,capacidad,precio,bano,balcon):
+        habitacion=Habitacion(nro_habitacion,tipo,capacidad,precio,bano,balcon)
+        self.add_to_start(habitacion)               
                           
                         
                         
