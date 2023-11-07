@@ -230,7 +230,17 @@ class reservaManager():
     def agregar_reserva(self,reserva):
         self.reservas[reserva.nro_reserva]= reserva
         
-    def reservar (self, cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano):
+    def reservar (self, cliente, año_inicio, mes_inicio,dia_inicio, año_fin,mes_fin,dia_fin, tipo_habit,balcon,bano):
+        fecha_inicio=datetime.datetime(año_inicio,mes_inicio,dia_inicio,15,0)
+        fecha_fin=datetime.datetime(año_fin,mes_fin,dia_fin,10,0)
+        if bano == 's':
+            bano = True
+        else:
+            bano = False
+        if balcon == 's':
+            balcon = True
+        else: 
+            balcon = False
         from Index import instance
         current=instance.roomManager.habitaciones.head
         
@@ -275,3 +285,11 @@ class reservaManager():
         del self.reservas[nro_reserva]
         print('La reserva se cancelo con exito')
 
+    def mostrar_reservas(self,cliente):
+        for reserva in self.reservas.values():
+            if reserva.mail == cliente:
+                print(reserva)
+            else:
+                print('No hay reservas para el cliente')    
+            
+                    

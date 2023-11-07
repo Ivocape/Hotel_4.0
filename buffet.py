@@ -27,8 +27,10 @@ class Buffet:
             print("La orden " + {alimento} + " no se encuentra disponible")
 
     def mostrar_menu(self):
+        print('Alimento -  Precio')
         for alimento, (precio, cant) in self.menu.items():
-            print(f"{alimento} -  {precio} - {cant}")
+            
+            print(f"{alimento} -  {precio}")
 
     def tomar_pedido(self, cliente, alimento, cant_pedida):
         if alimento in self.menu:
