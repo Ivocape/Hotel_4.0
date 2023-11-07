@@ -136,7 +136,7 @@ class clienteManager():
     
     def dar_de_baja(self,cliente):
         self.lista_cliente.remove(cliente)
-        #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA
+        #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA yo(abi) no daria de baja
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password)
         self.lista_cliente.append(cliente)
