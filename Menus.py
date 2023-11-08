@@ -1,31 +1,69 @@
 class menuCliente():
     def __init__(self) -> None:
         pass
-    def run():
-        #menu del cliente para generar reservas y ver sus datos
+    def bienvenida(self, inputemail):
+        
+        print("-------------------------------------------------------------------------")
+        print("Bienvenido al hotel")
+        print("-------------------------------------------------------------------------")
+        print ("1. Ver habitaciónes")
+        print ("2. Ver mis reservas")
+        print ("3. Ver Menú del Buffet")
+        print ("4. Salir")
+        
+        opcion_menu = input("Ingrese una opción: ")
+        from Index import instance
+        if opcion_menu == "1":
+           
+            instance.roomManager.mostrar_habitaciones()
+            print("-------------------------------------------------------------------------")
+            inputconsulta=input('Quiere realizar una reserva? (s/n): ')
+            if inputconsulta=='s':
+                inputanoinicio=int(input('Ingrese el año de inicio de su estadia: '))
+                inputmesinicio=int(input('Ingrese el mes de inicio de su estadia: '))
+                inputdiainicio=int(input('Ingrese el dia de inicio de su estadia: '))
+                inputanofin=int(input('Ingrese el año de fin de su estadia: '))
+                inputmesfin=int(input('Ingrese el mes de fin de su estadia: '))
+                inputdiafin=int(input('Ingrese el dia de fin de su estadia: '))
+                inputtipo=input('Ingrese el tipo de habitacion que desea: ')
+                inputbano=input('Ingrese si desea baño privado (s/n): ')
+                inputbalcon=input('Ingrese si desea balcon (s/n): ')
+                print("-------------------------------------------------------------------------")
+                instance.clienteManager.reservar(inputemail,inputanoinicio,inputmesinicio,inputdiainicio,inputanofin,inputmesfin,inputdiafin,inputtipo,inputbano,inputbalcon)
+            print("-------------------------------------------------------------------------")  
+        elif opcion_menu == "2":
+            print("-------------------------------------------------------------------------")
+            print("Mis reservas")
+            print("-------------------------------------------------------------------------")
+            instance.reservaManager.mostrar_reservas(inputemail)
+            inputcancelar=input('Desea cancelar alguna reserva? (s/n): ')
+            if inputcancelar=='s':
+                inputnroreserva=input('Ingrese el numero de reserva que desea cancelar: ')
+                instance.reservaManager.cancelar_reserva(inputnroreserva)
+            print("-------------------------------------------------------------------------")
+        elif opcion_menu == "3":
+            print("-------------------------------------------------------------------------")
+            print("Menú del Buffet")
+            print("-------------------------------------------------------------------------")  
+            instance.buffet.mostrar_menu()
+            inputpedir=input('Desea realizar algun pedido? (s/n): ')
+            if inputpedir=='s':
+                inputalimento=input('Ingrese el alimento que desea pedir: ')
+                inputcant=int(input('Ingrese la cantidad que desea pedir: '))
+                instance.buffet.tomar_pedido(inputemail,inputalimento,inputcant)
+            else:
+                inputver=input('Desea ver sus pedidos? (s/n): ')
+                if inputver=='s':
+                    instance.buffet.mostrar_pedido(inputemail)
+            print("-------------------------------------------------------------------------")
+        
+        elif opcion_menu == "4":
+            
+            print("-------------------------------------------------------------------------")
+            #aqui termina el programa
+            return
 
-        print("Bienvenido al menu de cliente")
-        print("1. Generar reserva")
-        print("2. Ver mis datos")
-        print("3. Salir")
-        opcion = input("Ingrese una opción: ")
-        if opcion == "1":
-            print("Indique la fecha de ingreso y egreso")
-            fecha_ingreso = input("Ingrese la fecha de ingreso: ")
-            fecha_egreso = input("Ingrese la fecha de egreso: ")
-            print("Indique la cantidad de personas")
-            cantidad_personas = input("Ingrese la cantidad de personas: ")
-            print("Indique el tipo de habitacion")
-            tipo_habitacion = input("Ingrese el tipo de habitacion: ")
 
-            from Index import instance
-            instance.reservaManager.agregar_reserva()
-            print("Reserva generada con éxito")
-            print("-------------------------------------------------------------------------")
-        elif opcion == "2":
-            print("Ver mis datos")
-            print("-------------------------------------------------------------------------")
-        elif opcion == "3":
-            print("Gracias por utilizar nuestros servicios")
-            print("-------------------------------------------------------------------------")
-            return False
+
+
+    
