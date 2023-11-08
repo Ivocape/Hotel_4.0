@@ -222,7 +222,13 @@ class roomManager():
                     print('La habitacion no esta ocupada')
                 return
             current=current.prox
-            
+    def crear_habitacion(self,nro_habitacion,tipo,capacidad,precio,bano,balcon):
+        habitacion=Habitacion(nro_habitacion,tipo,capacidad,precio,balcon,bano)
+        self.add_to_start(habitacion)
+        from Index import instance
+        carpeta='room.csv'
+        instance.discoHotel1.escribir(carpeta = carpeta,nro_habitacion = nro_habitacion,tipo = tipo,capacidad = capacidad,precio = precio,bano = bano,balcon = balcon)      
+        
     def mostrar_habitaciones(self):
         current=self.head
         print('Habitaciones disponibles:')

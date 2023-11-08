@@ -1,7 +1,6 @@
 import csv
 #####################################################################################
 # ESTE DISCO DURO DEBE DE ENCARGARSE DE GUARDAR TODA INFORMACION DE USUARIOS, CLIENTES, PERSONAL, ADMINS,
-#z
 #####################################################################################
 class DiscoDuro():
     # Create a list to store the user information
@@ -33,16 +32,9 @@ class DiscoDuro():
                             instance.personalManager.cache(typeUser,name, surname, email, password)
                           
                     
-                    # # Print the user information
-                    # for user in instance.userManager.totalUsers:
-                    #     print(user.name, user.surname, user.email, user.password, user.typeUser)
-                    #     print ("-------------------------------------------------------------------------")
-
+                 
                 case 'reservas.csv':
-                    #numero de reserva, cliente, numero de habitacion, numero de reserva, fecha de inicio, fecha de fin, precio total
-                    #nro_reserva,mail,nro_habitacion,fecha_inicio,fecha_fin,total
-                    # Loop through each row in the CSV file
-
+                 
                     for row in reader:
                         # Extract the user information from the row
                         nro_reserva = row[0]
@@ -71,9 +63,28 @@ class DiscoDuro():
                         from Index import instance
                         instance.roomManager.cache(nro_habitacion,tipo,capacidad,precio,baño,balcon)
                     pass
-                case 'buffet.csv':
-                      #menu, precio, stock 
-                      pass
+                case 'buffet.txt':
+                      #here we have to read a txt file who has a dictionary with the menu
+                    with open("buffet.txt", 'r') as archivo:
+                            # Leer el contenido del archivo y guardarlo en una variable
+                            contenido = archivo.read()
+                            from Index import instance
+                            instance.buffet.cache(contenido)
+                        # Mostrar el contenido del archivo
+                            print(contenido)
+                                                
+
+
+                        #read txt
+                        #convert txt to dictionary
+                        #create buffet instance
+                        #add menu to buffet instance
+                        #close txt
+
+                     
+
+
+
 
 
     def escribir (self, carpeta, **kwargs):
@@ -97,6 +108,11 @@ class DiscoDuro():
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['nro_reserva'], kwargs['mail'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['nro_habitacion'],kwargs['total']])
             case 'room.csv':
-                pass
+                with open('room.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['nro_habitacion'], kwargs['tipo'],kwargs['capacidad'],kwargs['precio'],kwargs['baño'],kwargs['balcon']])
             case 'buffet.csv':
                 pass
