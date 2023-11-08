@@ -274,7 +274,7 @@ class reservaManager():
                     current.habitacion.ocuparhabitacion()
                     
                     print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {reserva.total}')
-                    return
+                    return "continuar"
             current=current.prox
             
         print(f'No hay habitaciones disponibles para el tipo {tipo_habit} con las caracteristicas solicitadas')

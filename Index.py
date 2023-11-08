@@ -54,9 +54,11 @@ class Hotel:
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
                 if   self.clienteManager.verificacion(inputemail,inputpassword) == True:
-                    self.menuCliente.bienvenida(inputemail)
-                    if "s":
-                        break
+                    while True:
+                        self.menuCliente.bienvenida(inputemail)
+                        if input("¿Desea cerrar seccion? (s/n): ") == "s":
+                            break
+                   
                 else:
                     print("Usuario o contraseña incorrectos")
                     print("-------------------------------------------------------------------------")

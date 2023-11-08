@@ -58,11 +58,10 @@ class menuCliente():
             print("-------------------------------------------------------------------------")
         
         elif opcion_menu == "4":
-            print("Gracias por utilizar nuestros servicios")
+            
             print("-------------------------------------------------------------------------")
             #aqui termina el programa
-            apagar = "s"
-            return apagar
+            return
 
 
 
