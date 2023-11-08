@@ -165,6 +165,7 @@ class clienteManager():
                 return True
         return False
     
+
     def pedir_comida(self, cliente, alimento, cant_pedida):
         from Index import instance
         instance.buffet.tomar_pedido(cliente, alimento, cant_pedida)
@@ -230,16 +231,26 @@ class roomManager():
             current=current.prox
     def cache(self,nro_habitacion,tipo,capacidad,precio,bano,balcon):
         habitacion=Habitacion(nro_habitacion,tipo,capacidad,precio,balcon,bano)
-        self.add_to_start(habitacion)     
+        self.add_to_start(habitacion)               
+                          
+                        
+                        
+class reservaManager():
+    def __init__ (self):
+        self.reservas={ }
+    def agregar_reserva(self,reserva):
+        self.reservas[reserva.nro_reserva]= reserva
+        
+    def reservar (self, cliente, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
+        
 
-    def disponibilidad_de_habitaciones(self,fecha_inicio,fecha_fin,tipo_habit,balcon,bano):
-       
-        current=self.head
         from Index import instance
+        current=instance.roomManager.head
+        
         while current is not None:
             if tipo_habit == current.habitacion.tipo and  current.habitacion.ocupacion==False and bano == current.habitacion.bano and balcon == current.habitacion.balcon:
                 superpuesta = False
-                for reserva in instance.reservaManager.reservas.values():
+                for reserva in self.reservas.values():
                     if (
                         reserva.tipo_habit == tipo_habit
                         and bano == reserva.bano
@@ -265,29 +276,6 @@ class roomManager():
             current=current.prox
             
         print(f'No hay habitaciones disponibles para el tipo {tipo_habit} con las caracteristicas solicitadas')
-        
-class reservaManager():
-    def __init__ (self):
-        self.reservas={ }
-    def agregar_reserva(self,reserva):
-        self.reservas[reserva.nro_reserva]= reserva 
-        from Index import instance 
-        carpeta='reservas.csv'
-        instance.discoHotel1.escribir(carpeta = carpeta,nro_reserva = reserva.nro_reserva,cliente = reserva.mail,fecha_inicio = reserva.fecha_inicio,fecha_fin = reserva.fecha_fin,tipo_habit = reserva.tipo_habit,balcon = reserva.balcon,bano = reserva.bano,total = reserva.total,nro_habitacion = reserva.nro_habitacion)
-    def cache(self,nro_reserva,mail,nro_habitacion,fecha_inicio,fecha_fin,total,balcon,bano):
-        reserva=Reserva(nro_reserva,mail,nro_habitacion,fecha_inicio,fecha_fin,total,balcon,bano)
-        self.reservas[nro_reserva]= reserva
-        return reserva
-
-    def reservar (self, cliente, nro_habitacion):
-            
-            reserva=Reserva(cliente, nro_habitacion, nro_reserva,fecha_inicio,fecha_fin,total)
-            reserva.total=int(current.habitacion.precio)*int(((fecha_fin-fecha_inicio).days+1))
-            reserva.nro_habitacion=current.habitacion.nro_habitacion
-            self.agregar_reserva(reserva)
-            current.habitacion.ocuparhabitacion()
-            
-            print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {reserva.total}')
         
     def cancelar_reserva(self,nro_reserva):
         if nro_reserva in self.reservas:
