@@ -165,11 +165,7 @@ class clienteManager():
                 return True
         return False
     
-    def reservar (self, cliente, año_inicio, mes_inicio,dia_inicio, año_fin,mes_fin,dia_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
-        fecha_inicio=datetime.datetime(año_inicio,mes_inicio,dia_inicio,15,0)
-        fecha_fin=datetime.datetime(año_fin,mes_fin,dia_fin,10,0)
-        from Index import instance
-        instance.reservaManager.reservar(cliente,fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+
     def pedir_comida(self, cliente, alimento, cant_pedida):
         from Index import instance
         instance.buffet.tomar_pedido(cliente, alimento, cant_pedida)
@@ -267,14 +263,16 @@ class reservaManager():
                         superpuesta = True
                         break
                 if not superpuesta:
-                    reserva=Reserva(cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
-                    reserva.total=int(current.habitacion.precio)*int(((fecha_fin-fecha_inicio).days+1))
-                    reserva.nro_habitacion=current.habitacion.nro_habitacion
+                    nro_habitacion=current.habitacion.nro_habitacion
+                    total=int(current.habitacion.precio)*int(((fecha_fin-fecha_inicio).days+1))
+                    nro_reserva=cliente+str(fecha_inicio.date())
+                    reserva=Reserva(nro_reserva,cliente, fecha_inicio, fecha_fin, nro_habitacion,total)
+                    instance.discoHotel1.escribir(carpeta = 'reservas.csv',nro_reserva = nro_reserva,mail = cliente,nro_habitacion = nro_habitacion,fecha_inicio = fecha_inicio,fecha_fin = fecha_fin,total = total)
                     self.agregar_reserva(reserva)
                     current.habitacion.ocuparhabitacion()
                     
                     print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {reserva.total}')
-                    return "continuar"
+                    return
             current=current.prox
             
         print(f'No hay habitaciones disponibles para el tipo {tipo_habit} con las caracteristicas solicitadas')
@@ -300,5 +298,9 @@ class reservaManager():
                 print(f'{reserva.nro_reserva} - {reserva.fecha_inicio} - {reserva.fecha_fin} - ${reserva.total}')
             else:
                 print('No hay reservas para el cliente')    
-            
+        
+    def cache(self,nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total):
+        reserva=Reserva(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total)
+        self.agregar_reserva(reserva)
+        return reserva
                     
