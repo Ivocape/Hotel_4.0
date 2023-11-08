@@ -222,8 +222,16 @@ class roomManager():
                     print('La habitacion no esta ocupada')
                 return
             current=current.prox
+            
+    def mostrar_habitaciones(self):
+        current=self.head
+        print('Habitaciones disponibles:')
+        print('Nro habitacion - Tipo - Capacidad - Precio - Baño - Balcon')
+        while current is not None:
+            print(f'{current.habitacion.nro_habitacion} - {current.habitacion.tipo} - {current.habitacion.capacidad} - {current.habitacion.precio} - {current.habitacion.bano} - {current.habitacion.balcon}')
+            current=current.prox
     def cache(self,nro_habitacion,tipo,capacidad,precio,bano,balcon):
-        habitacion=Habitacion(nro_habitacion,tipo,capacidad,precio,bano,balcon)
+        habitacion=Habitacion(nro_habitacion,tipo,capacidad,precio,balcon,bano)
         self.add_to_start(habitacion)               
                           
                         
@@ -236,19 +244,12 @@ class reservaManager():
         
     def reservar (self, cliente, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
         
-        if bano == 's':
-            bano = True
-        else:
-            bano = False
-        if balcon == 's':
-            balcon = True
-        else: 
-            balcon = False
+
         from Index import instance
         current=instance.roomManager.head
         
         while current is not None:
-            if tipo_habit == current.habitacion.tipo and  not current.habitacion.ocupacion and bano == current.habitacion.bano and balcon == current.habitacion.balcon:
+            if tipo_habit == current.habitacion.tipo and  current.habitacion.ocupacion==False and bano == current.habitacion.bano and balcon == current.habitacion.balcon:
                 superpuesta = False
                 for reserva in self.reservas.values():
                     if (
@@ -262,13 +263,14 @@ class reservaManager():
                     ):
                         superpuesta = True
                         break
-                if not superpuesta:    
+                if not superpuesta:
                     reserva=Reserva(cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano)
+                    reserva.total=int(current.habitacion.precio)*int(((fecha_fin-fecha_inicio).days+1))
                     reserva.nro_habitacion=current.habitacion.nro_habitacion
                     self.agregar_reserva(reserva)
                     current.habitacion.ocuparhabitacion()
-                    total=current.habitacion.precio*((fecha_fin-fecha_inicio).days+1)
-                    print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {total}')
+                    
+                    print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {reserva.total}')
                     return
             current=current.prox
             
@@ -289,9 +291,10 @@ class reservaManager():
         print('La reserva se cancelo con exito')
 
     def mostrar_reservas(self,cliente):
+        print('Nro reserva - Fecha inicio - Fecha fin - Precio')
         for reserva in self.reservas.values():
             if reserva.mail == cliente:
-                print(reserva)
+                print(f'{reserva.nro_reserva} - {reserva.fecha_inicio} - {reserva.fecha_fin} - ${reserva.total}')
             else:
                 print('No hay reservas para el cliente')    
             

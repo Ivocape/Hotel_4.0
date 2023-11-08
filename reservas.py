@@ -8,3 +8,4 @@ class Reserva:
         self.tipo_habit=tipo_habit
         self.nro_reserva= mail+str(fecha_inicio.date())
         self.nro_habitacion=0
+        self.total=0
