@@ -77,7 +77,7 @@ class DiscoDuro():
 
 
     def escribir (self, carpeta, **kwargs):
-        from Index import instance #Aca importamos la instancia de la clase Hotel
+        #Aca importamos la instancia de la clase Hotel
         match carpeta:
             case 'users.csv':
                 # Open the CSV file in append mode
