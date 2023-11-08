@@ -40,7 +40,21 @@ class DiscoDuro():
 
                 case 'reservas.csv':
                     #numero de reserva, cliente, numero de habitacion, numero de reserva, fecha de inicio, fecha de fin, precio total
-                    pass
+                    #nro_reserva,mail,nro_habitacion,fecha_inicio,fecha_fin,total
+                    # Loop through each row in the CSV file
+
+                    for row in reader:
+                        # Extract the user information from the row
+                        nro_reserva = row[0]
+                        mail = row[1]
+                        nro_habitacion = row[2]
+                        fecha_inicio = row[3]
+                        fecha_fin = row[4]
+                        total = row[5]
+                        balcon = row[6]
+                        bano = row[7]
+                        from Index import instance
+                        instance.reservaManager.cache(nro_reserva,mail,nro_habitacion,fecha_inicio,fecha_fin,total,balcon,bano)
                 case 'room.csv':
                     #numero de habitacion, tipo, capacidad, baño, balcon, precio de la noche
                     #nro_habitacion,tipo,capacidad,precio,bano,balcon
@@ -64,7 +78,7 @@ class DiscoDuro():
 
 
     def escribir (self, carpeta, **kwargs):
-        from Index import instance #Aca importamos la instancia de la clase Hotel
+        #Aca importamos la instancia de la clase Hotel
         match carpeta:
             case 'users.csv':
                 # Open the CSV file in append mode
@@ -77,7 +91,12 @@ class DiscoDuro():
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"]])
             case 'reservas.csv':
-                pass
+                with open('reservas.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['nro_reserva'], kwargs['mail'], kwargs['nro_habitacion'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['total']])
             case 'room.csv':
                 pass
             case 'buffet.csv':

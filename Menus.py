@@ -1,3 +1,4 @@
+import datetime
 class menuCliente():
     def __init__(self) -> None:
         pass
@@ -28,8 +29,13 @@ class menuCliente():
                 inputtipo=input('Ingrese el tipo de habitacion que desea: ')
                 inputbano=input('Ingrese si desea baño privado (s/n): ')
                 inputbalcon=input('Ingrese si desea balcon (s/n): ')
+                fecha_inicio=datetime.datetime(inputanoinicio,inputmesinicio,inputdiainicio,15,0)
+                fecha_fin=datetime.datetime(inputanofin,inputmesfin,inputdiafin,10,0)
                 print("-------------------------------------------------------------------------")
-                instance.clienteManager.reservar(inputemail,inputanoinicio,inputmesinicio,inputdiainicio,inputanofin,inputmesfin,inputdiafin,inputtipo,inputbano,inputbalcon)
+                a,b = instance.roomManager.disponibilidad_de_habitaciones(fecha_inicio,fecha_fin,inputtipo,inputbano,inputbalcon) 
+                if a == True:
+                    instance.reservaManager.reservar(inputemail,b)
+
             print("-------------------------------------------------------------------------")  
         elif opcion_menu == "2":
             print("-------------------------------------------------------------------------")
