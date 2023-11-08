@@ -159,10 +159,11 @@ class clienteManager():
             print(cliente.password)
             print(cliente.email)
             print(password)
+            print(cliente.typeUser)
             print(email)
             if  password == cliente.password and email== cliente.email:
                 
-                return True
+                return True,cliente.typeUser
         return False
     
 

@@ -66,7 +66,18 @@ class menuCliente():
             print("-------------------------------------------------------------------------")
             #aqui termina el programa
             return
-
+        
+class menuPersonal:
+        def __init__(self) -> None:
+            pass
+        def inicio(self, inputemail):
+             pass
+class menuAdministrador:
+        def __init__(self) -> None:
+            pass
+        def inicio(self, inputemail):
+             pass
+        
 
 
 
