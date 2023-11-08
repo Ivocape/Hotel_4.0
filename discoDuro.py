@@ -51,10 +51,9 @@ class DiscoDuro():
                         fecha_inicio = row[3]
                         fecha_fin = row[4]
                         total = row[5]
-                        balcon = row[6]
-                        bano = row[7]
+                        
                         from Index import instance
-                        instance.reservaManager.cache(nro_reserva,mail,nro_habitacion,fecha_inicio,fecha_fin,total,balcon,bano)
+                        instance.reservaManager.cache(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total)
                 case 'room.csv':
                     #numero de habitacion, tipo, capacidad, baño, balcon, precio de la noche
                     #nro_habitacion,tipo,capacidad,precio,bano,balcon
@@ -96,10 +95,8 @@ class DiscoDuro():
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
                     # Write the user information to the CSV file
-                    writer.writerow([kwargs['nro_reserva'], kwargs['mail'], kwargs['nro_habitacion'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['total']])
+                    writer.writerow([kwargs['nro_reserva'], kwargs['mail'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['nro_habitacion'],kwargs['total']])
             case 'room.csv':
                 pass
             case 'buffet.csv':
                 pass
-
-

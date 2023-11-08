@@ -31,11 +31,9 @@ class menuCliente():
                 inputbalcon=input('Ingrese si desea balcon (s/n): ')
                 fecha_inicio=datetime.datetime(inputanoinicio,inputmesinicio,inputdiainicio,15,0)
                 fecha_fin=datetime.datetime(inputanofin,inputmesfin,inputdiafin,10,0)
+                
                 print("-------------------------------------------------------------------------")
-                a,b = instance.roomManager.disponibilidad_de_habitaciones(fecha_inicio,fecha_fin,inputtipo,inputbano,inputbalcon) 
-                if a == True:
-                    instance.reservaManager.reservar(inputemail,b)
-
+                instance.reservaManager.reservar(inputemail,fecha_inicio,fecha_fin,inputtipo,inputbano,inputbalcon)
             print("-------------------------------------------------------------------------")  
         elif opcion_menu == "2":
             print("-------------------------------------------------------------------------")
