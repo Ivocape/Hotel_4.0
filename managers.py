@@ -156,11 +156,14 @@ class clienteManager():
     def verificacion(self,email,password):
         ######## VALIDACION DE USUARIOS #########
         for cliente in self.lista_cliente:
-
+            print(cliente.password)
+            print(cliente.email)
+            print(password)
+            print(email)
             if  password == cliente.password and email== cliente.email:
                 
                 return True
-            return False
+        return False
     
     def reservar (self, cliente, año_inicio, mes_inicio,dia_inicio, año_fin,mes_fin,dia_fin, tipo_habit,balcon,bano): #CHEQUEAR SI SE PUEDE VINCULAR EL USUARIO CON LA RESERVA #############################################
         fecha_inicio=datetime.datetime(año_inicio,mes_inicio,dia_inicio,15,0)
