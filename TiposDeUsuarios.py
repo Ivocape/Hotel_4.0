@@ -18,8 +18,10 @@ class User:
 
 
 class Personal(User):
-    def __init__(self,name, surname, email, password, typeUser):
+    def __init__(self,name, surname, email, password, typeUser,cargo,tarea):
         super().__init__(name, surname, email, password, typeUser)
+        self.cargo=cargo
+        self.tarea=tarea
     def __str__(self) -> str:
         return (str(self.name) + " " + str(self.surname) + " " + str(self.email) + " " + str(self.password + " " + str(self.typeUser)) )
     

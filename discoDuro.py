@@ -29,7 +29,9 @@ class DiscoDuro():
                         elif typeUser == "cliente":
                             instance.clienteManager.cache(typeUser,name, surname, email, password)
                         elif typeUser == "personal 1234":
-                            instance.personalManager.cache(typeUser,name, surname, email, password)
+                            cargo=row[5]
+                            tarea=row[6]
+                            instance.personalManager.cache(typeUser,name, surname, email, password,cargo,tarea)
                           
                     
                  
@@ -63,23 +65,19 @@ class DiscoDuro():
                         from Index import instance
                         instance.roomManager.cache(nro_habitacion,tipo,capacidad,precio,baño,balcon)
                     pass
-                # case 'buffet.txt':
-                #       #here we have to read a txt file who has a dictionary with the menu
-                #     with open("buffet.txt", 'r') as archivo:
-                #             # Leer el contenido del archivo y guardarlo en una variable
-                #             contenido = archivo.read()
-                #             from Index import instance
-                #             instance.buffet.cache(contenido)
-                #         # Mostrar el contenido del archivo
-                #             print(contenido)
-                                                
+                case 'buffet.txt':
+                      #here we have to read a txt file who has a dictionary with the menu
+                    with open("buffet.txt", 'r') as archivo:
+                            # Leer el contenido del archivo y guardarlo en una variable
+                            contenido = archivo.read()
+                            for line in contenido.splitlines():
+                                alimento, precio, cant = line.split(',')
+                                from Index import instance
+                                instance.buffet.cache(alimento, precio, cant)
+                            
+                                                  
 
 
-                        #read txt
-                        #convert txt to dictionary
-                        #create buffet instance
-                        #add menu to buffet instance
-                        #close txt
 
                      
 
@@ -97,9 +95,12 @@ class DiscoDuro():
                 with open('users.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                    
+                    #quiero diferenciar segun el tipo de usuario
+                    if kwargs["typeUser"] == "personal 1234":
+                        writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"],kwargs['cargo'],kwargs['tarea']])
+                    else:
                     # Write the user information to the CSV file
-                    writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"]])
+                        writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"]])
             case 'reservas.csv':
                 with open('reservas.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
