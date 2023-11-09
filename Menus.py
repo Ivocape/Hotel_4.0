@@ -66,24 +66,55 @@ class menuCliente():
             print("-------------------------------------------------------------------------")
             #aqui termina el programa
             return
-        
+
+# quiero que un empleado de la lista de empleados de managers pueda tomar una tarea de la lista de tareas de managers  
 class menuPersonal:
     def __init__(self) -> None:
         pass
-    def inicio(self, inputemail):
-        pass
-    #tomar tareas
-    # registrar sus horarios
-    #
-class menuAdministrador:
-        def __init__(self) -> None:
-            pass
-        def inicio(self, inputemail):
-            pass
+    def bienvenida(self, inputemail):
+        print("-------------------------------------------------------------------------")
+        print("Bienvenido al hotel")
+        print("-------------------------------------------------------------------------")
+        print ("1. Ingresar") # un empleado marca que llego al hotel para realizar un tarea
+        print ("2. Tomar tarea") # el empleado toma una tarea de la lista de tareas
+        print("3. Reponer cantidad del buffet") #reponer cantidad de comida o bebida en el buffet
+        print ("4. Egresar") # un empleado marca que se va del hotel
+        print ("5. Salir")
 
+        opcion_menu = input("Ingrese una opción: ")
+        from Index import instance
 
+        if opcion_menu == "1":
+            print("-------------------------------------------------------------------------")
+            print("Ingresar")
+            print("-------------------------------------------------------------------------")
+            instance.personalManager.registrar_ingreso(inputemail)
+            print("-------------------------------------------------------------------------")
+        elif opcion_menu == "2":
+            print("-------------------------------------------------------------------------")
+            print("Tomar tarea")
+            print("-------------------------------------------------------------------------")
+            instance.personalManager.asignacion_tareas(inputemail)
+            print("-------------------------------------------------------------------------")
+        elif opcion_menu == "3":
+            print("-------------------------------------------------------------------------")
+            print("Reponer cantidad del buffet")
+            print("-------------------------------------------------------------------------")
+            instance.buffet.mostrar_menu()
+            inputalimento=input('Ingrese el alimento que desea reponer: ')
+            inputcant=int(input('Ingrese la cantidad que desea reponer: '))
+            instance.buffet.reponer_cant(inputalimento,inputcant)
+            print("-------------------------------------------------------------------------")
+        elif opcion_menu == "4":
+            print("-------------------------------------------------------------------------")
+            print("Egresar")
+            print("-------------------------------------------------------------------------")
+            instance.personalManager.registrar_egreso(inputemail)
+            print("-------------------------------------------------------------------------")
+        elif opcion_menu == "5":
+            print("-------------------------------------------------------------------------")
+            #aqui termina el programa
+            return 
         
-
-
-
-    
+        
+        

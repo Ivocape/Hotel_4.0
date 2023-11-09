@@ -109,16 +109,9 @@ class DiscoDuro():
                 with open('reservas.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-<<<<<<< HEAD
-                    
-                    # Write the user information to the CSV file
-                    writer.writerow([kwargs['cliente'], kwargs['fecha_inicio'], kwargs['fecha_fin'],kwargs['tipo_habit'],kwargs['bacon'], kwargs['baño'], kwargs['numero_reserva'],kwargs['total_reserva']])
-                pass
-=======
 
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['nro_reserva'], kwargs['mail'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['nro_habitacion'],kwargs['total']])
->>>>>>> 75aaeac3940b2f808328159d6995ed4a8e25e7be
             case 'room.csv':
                 with open('room.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
