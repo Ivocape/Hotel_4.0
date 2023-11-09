@@ -44,7 +44,7 @@ class Hotel:
                 elif inputtypeuser == "personal 1234":
                     self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 
-                print("Usuario creado con éxito, por favor inicie sesión")
+                
 
                 print(self.clienteManager.lista_cliente)
                 print(self.personalManager.lista_empleado)
@@ -59,17 +59,17 @@ class Hotel:
                         case "cliente": 
                                 while True:
                                     self.menuCliente.bienvenida(inputemail)
-                                    if input("¿Desea cerrar seccion? (s/n): ") == "s":
+                                    if input("¿Desea cerrar sesion? (s/n): ") == "s":
                                         break
                         case "personal 1234":
                             while True:
                                 self.menuPersonal.inicio(inputemail)
-                                if input("¿Desea cerrar seccion? (s/n): ") == "s":
+                                if input("¿Desea cerrar sesion? (s/n): ") == "s":
                                     break
                         case "admin 1234":
                             while True:
                                 self.menuAdministrador.inicio(inputemail)
-                                if input("¿Desea cerrar seccion? (s/n): ") == "s":
+                                if input("¿Desea cerrar sesion? (s/n): ") == "s":
                                     break
                                                 
                 else:
@@ -80,7 +80,7 @@ class Hotel:
 
             elif opcion == "3":
                 # inputnombre = input("Ingrese su nombre: ")
-                # inputpassword = input("Ingrese su contraseña: ")
+                    # inputpassword = input("Ingrese su contraseña: ")
                 # self.userManager.modifyUser(inputnombre,inputpassword)
                 print("-------------------------------------------------------------------------")
            
