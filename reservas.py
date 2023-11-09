@@ -6,3 +6,8 @@ class Reserva:
         self.nro_reserva= nro_reserva
         self.nro_habitacion=nro_habitacion
         self.total=total
+
+class Nodo_recaudacion():
+    def __init__(self, value):
+        self.value=value
+        self.prox=None

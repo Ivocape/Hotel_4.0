@@ -94,6 +94,7 @@ class clienteManager():
     def __init__(self):
         self.lista_cliente=[] 
         self.lista_mails=set()
+
     def __str__(self) -> str:
         return (str(self.lista_cliente))
     
@@ -123,11 +124,27 @@ class clienteManager():
                 return True,cliente.typeUser
         return False,None
     
-
-    def pedir_comida(self, cliente, alimento, cant_pedida):
+    def reservar(self, email, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
         from Index import instance
-        instance.buffet.tomar_pedido(cliente, alimento, cant_pedida)
+        total=instance.reservaManager.reservar(email, fecha_inicio,fecha_fin, tipo_habit,balcon,bano)
+        for cliente in self.lista_cliente:
+            if cliente.email == email:
+                cliente.apilar(total)
+                break
     
+    def pedir_comida(self, email, alimento, cant_pedida):
+        from Index import instance
+        a=instance.buffet.tomar_pedido(email, alimento, cant_pedida)
+        for cliente in self.lista_cliente:
+            if cliente.email == email:
+                cliente.apilar(a)
+                break
+            
+    def calcular_gastostotales(self,email):
+        for cliente in self.lista_cliente:
+            if cliente.email == email:
+                return cliente.calcular_total()
+   
 
 class roomManager():
     
@@ -230,7 +247,7 @@ class reservaManager():
                     current.habitacion.ocuparhabitacion()
                     
                     print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {reserva.total}')
-                    return
+                    return total
             current=current.prox
             
         print(f'No hay habitaciones disponibles para el tipo {tipo_habit} con las caracteristicas solicitadas')

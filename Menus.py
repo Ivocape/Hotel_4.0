@@ -33,7 +33,7 @@ class menuCliente():
                 fecha_fin=datetime.datetime(inputanofin,inputmesfin,inputdiafin,10,0)
                 
                 print("-------------------------------------------------------------------------")
-                instance.reservaManager.reservar(inputemail,fecha_inicio,fecha_fin,inputtipo,inputbano,inputbalcon)
+                instance.clienteManager.reservar(inputemail,fecha_inicio,fecha_fin,inputtipo,inputbano,inputbalcon)
             print("-------------------------------------------------------------------------")  
         elif opcion_menu == "2":
             print("-------------------------------------------------------------------------")
