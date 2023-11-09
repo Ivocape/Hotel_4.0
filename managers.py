@@ -99,8 +99,6 @@ class personalManager():
             if  password == personal.password and email== personal.email:
                 return True
             return False
-    def agregar_personal(self,personal):
-        self.lista_empleado.add(personal) ####### no entiendo como funciona esto #######
 
     def dar_de_baja(self,personal):
         self.lista_empleado.remove(personal) 
@@ -136,6 +134,7 @@ class personalManager():
 class clienteManager():
     def __init__(self):
         self.lista_cliente=[] 
+        self.lista_mails=set()
     def __str__(self) -> str:
         return (str(self.lista_cliente))
     
@@ -144,14 +143,19 @@ class clienteManager():
         #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA yo(abi) no daria de baja
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password, typeUser)
+        if email in self.lista_mails:
+            print('El mail ya esta registrado')
+            return
         self.lista_cliente.append(cliente)
+        self.lista_mails.add(email)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
-  
+
     def cache (self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password, typeUser)
         self.lista_cliente.append(cliente)
+        self.lista_mails.add(email)
         return cliente
     def verificacion(self,email,password):
         ######## VALIDACION DE USUARIOS #########
@@ -257,11 +261,10 @@ class reservaManager():
         while current is not None:
             if tipo_habit == current.habitacion.tipo and  current.habitacion.ocupacion==False and bano == current.habitacion.bano and balcon == current.habitacion.balcon:
                 superpuesta = False
+                habitacionposible=current.habitacion.nro_habitacion
                 for reserva in self.reservas.values():
                     if (
-                        reserva.tipo_habit == tipo_habit
-                        and bano == reserva.bano
-                        and balcon == reserva.balcon
+                        reserva.nro_habitacion == habitacionposible
                         and (
                             (fecha_inicio >= reserva.fecha_inicio and fecha_inicio <= reserva.fecha_fin)
                             or (fecha_fin >= reserva.fecha_inicio and fecha_fin <= reserva.fecha_fin)
