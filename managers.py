@@ -69,6 +69,7 @@ class adminManager:
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
+        print("Usuario creado con éxito, por favor inicie sesión")
         return admin
     def cache(self,typeUser ,name, surname, email, password):
         admin = Administrador(name, surname, email, password, typeUser)
@@ -89,6 +90,7 @@ class personalManager():
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
+        print("Usuario creado con éxito, por favor inicie sesión")
     def cache(self,typeUser ,name, surname, email, password):
         personal = Personal(name, surname, email, password, typeUser)
         self.lista_empleado.append(personal)
@@ -145,12 +147,13 @@ class clienteManager():
         cliente = Cliente(name, surname, email, password, typeUser)
         if email in self.lista_mails:
             print('El mail ya esta registrado')
-            return
-        self.lista_cliente.append(cliente)
-        self.lista_mails.add(email)
-        from Index import instance 
-        carpeta='users.csv'
-        instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
+        else:
+            self.lista_cliente.append(cliente)
+            self.lista_mails.add(email)
+            from Index import instance 
+            carpeta='users.csv'
+            instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
+            print("Usuario creado con éxito, por favor inicie sesión")
 
     def cache (self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password, typeUser)
@@ -263,15 +266,10 @@ class reservaManager():
                 superpuesta = False
                 habitacionposible=current.habitacion.nro_habitacion
                 for reserva in self.reservas.values():
-                    if (
-                        reserva.nro_habitacion == habitacionposible
-                        and (
-                            (fecha_inicio >= reserva.fecha_inicio and fecha_inicio <= reserva.fecha_fin)
-                            or (fecha_fin >= reserva.fecha_inicio and fecha_fin <= reserva.fecha_fin)
-                        )
-                    ):
-                        superpuesta = True
-                        break
+                    if reserva.nro_habitacion == habitacionposible:
+                        if fecha_inicio <= reserva.fecha_inicio <= fecha_fin or fecha_inicio <= reserva.fecha_fin <= fecha_fin:
+                            superpuesta = True
+                            break
                 if not superpuesta:
                     nro_habitacion=current.habitacion.nro_habitacion
                     total=int(current.habitacion.precio)*int(((fecha_fin-fecha_inicio).days+1))
@@ -292,7 +290,7 @@ class reservaManager():
             from Index import instance
             reserva = self.reservas[nro_reserva]
             nro_habitacion = reserva.nro_habitacion
-            current=instance.roomManager.habitaciones.head
+            current=instance.roomManager.head
             while current is not None:
                 if current.habitacion.nro_habitacion == nro_habitacion:
                     current.habitacion.liberarhabitacion()

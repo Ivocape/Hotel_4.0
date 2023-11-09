@@ -44,7 +44,7 @@ class Hotel:
                 elif inputtypeuser == "personal 1234":
                     self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 
-                print("Usuario creado con éxito, por favor inicie sesión")
+                
 
                 print(self.clienteManager.lista_cliente)
                 print(self.personalManager.lista_empleado)
