@@ -1,10 +1,12 @@
 import datetime
+import ast 
 class Buffet:
     def __init__ (self):
-        self.menu={"Desayuno básico": ["$1000", 20], "Desayuno premium":["$2000", 15], "Bebida":["$200", 40], "Medialunas":["$450", 36], "Sandwich":["$600", 20],
-                    "Tostadas":["$500", 35], "Cena":["$2000", 25], "Cena premium":["$3500", 15]}
+        self.menu={}
         self.lista_pedidos=[]
-
+    def cache(self, contenido):
+        self.menu = ast.literal_eval(contenido)
+        print(self.menu)
     def agregar_menu (self, alimento, precio):
         self.menu [alimento]=("$"+ precio,0) 
 
