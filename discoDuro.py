@@ -29,7 +29,9 @@ class DiscoDuro():
                         elif typeUser == "cliente":
                             instance.clienteManager.cache(typeUser,name, surname, email, password)
                         elif typeUser == "personal 1234":
-                            instance.personalManager.cache(typeUser,name, surname, email, password)
+                            cargo=row[5]
+                            tarea=row[6]
+                            instance.personalManager.cache(typeUser,name, surname, email, password,cargo,tarea)
                           
                     
                  
@@ -97,9 +99,12 @@ class DiscoDuro():
                 with open('users.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                    
+                    #quiero diferenciar segun el tipo de usuario
+                    if kwargs["typeUser"] == "personal 1234":
+                        writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"],kwargs['cargo'],kwargs['tarea']])
+                    else:
                     # Write the user information to the CSV file
-                    writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"]])
+                        writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"]])
             case 'reservas.csv':
                 with open('reservas.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
