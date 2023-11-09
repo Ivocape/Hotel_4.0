@@ -34,21 +34,6 @@ class DiscoDuro():
                     
                  
                 case 'reservas.csv':
-<<<<<<< HEAD
-                    #cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano, numero de reserva, precio
-                    for row in reader:
-                        # Extract the user information from the row
-                        
-                        cliente = row[0]
-                        fecha_inicio = row[1]
-                        fecha_fin = row[2]
-                        tipo_habit = row[3]
-                        balcon = row[4]
-                        bano= row[5]
-                        numero_reserva= row[6]
-                        total_reserva= row[7]
-                    pass
-=======
                  
                     for row in reader:
                         # Extract the user information from the row
@@ -61,7 +46,6 @@ class DiscoDuro():
                         
                         from Index import instance
                         instance.reservaManager.cache(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total)
->>>>>>> 75aaeac3940b2f808328159d6995ed4a8e25e7be
                 case 'room.csv':
                     #numero de habitacion, tipo, capacidad, baño, balcon, precio de la noche
                     #nro_habitacion,tipo,capacidad,precio,bano,balcon
