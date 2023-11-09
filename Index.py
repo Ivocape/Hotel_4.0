@@ -42,7 +42,9 @@ class Hotel:
                 elif inputtypeuser == "cliente": 
                     self.clienteManager.createCliente(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 elif inputtypeuser == "personal 1234":
-                    self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
+                    inputcargo=input("Ingrese su cargo: ")
+                    inputtarea=input("Ingrese su tarea: ")
+                    self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword,inputcargo,inputtarea)
                 
                 
 
