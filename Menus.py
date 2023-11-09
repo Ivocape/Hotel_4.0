@@ -76,7 +76,32 @@ class menuAdministrador:
         def __init__(self) -> None:
             pass
         def inicio(self, inputemail):
-             pass
+            print("-------------------------------------------------------------------------")
+            print("Bienvenido al hotel")
+            print("-------------------------------------------------------------------------")
+            print ("1. Dar de baja personal")
+            print ("2. Recibir informe")
+            print ("3. Asignar tareas")
+            print ("4. Salir")
+            opcion_menu = input("Ingrese una opción: ")
+            from Index import instance
+            if opcion_menu=='1':
+                instance.personalManager.mostrar_personal()
+                inputbaja=input('Ingrese el email del personal que desea dar de baja: ')
+                if inputbaja in instance.personalManager.lista_empleado:
+                    instance.personalManager.dar_de_baja(inputbaja) 
+                    print( 'El empleado ha sido dado de baja')
+                else :
+                    print('El email ingresado no corresponde a ningun empleado')
+                print("-------------------------------------------------------------------------")   
+            if opcion_menu=='2':
+                pass
+            if opcion_menu=='3':
+               pass
+            elif opcion_menu == "4":
+                print("-------------------------------------------------------------------------")
+                #aqui termina el programa
+                return
         
 
 

@@ -1,4 +1,5 @@
 import csv
+import pandas as pd
 #####################################################################################
 # ESTE DISCO DURO DEBE DE ENCARGARSE DE GUARDAR TODA INFORMACION DE USUARIOS, CLIENTES, PERSONAL, ADMINS,
 #####################################################################################
@@ -117,3 +118,7 @@ class DiscoDuro():
                     writer.writerow([kwargs['nro_habitacion'], kwargs['tipo'],kwargs['capacidad'],kwargs['precio'],kwargs['baño'],kwargs['balcon']])
             case 'buffet.csv':
                 pass
+    def eliminar_personal(self, inputbaja):
+            df=pd.read_csv('users.csv')
+            df=df[df['email']!= inputbaja]
+            df.to_csv('users.csv',index=False)
