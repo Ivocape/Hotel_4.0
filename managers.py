@@ -3,7 +3,6 @@ from habitacion import *
 import datetime
 from reservas import *
 from buffet import *
-
 # class userManager:
 #     def __init__(self) -> None:
 #         self.totalUsers = [] ######### Aca Vamos a tener un problema #####
@@ -151,9 +150,6 @@ class clienteManager():
     def __str__(self) -> str:
         return (str(self.lista_cliente))
     
-    def dar_de_baja(self,cliente):
-        self.lista_cliente.remove(cliente)
-        #Aca necesitamos generar un metodo que elimine al cliente de la lista de clientes en el CSV FALTA yo(abi) no daria de baja
     def createCliente(self,typeUser ,name, surname, email, password):
         cliente = Cliente(name, surname, email, password, typeUser)
         if email in self.lista_mails:
@@ -278,7 +274,7 @@ class reservaManager():
                 habitacionposible=current.habitacion.nro_habitacion
                 for reserva in self.reservas.values():
                     if reserva.nro_habitacion == habitacionposible:
-                        if fecha_inicio <= reserva.fecha_inicio <= fecha_fin or fecha_inicio <= reserva.fecha_fin <= fecha_fin:
+                        if fecha_inicio <= datetime.datetime.strptime(reserva.fecha_inicio,"%Y-%m-%d %H:%M:%S") <= fecha_fin or fecha_inicio <= datetime.datetime.strptime(reserva.fecha_fin,"%Y-%m-%d %H:%M:%S") <= fecha_fin:
                             superpuesta = True
                             break
                 if not superpuesta:
