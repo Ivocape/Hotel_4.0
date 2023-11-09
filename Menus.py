@@ -90,12 +90,16 @@ class menuAdministrador:
                 inputbaja=input('Ingrese el email del personal que desea dar de baja: ')
                 if inputbaja in instance.personalManager.lista_empleado:
                     instance.personalManager.dar_de_baja(inputbaja) 
+                    print( 'El empleado ha sido dado de baja')
                 else :
-                    print('El email ingresado no corresponde a ningun empleado')   
+                    print('El email ingresado no corresponde a ningun empleado')
+                print("-------------------------------------------------------------------------")   
             if opcion_menu=='2':
                 pass
             if opcion_menu=='3':
-                pass
+                print("-------------------------------------------------------------------------")
+            #aqui termina el programa
+            return
         
 
 
