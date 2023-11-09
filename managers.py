@@ -62,10 +62,12 @@ from buffet import *
 class adminManager:
     def __init__(self) -> None:
         self.totalAdmins = []
+        self.lista_mails=set()
     
     def createAdmin(self,typeUser ,name, surname, email, password):
         admin = Administrador(name, surname, email, password, typeUser)
         self.totalAdmins.append(admin)
+        self.lista_mails.add(email)
         from Index import instance 
         carpeta='users.csv'
         instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
@@ -74,26 +76,32 @@ class adminManager:
     def cache(self,typeUser ,name, surname, email, password):
         admin = Administrador(name, surname, email, password, typeUser)
         self.totalAdmins.append(admin)
+        self.lista_mails.add(email)
         return admin
     
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
         self.lista_tareas=[]
-        self.totalPersonal = []     
+        self.totalPersonal = []
+        self.lista_mails=set()     
     def __str__(self) -> str:
         return (str(self.lista_empleado))    
     def createPersonal(self,typeUser ,name, surname, email, password,cargo,tarea): 
-     
-        personal = Personal(name, surname, email, password, typeUser,cargo,tarea)
-        self.lista_empleado.append(personal)
-        from Index import instance 
-        carpeta='users.csv'
-        instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password,cargo=cargo,tarea=tarea)
-        print("Usuario creado con éxito, por favor inicie sesión")
+        if email in self.lista_mails:
+            print('El mail ya esta registrado')
+        else:
+            personal = Personal(name, surname, email, password, typeUser,cargo,tarea)
+            self.lista_empleado.append(personal)
+            self.lista_mails.add(email)
+            from Index import instance 
+            carpeta='users.csv'
+            instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password,cargo=cargo,tarea=tarea)
+            print("Usuario creado con éxito, por favor inicie sesión")
     def cache(self,typeUser ,name, surname, email, password,cargo,tarea):
         personal = Personal(name, surname, email, password, typeUser,cargo,tarea)
         self.lista_empleado.append(personal)
+        self.lista_mails.add(email)
         return personal
  
     def verificacion(self,email,password):
@@ -131,6 +139,9 @@ class personalManager():
         self.registros.append(['Ingreso',empleado,datetime.datetime.now()])
     def registrar_egreso(self,empleado):
         self.registros.append(['Egreso',empleado,datetime.datetime.now()])
+    def mostrar_personal(self):
+        for empleado in self.lista_empleado:
+            print(f'{empleado.nombre} - {empleado.apellido} - {empleado.email} - {empleado.cargo}')
     
     
 class clienteManager():
@@ -296,9 +307,10 @@ class reservaManager():
                     current.habitacion.liberarhabitacion()
                     break
                 current=current.prox
-        del self.reservas[nro_reserva]
-        print('La reserva se cancelo con exito')
-
+            del self.reservas[nro_reserva]
+            print('La reserva se cancelo con exito')
+        else:
+            print(f'No existe hay una reserva con el numero {nro_reserva}')
     def mostrar_reservas(self,cliente):
         print('Nro reserva - Fecha inicio - Fecha fin - Precio')
         for reserva in self.reservas.values():

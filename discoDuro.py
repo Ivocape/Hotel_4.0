@@ -41,9 +41,9 @@ class DiscoDuro():
                         # Extract the user information from the row
                         nro_reserva = row[0]
                         mail = row[1]
-                        nro_habitacion = row[2]
-                        fecha_inicio = row[3]
-                        fecha_fin = row[4]
+                        nro_habitacion = row[4]
+                        fecha_inicio = row[2]
+                        fecha_fin = row[3]
                         total = row[5]
                         
                         from Index import instance
