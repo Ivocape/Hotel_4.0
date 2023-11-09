@@ -66,8 +66,3 @@ class menuCliente():
             print("-------------------------------------------------------------------------")
             #aqui termina el programa
             return
-
-
-
-
-    

@@ -238,9 +238,18 @@ class roomManager():
 class reservaManager():
     def __init__ (self):
         self.reservas={ }
+        self.historial_reservas = {}
     def agregar_reserva(self,reserva):
         self.reservas[reserva.nro_reserva]= reserva
-        
+    
+    def ver_historial_reservas(self, cliente):
+        if cliente in self.historial_reservas:
+            print(f'Historial de reservas para el cliente {cliente}:')
+            for reserva in self.historial_reservas[cliente]:
+                print(f'Nro reserva: {reserva.nro_reserva}, Fecha inicio: {reserva.fecha_inicio}, Fecha fin: {reserva.fecha_fin}')
+        else:
+            print(f'El cliente {cliente} no tiene historial de reservas.')
+
     def reservar (self, cliente, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
         
 
