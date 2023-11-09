@@ -1,7 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ivo ,capezzuto,@@,123,cliente
 dustin,hellman,@@@,1234,cliente
 Marina,Caoduro,@@,123,cliente
 =======
 i,i,i,i,cliente
 >>>>>>> 8c6ad66f28fd6c02fe4465068116613d1eb9a073
+=======
+ivo,capezzuto,@@,1,cliente
+dustin,hellman,itba,12,cliente
+Marina,Caoduro,mail,123,cliente
+dustin,hellmann,@@@,1234,personal 1234,limpieza,limpiar habitacion 101
+>>>>>>> c02b30d06582ac5b49106fb024bcec9b62638ea3

@@ -83,16 +83,16 @@ class personalManager():
         self.totalPersonal = []     
     def __str__(self) -> str:
         return (str(self.lista_empleado))    
-    def createPersonal(self,typeUser ,name, surname, email, password): 
+    def createPersonal(self,typeUser ,name, surname, email, password,cargo,tarea): 
      
-        personal = Personal(name, surname, email, password, typeUser)
+        personal = Personal(name, surname, email, password, typeUser,cargo,tarea)
         self.lista_empleado.append(personal)
         from Index import instance 
         carpeta='users.csv'
-        instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
+        instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password,cargo=cargo,tarea=tarea)
         print("Usuario creado con éxito, por favor inicie sesión")
-    def cache(self,typeUser ,name, surname, email, password):
-        personal = Personal(name, surname, email, password, typeUser)
+    def cache(self,typeUser ,name, surname, email, password,cargo,tarea):
+        personal = Personal(name, surname, email, password, typeUser,cargo,tarea)
         self.lista_empleado.append(personal)
         return personal
  
