@@ -97,9 +97,11 @@ class menuAdministrador:
             if opcion_menu=='2':
                 pass
             if opcion_menu=='3':
+               pass
+            elif opcion_menu == "4":
                 print("-------------------------------------------------------------------------")
-            #aqui termina el programa
-            return
+                #aqui termina el programa
+                return
         
 
 
