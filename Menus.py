@@ -70,8 +70,42 @@ class menuCliente():
 class menuPersonal:
         def __init__(self) -> None:
             pass
-        def inicio(self, inputemail):
-             pass
+        def bienvenida(self, inputemail):
+            print("-------------------------------------------------------------------------")
+            print("Bienvenido al hotel")
+            print("-------------------------------------------------------------------------")
+            print ("1. Ingresar") #empleado ingresa en el dia a trabajar en el hotel
+            print ("2. Tomar tarea") #empleado toma una tarea para realizar
+            print ("3. Reponer cantidad en el buffet")#empleado repone la cantidad de un alimento en el buffet
+            print ("4. Egreso") #empleado egresa del hotel
+            print ("5.Salir") #empleado cierra sesion 
+            
+            opcion_menu = input("Ingrese una opción: ")
+            from Index import instance
+            if opcion_menu == "1":
+                instance.personalManager.registrar_ingreso(inputemail)
+                print ("Bienvenido. Se registró su ingreso al hotel")
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "2":
+                instance.personalManager.asignacion_tareas(inputemail)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "3":
+                inputalimento=input('Ingrese el alimento que desea reponer: ')
+                inputcant=int(input('Ingrese la cantidad que desea reponer: '))
+
+                instance.buffet.reponer_cant(inputalimento,inputcant)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "4":
+                instance.personalManager.registrar_egreso(inputemail)
+                print ("Hasta luego. Se registró su egreso del hotel")
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "5":
+                print("-------------------------------------------------------------------------")
+                #aqui termina el programa
+                return
+
+               
+                
 class menuAdministrador:
         def __init__(self) -> None:
             pass

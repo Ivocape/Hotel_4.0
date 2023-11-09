@@ -23,12 +23,18 @@ class adminManager:
         self.totalAdmins.append(admin)
         self.lista_mails.add(email)
         return admin
+    def verificacion(self,email,password):
+        for personal in self.lista_empleado:
+            if  password == personal.password and email== personal.email:
+                return True, personal.typeUser
+            return False, None
     
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
         self.lista_tareas=[]
         self.totalPersonal = []
+        self.registros=[]
         self.lista_mails=set()     
     def __str__(self) -> str:
         return (str(self.lista_empleado))    
@@ -52,22 +58,24 @@ class personalManager():
     def verificacion(self,email,password):
         for personal in self.lista_empleado:
             if  password == personal.password and email== personal.email:
-                return True
-            return False
+                return True, personal.typeUser
+            return False, None
 
     def dar_de_baja(self,personal):
         self.lista_empleado.remove(personal) 
         #Aca necesitamos generar un metodo que elimine al personal de la lista de empleados en el CSV
     def nuevatarea(self,tarea):
         self.lista_tareas.append(tarea)
-    def asignacion_tareas(self,user): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
-        if user.tarea == None:
-            for i in range(len(self.lista_tareas)):
-                if user.cargo==self.lista_tareas[i].cargo:
-                    self.tarea=self.lista_tareas.pop(i)
-                    break
-        else:
-            print('Empleado no disponible')
+    def asignacion_tareas(self,email): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
+        for user in self.lista_empleado:
+            if user.email == email:
+                if user.tarea == None:
+                    for i in range(len(self.lista_tareas)):
+                        if user.cargo==self.lista_tareas[i].cargo:
+                            self.tarea=self.lista_tareas.pop(i)
+                            break
+                else:
+                    print('Empleado no disponible')
     def asignacion_tareas_todos(self): #Asignarle tareas a todos
         for i in range(len(self.lista_empleado)):
             if self.lista_empleado[i].tarea == None:
@@ -128,7 +136,8 @@ class clienteManager():
                 
                 return True,cliente.typeUser
         return False,None
-    
+  
+
 
     def pedir_comida(self, cliente, alimento, cant_pedida):
         from Index import instance
