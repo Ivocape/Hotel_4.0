@@ -4,61 +4,6 @@ import datetime
 from reservas import *
 from buffet import *
 
-# class userManager:
-#     def __init__(self) -> None:
-#         self.totalUsers = [] ######### Aca Vamos a tener un problema #####
-#     def mostrarlista(self):
-#         print(self.totalUsers)
-#     # Returns a new instantiation of the User Class for storage in a variable
-#     # Instantiations can be accessed later by accessing the __totalUsers array
-#     def cacheUser(self, typeUser ,name, surname, email, password):
-#         user = User(typeUser,name, surname, email, password)
-#         self.totalUsers.append(user)
-
-#         print ("cache sumado")
-#         print(self.totalUsers)  
-#         if typeUser == "admin 1234":
-#             admin = Administrador(name, surname, email, password)
-#             from Index import instance
-#             instance.adminManager.totalAdmins.append(admin)
-#         elif typeUser == "cliente":
-#             cliente = Cliente(name, surname, email, password)
-#             from Index import instance 
-#             instance.clienteManager.lista_cliente.append(cliente)
-            
-#         elif typeUser == "personal 1234":
-#             personal = Personal(name, surname, email, password)
-#             from Index import instance 
-#             instance.personalManager.totalPersonal.append(personal)
-
-#         return user
-#     def createUser(self, typeUser ,name, surname, email, password):
-#         user = User(typeUser,name, surname, email, password)
-#         self.totalUsers.append(user)
-#         print(self.totalUsers)
-#         print(self)
-#         from Index import instance 
-#         instance.discoHotel1.escribir(typeUser,name, surname, email, password) #NO LO VAMOS A USAR MAS NO CAMBIAR CSV
-        
-#         return self.totalUsers
-
-    # # Validates the password of a specific user against a preset password
-    # # This will return  if the password is valid and False if it is not
-    # def validateUser(self,email, password):
-    #     #aca tengo que hacer un for para leer una lista de usuarios y encontrar el usuario que quiero. luego comparar las contraseñas.
-    #     from Index import instance
-    #     for user in instance.discoHotel1.users:
-    #         if user['email'] == email:    
-    #             if password == user['password']:
-    #                 print ("Bienvenido, usted ha ingresado correctamente al sistema")
-    #                 return True
-    #             else:
-    #                 print("La contraseña es incorrecta")
-    #                 return False
-    #         else:
-    #             print("El usuario no existe")
-    #             return False
-
 class adminManager:
     def __init__(self) -> None:
         self.totalAdmins = []
@@ -171,7 +116,7 @@ class clienteManager():
             if  password == cliente.password and email== cliente.email:
                 
                 return True,cliente.typeUser
-        return False
+        return False,None
     
 
     def pedir_comida(self, cliente, alimento, cant_pedida):
