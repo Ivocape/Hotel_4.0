@@ -70,9 +70,7 @@ class DiscoDuro():
                             contenido = archivo.read()
                             from Index import instance
                             instance.buffet.cache(contenido)
-                        # Mostrar el contenido del archivo
-                            print(contenido)
-                                                
+                       
 
 
                         #read txt
