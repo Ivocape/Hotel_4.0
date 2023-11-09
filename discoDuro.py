@@ -1,7 +1,6 @@
 import csv
 #####################################################################################
 # ESTE DISCO DURO DEBE DE ENCARGARSE DE GUARDAR TODA INFORMACION DE USUARIOS, CLIENTES, PERSONAL, ADMINS,
-#z
 #####################################################################################
 class DiscoDuro():
     # Create a list to store the user information
@@ -33,12 +32,9 @@ class DiscoDuro():
                             instance.personalManager.cache(typeUser,name, surname, email, password)
                           
                     
-                    # # Print the user information
-                    # for user in instance.userManager.totalUsers:
-                    #     print(user.name, user.surname, user.email, user.password, user.typeUser)
-                    #     print ("-------------------------------------------------------------------------")
-
+                 
                 case 'reservas.csv':
+<<<<<<< HEAD
                     #cliente, fecha_inicio, fecha_fin, tipo_habit,balcon,bano, numero de reserva, precio
                     for row in reader:
                         # Extract the user information from the row
@@ -52,6 +48,20 @@ class DiscoDuro():
                         numero_reserva= row[6]
                         total_reserva= row[7]
                     pass
+=======
+                 
+                    for row in reader:
+                        # Extract the user information from the row
+                        nro_reserva = row[0]
+                        mail = row[1]
+                        nro_habitacion = row[2]
+                        fecha_inicio = row[3]
+                        fecha_fin = row[4]
+                        total = row[5]
+                        
+                        from Index import instance
+                        instance.reservaManager.cache(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total)
+>>>>>>> 75aaeac3940b2f808328159d6995ed4a8e25e7be
                 case 'room.csv':
                     #numero de habitacion, tipo, capacidad, baño, balcon, precio de la noche
                     #nro_habitacion,tipo,capacidad,precio,bano,balcon
@@ -69,13 +79,32 @@ class DiscoDuro():
                         from Index import instance
                         instance.roomManager.cache(nro_habitacion,tipo,capacidad,precio,baño,balcon)
                     pass
-                case 'buffet.csv':
-                      #menu, precio, stock 
-                      pass
+                case 'buffet.txt':
+                      #here we have to read a txt file who has a dictionary with the menu
+                    with open("buffet.txt", 'r') as archivo:
+                            # Leer el contenido del archivo y guardarlo en una variable
+                            contenido = archivo.read()
+                            from Index import instance
+                            instance.buffet.cache(contenido)
+                        # Mostrar el contenido del archivo
+                            print(contenido)
+                                                
+
+
+                        #read txt
+                        #convert txt to dictionary
+                        #create buffet instance
+                        #add menu to buffet instance
+                        #close txt
+
+                     
+
+
+
 
 
     def escribir (self, carpeta, **kwargs):
-        from Index import instance #Aca importamos la instancia de la clase Hotel
+        #Aca importamos la instancia de la clase Hotel
         match carpeta:
             case 'users.csv':
                 # Open the CSV file in append mode
@@ -91,13 +120,22 @@ class DiscoDuro():
                 with open('reservas.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+<<<<<<< HEAD
                     
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['cliente'], kwargs['fecha_inicio'], kwargs['fecha_fin'],kwargs['tipo_habit'],kwargs['bacon'], kwargs['baño'], kwargs['numero_reserva'],kwargs['total_reserva']])
                 pass
+=======
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['nro_reserva'], kwargs['mail'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['nro_habitacion'],kwargs['total']])
+>>>>>>> 75aaeac3940b2f808328159d6995ed4a8e25e7be
             case 'room.csv':
-                pass
+                with open('room.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['nro_habitacion'], kwargs['tipo'],kwargs['capacidad'],kwargs['precio'],kwargs['baño'],kwargs['balcon']])
             case 'buffet.csv':
                 pass
-
-

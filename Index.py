@@ -15,7 +15,7 @@ class Hotel:
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
     def setup(self):
 
-        listacsv=['users.csv', 'reservas.csv', 'room.csv','buffet.csv']
+        listacsv=['users.csv', 'reservas.csv', 'room.csv','buffet.txt']
         for carpeta in listacsv:
             self.discoHotel1.leerSETUP(carpeta)
     def run(self):
@@ -53,12 +53,25 @@ class Hotel:
             elif opcion == "2":
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
-                if   self.clienteManager.verificacion(inputemail,inputpassword) == True:
-                    while True:
-                        self.menuCliente.bienvenida(inputemail)
-                        if input("¿Desea cerrar seccion? (s/n): ") == "s":
-                            break
-                   
+                flag,typeUser = self.clienteManager.verificacion(inputemail,inputpassword)
+                if flag == True:
+                    match typeUser: 
+                        case "cliente": 
+                                while True:
+                                    self.menuCliente.bienvenida(inputemail)
+                                    if input("¿Desea cerrar seccion? (s/n): ") == "s":
+                                        break
+                        case "personal 1234":
+                            while True:
+                                self.menuPersonal.inicio(inputemail)
+                                if input("¿Desea cerrar seccion? (s/n): ") == "s":
+                                    break
+                        case "admin 1234":
+                            while True:
+                                self.menuAdministrador.inicio(inputemail)
+                                if input("¿Desea cerrar seccion? (s/n): ") == "s":
+                                    break
+                                                
                 else:
                     print("Usuario o contraseña incorrectos")
                     print("-------------------------------------------------------------------------")
