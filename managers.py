@@ -119,11 +119,7 @@ class clienteManager():
     def verificacion(self,email,password):
         ######## VALIDACION DE USUARIOS #########
         for cliente in self.lista_cliente:
-            print(cliente.password)
-            print(cliente.email)
-            print(password)
-            print(cliente.typeUser)
-            print(email)
+            
             if  password == cliente.password and email== cliente.email:
                 
                 return True,cliente.typeUser

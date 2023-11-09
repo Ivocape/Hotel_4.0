@@ -55,6 +55,7 @@ class Hotel:
             elif opcion == "2":
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")
+                
                 flag,typeUser = self.clienteManager.verificacion(inputemail,inputpassword)
                 if flag == True:
                     match typeUser: 
