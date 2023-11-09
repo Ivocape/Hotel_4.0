@@ -101,7 +101,7 @@ class DiscoDuro():
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                     #quiero diferenciar segun el tipo de usuario
                     if kwargs["typeUser"] == "personal 1234":
-                        writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"],kwargs['cargo']],kwargs['tarea'])
+                        writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"],kwargs['cargo'],kwargs['tarea']])
                     else:
                     # Write the user information to the CSV file
                         writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"]])
