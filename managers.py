@@ -109,9 +109,10 @@ class personalManager():
                 return True
             return False
 
-    def dar_de_baja(self,personal):
-        self.lista_empleado.remove(personal) 
-        #Aca necesitamos generar un metodo que elimine al personal de la lista de empleados en el CSV
+    def dar_de_baja(self,inputbaja):
+        self.lista_empleado.remove(inputbaja) 
+        from Index import instance
+        instance.discoHotel1.eliminar_personal(inputbaja)
     def nuevatarea(self,tarea):
         self.lista_tareas.append(tarea)
     def asignacion_tareas(self,user): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV

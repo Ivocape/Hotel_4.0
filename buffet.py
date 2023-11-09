@@ -1,11 +1,14 @@
 import datetime
+
 class Buffet:
     def __init__ (self):
         self.menu={}
         self.lista_pedidos=[]
-    def cache(self, contenido):
-        self.menu = eval(contenido)
-        
+    def cache(self, alimento, precio, cant):
+        self.menu[alimento]=("$"+ precio,cant) #esto tambien es una tupla
+
+        #self.menu[alimento] = ("$"+ precio,cant -1)
+      
     def agregar_menu (self, alimento, precio):
         self.menu [alimento]=("$"+ precio,0) 
 

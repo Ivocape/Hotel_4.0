@@ -1,4 +1,5 @@
 import csv
+import pandas as pd
 #####################################################################################
 # ESTE DISCO DURO DEBE DE ENCARGARSE DE GUARDAR TODA INFORMACION DE USUARIOS, CLIENTES, PERSONAL, ADMINS,
 #####################################################################################
@@ -65,23 +66,19 @@ class DiscoDuro():
                         from Index import instance
                         instance.roomManager.cache(nro_habitacion,tipo,capacidad,precio,baño,balcon)
                     pass
-                # case 'buffet.txt':
-                #       #here we have to read a txt file who has a dictionary with the menu
-                #     with open("buffet.txt", 'r') as archivo:
-                #             # Leer el contenido del archivo y guardarlo en una variable
-                #             contenido = archivo.read()
-                #             from Index import instance
-                #             instance.buffet.cache(contenido)
-                #         # Mostrar el contenido del archivo
-                #             print(contenido)
-                                                
+                case 'buffet.txt':
+                      #here we have to read a txt file who has a dictionary with the menu
+                    with open("buffet.txt", 'r') as archivo:
+                            # Leer el contenido del archivo y guardarlo en una variable
+                            contenido = archivo.read()
+                            for line in contenido.splitlines():
+                                alimento, precio, cant = line.split(',')
+                                from Index import instance
+                                instance.buffet.cache(alimento, precio, cant)
+                            
+                                                  
 
 
-                        #read txt
-                        #convert txt to dictionary
-                        #create buffet instance
-                        #add menu to buffet instance
-                        #close txt
 
                      
 
@@ -121,3 +118,7 @@ class DiscoDuro():
                     writer.writerow([kwargs['nro_habitacion'], kwargs['tipo'],kwargs['capacidad'],kwargs['precio'],kwargs['baño'],kwargs['balcon']])
             case 'buffet.csv':
                 pass
+    def eliminar_personal(self, inputbaja):
+            df=pd.read_csv('users.csv')
+            df=df[df['email']!= inputbaja]
+            df.to_csv('users.csv',index=False)
