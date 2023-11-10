@@ -23,7 +23,22 @@ class adminManager:
         self.totalAdmins.append(admin)
         self.lista_mails.add(email)
         return admin
-    
+    def verificacion(self,email,password):
+        for admin in self.totalAdmins:
+            if  password == admin.password and email== admin.email:
+                return True
+            return False
+    def mostrar_informe(self):
+        #porcentaje de ocupacion del hotel
+     
+        from Index import instance
+        current=instance.roomManager.head
+        
+        while current is not None:
+            cantidad_habitaciones = cantidad_habitaciones + 1
+            
+        #porcentaje de ocupacion de habitaciones por tipo de habitacion
+
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
@@ -141,6 +156,8 @@ class roomManager():
         new_node=Nodo(habitacion)
         new_node.prox = self.head
         self.head = new_node
+        cantidad_habitaciones = cantidad_habitaciones + 1
+        
        
     def delete(self, value):
         
@@ -202,8 +219,10 @@ class roomManager():
 class reservaManager():
     def __init__ (self):
         self.reservas={ }
+        self.reservas_en_lista=[]
     def agregar_reserva(self,reserva):
         self.reservas[reserva.nro_reserva]= reserva
+        self.reservas_en_lista.append(reserva)
         
     def reservar (self, cliente, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
         

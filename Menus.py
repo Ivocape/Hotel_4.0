@@ -95,7 +95,11 @@ class menuAdministrador:
                     print('El email ingresado no corresponde a ningun empleado')
                 print("-------------------------------------------------------------------------")   
             if opcion_menu=='2':
-                pass
+                print("-------------------------------------------------------------------------")
+                print("Informe")
+                print("-------------------------------------------------------------------------")
+                instance.adminManager.mostrar_informe()
+                print("-------------------------------------------------------------------------")
             if opcion_menu=='3':
                pass
             elif opcion_menu == "4":

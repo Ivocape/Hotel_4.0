@@ -122,3 +122,4 @@ class DiscoDuro():
             df=pd.read_csv('users.csv')
             df=df[df['email']!= inputbaja]
             df.to_csv('users.csv',index=False)
+    
