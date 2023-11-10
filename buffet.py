@@ -10,9 +10,9 @@ class Buffet:
         #self.menu[alimento] = ("$"+ precio,cant -1)
       
     def agregar_menu (self, alimento, precio):
-        self.menu [alimento]=("$"+ precio,0) 
+        self.menu [alimento]=("$"+ str(precio),0) 
         from Index import instance
-        instance.discoHotel1.escribir('buffet.csv',alimento,precio,0)
+        instance.discoHotel1.escribir(carpeta='buffet.csv',alimento=alimento,precio=precio,cant=0)
     def reponer_cant (self, alimento, cant):
         for alimento, (precio, cant) in self.menu.items():
             self.menu[alimento]=(self.menu[alimento][0],cant)

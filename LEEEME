@@ -13,3 +13,8 @@ De otra forma si eliminamos reservas el programa se crashea. Ademas no se entien
 - historial de pedidos buffet
 - guardar los datos de factura y poder categorizarlo
 - poner un 'ir para atras' en todas las instancias del menú
+
+Instrucciones:
+- Para poder ejecutar el codigo, se debe tener la libreria Pandas instalada.
+- Para instalarla, abrir la consola de comandos y escribir: pip install pandas
+- Para correr el codigo se haces desde HOTEL 4.0.py

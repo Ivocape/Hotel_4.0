@@ -135,6 +135,7 @@ class menuAdministrador:
                 print("Informe")
                 print("-------------------------------------------------------------------------")
                 instance.adminManager.mostrar_informe()
+                print(f'El porcentaje de ocupacion del hotel es de {instance.adminManager.porcentaje_ocupacion()}%')
                 print("-------------------------------------------------------------------------")
             elif opcion_menu=='3':
                 instance.personalManager.mostrar_personal()

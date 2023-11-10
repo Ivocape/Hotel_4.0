@@ -130,7 +130,7 @@ class DiscoDuro():
     def eliminar_personal(self, inputbaja):
             df=pd.read_csv('users.csv')
             df=df[df['email']!= inputbaja]
-            df.to_csv('users.csv',index=False)
+            df.to_csv('users.csv',index=False) 
     def eliminar_alimento(self, inputbaja):
             df=pd.read_csv('buffet.csv')
             df=df[df['alimento']!= inputbaja]

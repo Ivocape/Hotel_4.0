@@ -26,18 +26,24 @@ class adminManager:
     def verificacion(self,email,password):
         for admin in self.totalAdmins:
             if  password == admin.password and email== admin.email:
-                return True
-            return False
+                return True, admin.typeUser
+            return False, None
     def mostrar_informe(self):
         #porcentaje de ocupacion del hotel
      
         from Index import instance
         current=instance.roomManager.head
-        
+        cantidad_habitaciones = 0
         while current is not None:
             cantidad_habitaciones = cantidad_habitaciones + 1
-            
+        for reserva in instance.reservaManager.reservas_en_lista:
+            if reserva.fecha_fin >= datetime.datetime.now() and reserva.fecha_inicio <= datetime.datetime.now():
+                cantidad_habitaciones_ocupadas = cantidad_habitaciones_ocupadas + 1
+        porcentaje_ocupacion = (cantidad_habitaciones_ocupadas/cantidad_habitaciones)*100
+        return porcentaje_ocupacion 
+     
         #porcentaje de ocupacion de habitaciones por tipo de habitacion
+        
 
 class personalManager():
     def __init__(self):
@@ -190,7 +196,7 @@ class roomManager():
         new_node=Nodo(habitacion)
         new_node.prox = self.head
         self.head = new_node
-        cantidad_habitaciones = cantidad_habitaciones + 1
+      
         
        
     def delete(self, value):
