@@ -24,9 +24,9 @@ class adminManager:
         self.lista_mails.add(email)
         return admin
     def verificacion(self,email,password):
-        for personal in self.lista_empleado:
-            if  password == personal.password and email== personal.email:
-                return True, personal.typeUser
+        for admin in self.totalAdmins:
+            if  password == admin.password and email== admin.email:
+                return True, admin.typeUser
             return False, None
     
 class personalManager():
