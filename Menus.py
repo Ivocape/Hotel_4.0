@@ -116,7 +116,8 @@ class menuAdministrador:
             print ("1. Dar de baja personal")
             print ("2. Recibir informe")
             print ("3. Asignar tareas")
-            print ("4. Salir")
+            print ('4. Agregar/eliminar opciones al buffet')
+            print ("5. Salir")
             opcion_menu = input("Ingrese una opción: ")
             from Index import instance
             if opcion_menu=='1':
@@ -128,11 +129,24 @@ class menuAdministrador:
                 else :
                     print('El email ingresado no corresponde a ningun empleado')
                 print("-------------------------------------------------------------------------")   
-            if opcion_menu=='2':
+            elif opcion_menu=='2':
                 pass
-            if opcion_menu=='3':
+            elif opcion_menu=='3':
                pass
-            elif opcion_menu == "4":
+            elif opcion_menu=='4':
+                instance.buffet.mostrar_menu()
+                inputagregar=input('Desea agregar alguna opcion al menu? (s/n): ')
+                if inputagregar=='s':
+                    inputalimento=input('Ingrese el alimento que desea agregar: ')
+                    inputprecio=int(input('Ingrese el precio del alimento: '))
+                    instance.buffet.agregar_menu(inputalimento,inputprecio)
+                else:
+                    inputeliminar=input('Desea eliminar alguna opcion del menu? (s/n): ')
+                    if inputeliminar=='s':
+                        inputalimento=input('Ingrese el alimento que desea eliminar: ')
+                        instance.buffet.eliminar_alimento(inputalimento)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "5":
                 print("-------------------------------------------------------------------------")
                 #aqui termina el programa
                 return
