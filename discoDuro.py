@@ -72,6 +72,13 @@ class DiscoDuro():
                         cant = row[2]
                         from Index import instance
                         instance.buffet.cache(alimento, precio, cant)
+                case 'tareas.csv':
+                    for row in reader:
+                        tarea = row[0]
+                        cargo = row[1]
+                        from Index import instance
+                        instance.personalManager.cache_tarea(tarea, cargo)
+
                             
 
     def escribir (self, carpeta, **kwargs):
@@ -111,6 +118,13 @@ class DiscoDuro():
 
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['alimento'], kwargs['precio'],kwargs['cant']])
+            case 'tareas.csv':
+                with open('tareas.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['tarea'], kwargs['cargo']])
 
             
     def eliminar_personal(self, inputbaja):

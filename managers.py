@@ -3,7 +3,7 @@ from habitacion import *
 import datetime
 from reservas import *
 from buffet import *
-
+from tareas import *
 class adminManager:
     def __init__(self) -> None:
         self.totalAdmins = []
@@ -65,8 +65,12 @@ class personalManager():
         self.lista_empleado.remove(inputbaja) 
         from Index import instance
         instance.discoHotel1.eliminar_personal(inputbaja)
-    def nuevatarea(self,tarea):
+    def nuevatarea(self,tarea,cargo):
+        tarea=Tarea(tarea,cargo)
         self.lista_tareas.append(tarea)
+        from Index import instance
+        instance.discoHotel1.escribir('tareas.csv',tarea,cargo)
+        
     def asignacion_tareas(self,email): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
         for user in self.lista_empleado:
             if user.email == email:
@@ -77,6 +81,15 @@ class personalManager():
                             break
                         else:
                             print('No hay tareas disponibles para el cargo')
+    def cache_tarea(self,tarea,cargo):
+        tarea=Tarea(tarea,cargo)
+        self.lista_tareas.append(tarea)
+        return tarea
+    def mostrar_tareas(self):
+        print('Tareas disponibles:')
+        for tarea in self.lista_tareas:
+            print(f'{tarea.tarea} - {tarea.cargo}')
+
     def asignacion_tareas_todos(self): #Asignarle tareas a todos
         for i in range(len(self.lista_empleado)):
             if self.lista_empleado[i].tarea == None:

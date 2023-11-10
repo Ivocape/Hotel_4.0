@@ -116,8 +116,9 @@ class menuAdministrador:
             print ("1. Dar de baja personal")
             print ("2. Recibir informe")
             print ("3. Asignar tareas")
-            print ('4. Agregar/eliminar opciones al buffet')
-            print ("5. Salir")
+            print('4. Crear tarea')
+            print ('5. Agregar/eliminar opciones al buffet')
+            print ("6. Salir")
             opcion_menu = input("Ingrese una opción: ")
             from Index import instance
             if opcion_menu=='1':
@@ -132,8 +133,20 @@ class menuAdministrador:
             elif opcion_menu=='2':
                 pass
             elif opcion_menu=='3':
-               pass
+                instance.personalManager.mostrar_personal()
+                instance.personalManager.mostrar_tareas()
+                inputemail=input('Ingrese el email del personal que desea asignar tarea: ')
+                if inputemail in instance.personalManager.lista_empleado:
+                    instance.personalManager.asignacion_tareas(inputemail)
+                else :
+                    print('El email ingresado no corresponde a ningun empleado o está ocupado') ######ESTA OCUPADO????####
+                print("-------------------------------------------------------------------------")
             elif opcion_menu=='4':
+                inputtarea=input('Ingrese la tarea que desea agregar: ')
+                inputcargo=input('Ingrese el cargo al que pertenece la tarea: ')
+                instance.personalManager.nuevatarea(inputtarea,inputcargo)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu=='5':
                 instance.buffet.mostrar_menu()
                 inputagregar=input('Desea agregar alguna opcion al menu? (s/n): ')
                 if inputagregar=='s':
@@ -146,7 +159,7 @@ class menuAdministrador:
                         inputalimento=input('Ingrese el alimento que desea eliminar: ')
                         instance.buffet.eliminar_alimento(inputalimento)
                 print("-------------------------------------------------------------------------")
-            elif opcion_menu == "5":
+            elif opcion_menu == "6":
                 print("-------------------------------------------------------------------------")
                 #aqui termina el programa
                 return
