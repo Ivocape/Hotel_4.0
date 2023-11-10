@@ -70,13 +70,13 @@ class personalManager():
     def asignacion_tareas(self,email): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
         for user in self.lista_empleado:
             if user.email == email:
-                if user.tarea == None:
-                    for i in range(len(self.lista_tareas)):
+                for i in range(len(self.lista_tareas)):
                         if user.cargo==self.lista_tareas[i].cargo:
-                            self.tarea=self.lista_tareas.pop(i)
+                            user.tarea=self.lista_tareas.pop(i)
+                            print(f'Tarea {user.tarea} asignada con exito')
                             break
-                else:
-                    print('Empleado no disponible')
+                        else:
+                            print('No hay tareas disponibles para el cargo')
     def asignacion_tareas_todos(self): #Asignarle tareas a todos
         for i in range(len(self.lista_empleado)):
             if self.lista_empleado[i].tarea == None:
@@ -95,7 +95,7 @@ class personalManager():
         self.registros.append(['Egreso',empleado,datetime.datetime.now()])
     def mostrar_personal(self):
         for empleado in self.lista_empleado:
-            print(f'{empleado.nombre} - {empleado.apellido} - {empleado.email} - {empleado.cargo}')
+            print(f'{empleado.name} - {empleado.surname} - {empleado.email} - {empleado.cargo}')
     
     
 class clienteManager():

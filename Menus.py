@@ -78,7 +78,7 @@ class menuPersonal:
             print ("2. Tomar tarea") #empleado toma una tarea para realizar
             print ("3. Reponer cantidad en el buffet")#empleado repone la cantidad de un alimento en el buffet
             print ("4. Egreso") #empleado egresa del hotel
-            print ("5.Salir") #empleado cierra sesion 
+            print ("5. Salir") #empleado cierra sesion 
             
             opcion_menu = input("Ingrese una opción: ")
             from Index import instance
