@@ -28,8 +28,7 @@ class Hotel:
         while start == "s":
             print("1. Registrarse")
             print("2. Iniciar sesión")
-            print("3. Modificar datos")
-            print("4. Salir")
+            print("3. Salir")
             
             opcion = input("Ingrese una opción: ")
             
@@ -86,15 +85,7 @@ class Hotel:
                     print("Usuario o contraseña incorrectos")
                     print("-------------------------------------------------------------------------")
                                 
-                
-
             elif opcion == "3":
-                # inputnombre = input("Ingrese su nombre: ")
-                    # inputpassword = input("Ingrese su contraseña: ")
-                # self.userManager.modifyUser(inputnombre,inputpassword)
-                print("-------------------------------------------------------------------------")
-           
-            elif opcion == "4":
                 print("Gracias por utilizar nuestros servicios")
                 break
 instance = Hotel()           

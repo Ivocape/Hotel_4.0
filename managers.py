@@ -34,16 +34,50 @@ class adminManager:
         from Index import instance
         current=instance.roomManager.head
         cantidad_habitaciones = 0
+        cantidad_habitaciones_ocupadas = 0
+        porcentaje_ocupacion = 0
+        HabitacionesSuite = 0
+        HabitacionesDobles = 0
+        HabitacionesSimples = 0
+        HabitacionesSuiteOcupadas = 0
+        HabitacionesDoblesOcupadas = 0
+        HabitacionesSimplesOcupadas = 0
+
         while current is not None:
             cantidad_habitaciones = cantidad_habitaciones + 1
+            if current.habitacion.tipo == "simple":
+                HabitacionesSimples = HabitacionesSimples + 1
+            elif current.habitacion.tipo == "doble":
+                HabitacionesDobles = HabitacionesDobles + 1
+            elif current.habitacion.tipo == "suite":
+                HabitacionesSuite = HabitacionesSuite + 1
+
+            current=current.prox
         for reserva in instance.reservaManager.reservas_en_lista:
-            if reserva.fecha_fin >= datetime.datetime.now() and reserva.fecha_inicio <= datetime.datetime.now():
+            if datetime.datetime.strptime(reserva.fecha_fin,"%Y-%m-%d %H:%M:%S")>= datetime.datetime.now() and datetime.datetime.strptime(reserva.fecha_inicio,"%Y-%m-%d %H:%M:%S") <= datetime.datetime.now():
                 cantidad_habitaciones_ocupadas = cantidad_habitaciones_ocupadas + 1
+                if reserva.nro_habitacion.split()[-1][-1] == "C":
+                    HabitacionesSimplesOcupadas = HabitacionesSimplesOcupadas + 1
+                elif reserva.nro_habitacion.split()[-1][-1] == "B":
+                    HabitacionesDoblesOcupadas = HabitacionesDoblesOcupadas + 1
+                elif reserva.nro_habitacion.split()[-1][-1] == "A":
+                    HabitacionesSuiteOcupadas = HabitacionesSuiteOcupadas + 1
+
         porcentaje_ocupacion = (cantidad_habitaciones_ocupadas/cantidad_habitaciones)*100
-        return porcentaje_ocupacion 
+        porcentaje_ocupacion_simples = (HabitacionesSimplesOcupadas/HabitacionesSimples)*100
+        porcentaje_ocupacion_dobles = (HabitacionesDoblesOcupadas/HabitacionesDobles)*100
+        porcentaje_ocupacion_suite = (HabitacionesSuiteOcupadas/HabitacionesSuite)*100
+
+        print("El porcentaje de ocupacion es de: " + str(porcentaje_ocupacion) + "%")
+        print("El porcentaje de ocupacion de habitaciones simples es de: " + str(porcentaje_ocupacion_simples) + "%")
+        print("El porcentaje de ocupacion de habitaciones dobles es de: " + str(porcentaje_ocupacion_dobles) + "%")
+        print("El porcentaje de ocupacion de habitaciones suite es de: " + str(porcentaje_ocupacion_suite) + "%")
+
+        return porcentaje_ocupacion, porcentaje_ocupacion_simples, porcentaje_ocupacion_dobles, porcentaje_ocupacion_suite
      
         #porcentaje de ocupacion de habitaciones por tipo de habitacion
         
+    
 
 class personalManager():
     def __init__(self):
@@ -162,7 +196,7 @@ class clienteManager():
         return False,None
 
     
-    def reservar(self, email, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
+    def reservar(self, email, fecha_inicio,fecha_fin, tipo_habit,bano,balcon):
         from Index import instance
         total=instance.reservaManager.reservar(email, fecha_inicio,fecha_fin, tipo_habit,balcon,bano)
         for cliente in self.lista_cliente:
@@ -182,7 +216,11 @@ class clienteManager():
         for cliente in self.lista_cliente:
             if cliente.email == email:
                 return cliente.calcular_total()
-   
+    def modificar_datos(self,email):
+        for cliente in self.lista_cliente:
+            if cliente.email == email:
+                
+                break
 
 class roomManager():
     

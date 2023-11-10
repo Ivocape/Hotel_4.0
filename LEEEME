@@ -13,6 +13,8 @@ De otra forma si eliminamos reservas el programa se crashea. Ademas no se entien
 - historial de pedidos buffet
 - guardar los datos de factura y poder categorizarlo
 - poner un 'ir para atras' en todas las instancias del menú
+- Se podria mejorar lo de las estadisticas para que en ves de utilizar "Lista_de_reservas" 
+  se utilice la lista enlazada de reservas. (Ya que existe un error muy pequeño y dificil de encontrar que ocurre con lista_de_reservas)
 
 Instrucciones:
 - Para poder ejecutar el codigo, se debe tener la libreria Pandas instalada.

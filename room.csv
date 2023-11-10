@@ -1,3 +1,11 @@
-101,simple,4,1000,s,n
-102,doble,8,2000,s,s
-103,suite,2,5000,s,s
+101C,simple,4,1000,s,n
+102B,doble,8,2000,s,s
+103A,suite,2,5000,s,s
+104C,simple,4,1000,n,n
+105B,doble,8,2000,s,n
+106A,suite,2,5000,s,s
+107C,simple,4,1000,s,s
+108B,doble,8,2000,n,s
+109A,suite,2,5000,s,n
+110C,simple,4,1000,s,n
+111B,doble,8,2000,s,s

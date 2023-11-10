@@ -10,7 +10,8 @@ class menuCliente():
         print ("1. Ver habitaciónes")
         print ("2. Ver mis reservas")
         print ("3. Ver Menú del Buffet")
-        print ("4. Salir")
+        print ("4. Modificar mis datos")
+        print ("5. Salir")
         
         opcion_menu = input("Ingrese una opción: ")
         from Index import instance
@@ -62,6 +63,12 @@ class menuCliente():
             print("-------------------------------------------------------------------------")
         
         elif opcion_menu == "4":
+            print("-------------------------------------------------------------------------")
+            print("Modificar mis datos")
+            print("-------------------------------------------------------------------------")
+            instance.clienteManager.modificar_datos(inputemail)
+            print("-------------------------------------------------------------------------")
+        elif opcion_menu == "5":
             
             print("-------------------------------------------------------------------------")
             #aqui termina el programa
@@ -135,7 +142,6 @@ class menuAdministrador:
                 print("Informe")
                 print("-------------------------------------------------------------------------")
                 instance.adminManager.mostrar_informe()
-                print(f'El porcentaje de ocupacion del hotel es de {instance.adminManager.porcentaje_ocupacion()}%')
                 print("-------------------------------------------------------------------------")
             elif opcion_menu=='3':
                 instance.personalManager.mostrar_personal()
