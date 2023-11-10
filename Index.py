@@ -1,7 +1,7 @@
 from managers import * 
 from discoDuro import DiscoDuro
 from buffet import Buffet
-from Menus import menuCliente
+from Menus import menuCliente, menuPersonal, menuAdministrador
 class Hotel:
     def __init__(self):
         self.clienteManager=clienteManager()
@@ -12,6 +12,9 @@ class Hotel:
         self.discoHotel1 = DiscoDuro()
         self.buffet = Buffet()
         self.menuCliente = menuCliente()
+        self.menuPersonal = menuPersonal()
+        self.menuAdministrador = menuAdministrador()
+
         #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
     def setup(self):
 
@@ -57,6 +60,10 @@ class Hotel:
                 inputpassword = input("Ingrese su contraseña: ")
                 
                 flag,typeUser = self.clienteManager.verificacion(inputemail,inputpassword)
+                if flag == False:
+                    flag,typeUser = self.personalManager.verificacion(inputemail,inputpassword)
+                if flag == False:
+                    flag,typeUser = self.adminManager.verificacion(inputemail,inputpassword)    
                 if flag == True:
                     match typeUser: 
                         case "cliente": 
@@ -66,7 +73,7 @@ class Hotel:
                                         break
                         case "personal 1234":
                             while True:
-                                self.menuPersonal.inicio(inputemail)
+                                self.menuPersonal.bienvenida(inputemail)
                                 if input("¿Desea cerrar sesion? (s/n): ") == "s":
                                     break
                         case "admin 1234":

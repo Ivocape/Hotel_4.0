@@ -13,10 +13,10 @@ class Buffet:
         self.menu [alimento]=("$"+ precio,0) 
 
     def reponer_cant (self, alimento, cant):
-        if alimento in self.menu:
+        for alimento, (precio, cant) in self.menu.items():
             self.menu[alimento]=(self.menu[alimento][0],cant)
         else:
-            print("El pedido " + {alimento} + " no se encuentra en el menú")
+            print(f"El pedido {alimento} no se encuentra en el menú")
 
     def modificar_precio (self, alimento, precio):
         if alimento in self.menu:
