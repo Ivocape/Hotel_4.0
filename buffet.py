@@ -28,6 +28,8 @@ class Buffet:
     def eliminar_alimento (self, alimento):
         if alimento in self.menu:
             del self.menu[alimento]
+            from Index import instance
+            instance.discoHotel1.eliminar_alimento(alimento)
         else:
             print("La orden " + {alimento} + " no se encuentra disponible")
 
