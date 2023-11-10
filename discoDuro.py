@@ -70,8 +70,8 @@ class DiscoDuro():
                         alimento = row[0]
                         precio = row[1]
                         cant = row[2]
-                    from Index import instance
-                    instance.buffet.cache(alimento, precio, cant)
+                        from Index import instance
+                        instance.buffet.cache(alimento, precio, cant)
                             
 
     def escribir (self, carpeta, **kwargs):
