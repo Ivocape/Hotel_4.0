@@ -69,7 +69,7 @@ class personalManager():
         tarea=Tarea(tarea,cargo)
         self.lista_tareas.append(tarea)
         from Index import instance
-        instance.discoHotel1.escribir('tareas.csv',tarea,cargo)
+        instance.discoHotel1.escribir(carpeta = 'tareas.csv',tarea = tarea.tarea,cargo = tarea.cargo)
         
     def asignacion_tareas(self,email): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
         for user in self.lista_empleado:
