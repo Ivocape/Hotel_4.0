@@ -3,7 +3,7 @@ from habitacion import *
 import datetime
 from reservas import *
 from buffet import *
-
+from tareas import *
 class adminManager:
     def __init__(self) -> None:
         self.totalAdmins = []
@@ -44,6 +44,7 @@ class personalManager():
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
         self.lista_tareas=[]
         self.totalPersonal = []
+        self.registros=[]
         self.lista_mails=set()     
     def __str__(self) -> str:
         return (str(self.lista_empleado))    
@@ -67,23 +68,38 @@ class personalManager():
     def verificacion(self,email,password):
         for personal in self.lista_empleado:
             if  password == personal.password and email== personal.email:
-                return True
-            return False
+                return True, personal.typeUser
+            return False, None
 
     def dar_de_baja(self,inputbaja):
         self.lista_empleado.remove(inputbaja) 
         from Index import instance
         instance.discoHotel1.eliminar_personal(inputbaja)
-    def nuevatarea(self,tarea):
+    def nuevatarea(self,tarea,cargo):
+        tarea=Tarea(tarea,cargo)
         self.lista_tareas.append(tarea)
-    def asignacion_tareas(self,user): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
-        if user.tarea == None:
-            for i in range(len(self.lista_tareas)):
-                if user.cargo==self.lista_tareas[i].cargo:
-                    self.tarea=self.lista_tareas.pop(i)
-                    break
-        else:
-            print('Empleado no disponible')
+        from Index import instance
+        instance.discoHotel1.escribir(carpeta = 'tareas.csv',tarea = tarea.tarea,cargo = tarea.cargo)
+        
+    def asignacion_tareas(self,email): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
+        for user in self.lista_empleado:
+            if user.email == email:
+                for i in range(len(self.lista_tareas)):
+                        if user.cargo==self.lista_tareas[i].cargo:
+                            user.tarea=self.lista_tareas.pop(i)
+                            print(f'Tarea {user.tarea} asignada con exito')
+                            break
+                        else:
+                            print('No hay tareas disponibles para el cargo')
+    def cache_tarea(self,tarea,cargo):
+        tarea=Tarea(tarea,cargo)
+        self.lista_tareas.append(tarea)
+        return tarea
+    def mostrar_tareas(self):
+        print('Tareas disponibles:')
+        for tarea in self.lista_tareas:
+            print(f'{tarea.tarea} - {tarea.cargo}')
+
     def asignacion_tareas_todos(self): #Asignarle tareas a todos
         for i in range(len(self.lista_empleado)):
             if self.lista_empleado[i].tarea == None:
@@ -102,13 +118,14 @@ class personalManager():
         self.registros.append(['Egreso',empleado,datetime.datetime.now()])
     def mostrar_personal(self):
         for empleado in self.lista_empleado:
-            print(f'{empleado.nombre} - {empleado.apellido} - {empleado.email} - {empleado.cargo}')
+            print(f'{empleado.name} - {empleado.surname} - {empleado.email} - {empleado.cargo}')
     
     
 class clienteManager():
     def __init__(self):
         self.lista_cliente=[] 
         self.lista_mails=set()
+
     def __str__(self) -> str:
         return (str(self.lista_cliente))
     
@@ -137,12 +154,29 @@ class clienteManager():
                 
                 return True,cliente.typeUser
         return False,None
-    
 
-    def pedir_comida(self, cliente, alimento, cant_pedida):
-        from Index import instance
-        instance.buffet.tomar_pedido(cliente, alimento, cant_pedida)
     
+    def reservar(self, email, fecha_inicio,fecha_fin, tipo_habit,balcon,bano):
+        from Index import instance
+        total=instance.reservaManager.reservar(email, fecha_inicio,fecha_fin, tipo_habit,balcon,bano)
+        for cliente in self.lista_cliente:
+            if cliente.email == email:
+                cliente.apilar(total)
+                break
+    
+    def pedir_comida(self, email, alimento, cant_pedida):
+        from Index import instance
+        a=instance.buffet.tomar_pedido(email, alimento, cant_pedida)
+        for cliente in self.lista_cliente:
+            if cliente.email == email:
+                cliente.apilar(a)
+                break
+            
+    def calcular_gastostotales(self,email):
+        for cliente in self.lista_cliente:
+            if cliente.email == email:
+                return cliente.calcular_total()
+   
 
 class roomManager():
     
@@ -249,7 +283,7 @@ class reservaManager():
                     current.habitacion.ocuparhabitacion()
                     
                     print(f'La reserva se realizo con exito, su numero de reserva es {reserva.nro_reserva} con un costo de {reserva.total}')
-                    return
+                    return total
             current=current.prox
             
         print(f'No hay habitaciones disponibles para el tipo {tipo_habit} con las caracteristicas solicitadas')

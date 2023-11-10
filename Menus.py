@@ -33,7 +33,7 @@ class menuCliente():
                 fecha_fin=datetime.datetime(inputanofin,inputmesfin,inputdiafin,10,0)
                 
                 print("-------------------------------------------------------------------------")
-                instance.reservaManager.reservar(inputemail,fecha_inicio,fecha_fin,inputtipo,inputbano,inputbalcon)
+                instance.clienteManager.reservar(inputemail,fecha_inicio,fecha_fin,inputtipo,inputbano,inputbalcon)
             print("-------------------------------------------------------------------------")  
         elif opcion_menu == "2":
             print("-------------------------------------------------------------------------")
@@ -70,8 +70,42 @@ class menuCliente():
 class menuPersonal:
         def __init__(self) -> None:
             pass
-        def inicio(self, inputemail):
-             pass
+        def bienvenida(self, inputemail):
+            print("-------------------------------------------------------------------------")
+            print("Bienvenido al hotel")
+            print("-------------------------------------------------------------------------")
+            print ("1. Ingresar") #empleado ingresa en el dia a trabajar en el hotel
+            print ("2. Tomar tarea") #empleado toma una tarea para realizar
+            print ("3. Reponer cantidad en el buffet")#empleado repone la cantidad de un alimento en el buffet
+            print ("4. Egreso") #empleado egresa del hotel
+            print ("5. Salir") #empleado cierra sesion 
+            
+            opcion_menu = input("Ingrese una opción: ")
+            from Index import instance
+            if opcion_menu == "1":
+                instance.personalManager.registrar_ingreso(inputemail)
+                print ("Bienvenido. Se registró su ingreso al hotel")
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "2":
+                instance.personalManager.asignacion_tareas(inputemail)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "3":
+                inputalimento=input('Ingrese el alimento que desea reponer: ')
+                inputcant=int(input('Ingrese la cantidad que desea reponer: '))
+
+                instance.buffet.reponer_cant(inputalimento,inputcant)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "4":
+                instance.personalManager.registrar_egreso(inputemail)
+                print ("Hasta luego. Se registró su egreso del hotel")
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "5":
+                print("-------------------------------------------------------------------------")
+                #aqui termina el programa
+                return
+
+               
+                
 class menuAdministrador:
         def __init__(self) -> None:
             pass
@@ -82,7 +116,9 @@ class menuAdministrador:
             print ("1. Dar de baja personal")
             print ("2. Recibir informe")
             print ("3. Asignar tareas")
-            print ("4. Salir")
+            print('4. Crear tarea')
+            print ('5. Agregar/eliminar opciones al buffet')
+            print ("6. Salir")
             opcion_menu = input("Ingrese una opción: ")
             from Index import instance
             if opcion_menu=='1':
@@ -94,15 +130,40 @@ class menuAdministrador:
                 else :
                     print('El email ingresado no corresponde a ningun empleado')
                 print("-------------------------------------------------------------------------")   
-            if opcion_menu=='2':
+            elif opcion_menu=='2':
                 print("-------------------------------------------------------------------------")
                 print("Informe")
                 print("-------------------------------------------------------------------------")
                 instance.adminManager.mostrar_informe()
                 print("-------------------------------------------------------------------------")
-            if opcion_menu=='3':
-               pass
-            elif opcion_menu == "4":
+            elif opcion_menu=='3':
+                instance.personalManager.mostrar_personal()
+                instance.personalManager.mostrar_tareas()
+                inputemail=input('Ingrese el email del personal que desea asignar tarea: ')
+                if inputemail in instance.personalManager.lista_empleado:
+                    instance.personalManager.asignacion_tareas(inputemail)
+                else :
+                    print('El email ingresado no corresponde a ningun empleado o está ocupado') ######ESTA OCUPADO????####
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu=='4':
+                inputtarea=input('Ingrese la tarea que desea agregar: ')
+                inputcargo=input('Ingrese el cargo al que pertenece la tarea: ')
+                instance.personalManager.nuevatarea(inputtarea,inputcargo)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu=='5':
+                instance.buffet.mostrar_menu()
+                inputagregar=input('Desea agregar alguna opcion al menu? (s/n): ')
+                if inputagregar=='s':
+                    inputalimento=input('Ingrese el alimento que desea agregar: ')
+                    inputprecio=int(input('Ingrese el precio del alimento: '))
+                    instance.buffet.agregar_menu(inputalimento,inputprecio)
+                else:
+                    inputeliminar=input('Desea eliminar alguna opcion del menu? (s/n): ')
+                    if inputeliminar=='s':
+                        inputalimento=input('Ingrese el alimento que desea eliminar: ')
+                        instance.buffet.eliminar_alimento(inputalimento)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "6":
                 print("-------------------------------------------------------------------------")
                 #aqui termina el programa
                 return

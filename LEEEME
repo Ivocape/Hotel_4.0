@@ -5,3 +5,11 @@ De otra forma si eliminamos reservas el programa se crashea. Ademas no se entien
 -HACER CSV TAREAS, pedidos, 
 - Chequear que funcione bien el set y pasarlo a los otros usuairos (personal, andmin)
 - Averiguar si hay cargo y tarea en personal
+
+- probar menu admin
+- asignar tareas menu admin (+ csv de asignar tareas)
+- recibir informe menu admin
+- csv de ingreso y egreso (menu personal)
+- historial de pedidos buffet
+- guardar los datos de factura y poder categorizarlo
+- poner un 'ir para atras' en todas las instancias del menú

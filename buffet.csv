@@ -1,8 +1,8 @@
-"Desayuno basico": ["$1000", 20]
-"Desayuno premium":["$2000", 15]
-"Bebida":["$200", 40]
-"Medialunas":["$450", 36]
-"Sandwich":["$600", 20],
-"Tostadas":["$500", 35]
-"Cena":["$2000", 25]
-"Cena premium":["$3500", 15]
+Desayuno basico,1000,20
+Desayuno premium,2000,15
+Bebida,200,40
+Medialunas ,450, 36
+Sandwich,600,20
+Tostadas,500,35
+Cena,2000,25
+Cena premium ,3500, 15

@@ -65,26 +65,21 @@ class DiscoDuro():
 
                         from Index import instance
                         instance.roomManager.cache(nro_habitacion,tipo,capacidad,precio,baño,balcon)
-                    pass
-                case 'buffet.txt':
-                      #here we have to read a txt file who has a dictionary with the menu
-                    with open("buffet.txt", 'r') as archivo:
-                            # Leer el contenido del archivo y guardarlo en una variable
-                            contenido = archivo.read()
-                            for line in contenido.splitlines():
-                                alimento, precio, cant = line.split(',')
-                                from Index import instance
-                                instance.buffet.cache(alimento, precio, cant)
+                case 'buffet.csv':
+                    for row in reader:
+                        alimento = row[0]
+                        precio = row[1]
+                        cant = row[2]
+                        from Index import instance
+                        instance.buffet.cache(alimento, precio, cant)
+                case 'tareas.csv':
+                    for row in reader:
+                        tarea = row[0]
+                        cargo = row[1]
+                        from Index import instance
+                        instance.personalManager.cache_tarea(tarea, cargo)
+
                             
-                                                  
-
-
-
-                     
-
-
-
-
 
     def escribir (self, carpeta, **kwargs):
         #Aca importamos la instancia de la clase Hotel
@@ -117,9 +112,26 @@ class DiscoDuro():
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['nro_habitacion'], kwargs['tipo'],kwargs['capacidad'],kwargs['precio'],kwargs['baño'],kwargs['balcon']])
             case 'buffet.csv':
-                pass
+                with open('buffet.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['alimento'], kwargs['precio'],kwargs['cant']])
+            case 'tareas.csv':
+                with open('tareas.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['tarea'], kwargs['cargo']])
+
+            
     def eliminar_personal(self, inputbaja):
             df=pd.read_csv('users.csv')
             df=df[df['email']!= inputbaja]
             df.to_csv('users.csv',index=False)
-    
+    def eliminar_alimento(self, inputbaja):
+            df=pd.read_csv('buffet.csv')
+            df=df[df['alimento']!= inputbaja]
+            df.to_csv('buffet.csv',index=False)
