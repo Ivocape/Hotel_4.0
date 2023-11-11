@@ -2,6 +2,7 @@ from managers import *
 from discoDuro import DiscoDuro
 from buffet import Buffet
 from Menus import menuCliente, menuPersonal, menuAdministrador
+from foto import *
 class Hotel:
     def __init__(self):
         self.clienteManager=clienteManager()
@@ -15,17 +16,19 @@ class Hotel:
         self.menuPersonal = menuPersonal()
         self.menuAdministrador = menuAdministrador()
 
-        #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
+        
     def setup(self):
 
         listacsv=['users.csv', 'reservas.csv', 'room.csv','buffet.csv', 'tareas.csv']
         for carpeta in listacsv:
             self.discoHotel1.leerSETUP(carpeta)
     def run(self):
-        #self.personalManager.createPersonal("personal 1234","Juan","Perez", "AAA","1234")
-        print("Bienvenido al hotel")
-        start = input("¿Desea iniciar sesión? (s/n): ")
+        # Imprime Hotel 4.0
+        print_image(image_path)
+        print("--------------------------------------------------------------------------")
+        start = "s"
         while start == "s":
+            print("|Bienvenido a Hotel 4.0 - El hotel del futuro|")
             print("1. Registrarse")
             print("2. Iniciar sesión")
             print("3. Salir")
@@ -89,8 +92,4 @@ class Hotel:
                 print("Gracias por utilizar nuestros servicios")
                 break
 instance = Hotel()           
-
-
-
-        
 

@@ -357,12 +357,14 @@ class reservaManager():
         else:
             print(f'No existe hay una reserva con el numero {nro_reserva}')
     def mostrar_reservas(self,cliente):
+        flag=False
         print('Nro reserva - Fecha inicio - Fecha fin - Precio')
         for reserva in self.reservas.values():
             if reserva.mail == cliente:
+                flag=True
                 print(f'{reserva.nro_reserva} - {reserva.fecha_inicio} - {reserva.fecha_fin} - ${reserva.total}')
-            else:
-                print('No hay reservas para el cliente')    
+        if flag==False:
+            print('No hay reservas para el cliente')    
         
     def cache(self,nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total):
         reserva=Reserva(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total)
