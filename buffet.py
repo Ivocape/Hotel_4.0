@@ -8,7 +8,9 @@ class Buffet:
         self.menu[alimento]=("$"+ precio,int(cant)) #esto tambien es una tupla
 
         #self.menu[alimento] = ("$"+ precio,cant -1)
-      
+    def cache_pedidos(self, cliente, alimento, cant_pedida, total, fecha):
+        self.lista_pedidos.append([cliente,alimento,cant_pedida,total,fecha])
+        
     def agregar_menu (self, alimento, precio):
         self.menu [alimento]=("$"+ str(precio),0) 
         from Index import instance
@@ -53,6 +55,8 @@ class Buffet:
                     precio_unitario = int(self.menu[alimento][0].replace("$",""))
                     total=precio_unitario*cant_pedida
                     self.lista_pedidos.append([cliente,alimento,cant_pedida,total,datetime.datetime.now()])
+                    from Index import instance
+                    instance.discoHotel1.escribir(carpeta='pedidos.csv',cliente=cliente,alimento=alimento,cant_pedida=cant_pedida,total=total,fecha=datetime.datetime.now())
                     print(f'{cant_pedida} de {alimento} solicitada con exito')
                     return total
             elif self.menu[alimento][1]<cant_pedida and self.menu[alimento][1]>0: 
@@ -60,6 +64,8 @@ class Buffet:
                     total=precio_unitario*self.menu[alimento][1]
                     self.lista_pedidos.append([cliente,alimento,self.menu[alimento][1],datetime.datetime.now()])
                     print(print(f'{self.menu[alimento][1]} de {alimento} solicitada con exito'))
+                    from Index import instance
+                    instance.discoHotel1.escribir(carpeta='pedidos.csv',cliente=cliente,alimento=alimento,cant_pedida=self.menu[alimento][1],total=total,fecha=datetime.datetime.now())
                     self.menu[alimento]=[self.menu[alimento][0],0]
                     return total
                     
