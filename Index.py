@@ -19,7 +19,7 @@ class Hotel:
         
     def setup(self):
 
-        listacsv=['users.csv', 'reservas.csv', 'room.csv','buffet.csv', 'tareas.csv']
+        listacsv=['users.csv', 'reservas.csv', 'room.csv','buffet.csv', 'tareas.csv', 'pedidos.csv','ingresos.csv','inversion.csv']
         for carpeta in listacsv:
             self.discoHotel1.leerSETUP(carpeta)
     def run(self):

@@ -77,7 +77,17 @@ class adminManager:
         return porcentaje_ocupacion, porcentaje_ocupacion_simples, porcentaje_ocupacion_dobles, porcentaje_ocupacion_suite
      
         #porcentaje de ocupacion de habitaciones por tipo de habitacion
-        
+    def informe_recaudacion_diaria(self,fecha):
+        from Index import instance
+        recaudacion = 0
+        for reserva in instance.reservaManager.reservas_en_lista:
+            if reserva.fecha_reserva.date() == fecha.date():
+                recaudacion = recaudacion + reserva.total
+        for pedido in instance.buffet.lista_pedidos:
+            if pedido[4].date() == fecha.date():
+                recaudacion = recaudacion + pedido[3]
+        print("La recaudacion diaria es de: " + str(recaudacion))
+        return recaudacion    
     
 
 class personalManager():
@@ -187,6 +197,10 @@ class personalManager():
         self.registros.append(['Egreso',empleado,datetime.datetime.now()])
         from Index import instance  
         instance.discoHotel1.escribir(carpeta = 'ingresos.csv',movimiento = 'Egreso',mail = empleado,fecha = datetime.datetime.now())
+    def mostrar_ingresos(self):
+        print('Movimiento - Mail - Fecha')
+        for registro in self.registros:
+            print(f'{registro[0]} - {registro[1]} - {registro[2]}')
     def mostrar_personal(self):
         for empleado in self.lista_empleado:
             print(f'{empleado.name} - {empleado.surname} - {empleado.email} - {empleado.cargo}')
@@ -196,7 +210,7 @@ class clienteManager():
     def __init__(self):
         self.lista_cliente=[] 
         self.lista_mails=set()
-
+        
     def __str__(self) -> str:
         return (str(self.lista_cliente))
     
@@ -233,6 +247,7 @@ class clienteManager():
         for cliente in self.lista_cliente:
             if cliente.email == email:
                 cliente.apilar(total)
+                instance.discoHotel1.escribir(carpeta = 'inversion.csv',mail = email,gasto=total)
                 break
     
     def pedir_comida(self, email, alimento, cant_pedida):
@@ -241,12 +256,18 @@ class clienteManager():
         for cliente in self.lista_cliente:
             if cliente.email == email:
                 cliente.apilar(a)
+                instance.discoHotel1.escribir(carpeta = 'inversion.csv',mail = email,gasto=a)
+                break
+    
+    def inversion_cache(self, mail,gasto):
+        for cliente in self.lista_cliente:
+            if cliente.email == mail:
+                cliente.apilar(gasto)
                 break
             
-    def calcular_gastostotales(self,email):
+    def gastosclientes(self):
         for cliente in self.lista_cliente:
-            if cliente.email == email:
-                return cliente.calcular_total()
+            print(f'{cliente.email} - {cliente.calcultar_total()} ')
 
 
 class roomManager():
@@ -332,8 +353,8 @@ class reservaManager():
                     nro_habitacion=current.habitacion.nro_habitacion
                     total=int(current.habitacion.precio)*int(((fecha_fin-fecha_inicio).days+1))
                     nro_reserva=cliente+str(fecha_inicio.date())
-                    reserva=Reserva(nro_reserva,cliente, fecha_inicio, fecha_fin, nro_habitacion,total)
-                    instance.discoHotel1.escribir(carpeta = 'reservas.csv',nro_reserva = nro_reserva,mail = cliente,nro_habitacion = nro_habitacion,fecha_inicio = fecha_inicio,fecha_fin = fecha_fin,total = total)
+                    reserva=Reserva(nro_reserva,cliente, fecha_inicio, fecha_fin, nro_habitacion,total,datetime.datetime.now())
+                    instance.discoHotel1.escribir(carpeta = 'reservas.csv',nro_reserva = nro_reserva,mail = cliente,nro_habitacion = nro_habitacion,fecha_inicio = fecha_inicio,fecha_fin = fecha_fin,total = total,fecha_reserva = datetime.datetime.now())
                     self.agregar_reserva(reserva)
                     current.habitacion.ocuparhabitacion()
                     
@@ -368,8 +389,8 @@ class reservaManager():
         if flag==False:
             print('No hay reservas para el cliente')    
         
-    def cache(self,nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total):
-        reserva=Reserva(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total)
+    def cache(self,nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total,fecha_reserva):
+        reserva=Reserva(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total,fecha_reserva)
         self.agregar_reserva(reserva)
         return reserva
                     

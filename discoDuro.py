@@ -1,5 +1,6 @@
 import csv
 import pandas as pd
+import datetime
 #####################################################################################
 # ESTE DISCO DURO DEBE DE ENCARGARSE DE GUARDAR TODA INFORMACION DE USUARIOS, CLIENTES, PERSONAL, ADMINS,
 #####################################################################################
@@ -45,10 +46,11 @@ class DiscoDuro():
                         nro_habitacion = row[4]
                         fecha_inicio = row[2]
                         fecha_fin = row[3]
-                        total = row[5]
+                        total = int(row[5])
+                        fecha_reserva = datetime.datetime.strptime(row[6], '%Y-%m-%d %H:%M:%S.%f')
                         
                         from Index import instance
-                        instance.reservaManager.cache(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total)
+                        instance.reservaManager.cache(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total,fecha_reserva)
                 case 'room.csv':
                     #numero de habitacion, tipo, capacidad, baño, balcon, precio de la noche
                     #nro_habitacion,tipo,capacidad,precio,bano,balcon
@@ -93,8 +95,15 @@ class DiscoDuro():
                         mail = row[1]
                         fecha = row[2]
                         from Index import instance
-                        instance.ingresos_cache(movimiento, mail,fecha)
-
+                        instance.personalManager.ingresos_cache(movimiento, mail,fecha)
+                case 'inversion.csv':
+                    for row in reader:
+                        mail = row[0]
+                        
+                        gasto = row[1]
+                        
+                        from Index import instance
+                        instance.clienteManager.inversion_cache(mail,gasto)
                             
 
     def escribir (self, carpeta, **kwargs):
@@ -116,7 +125,7 @@ class DiscoDuro():
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
                     # Write the user information to the CSV file
-                    writer.writerow([kwargs['nro_reserva'], kwargs['mail'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['nro_habitacion'],kwargs['total']])
+                    writer.writerow([kwargs['nro_reserva'], kwargs['mail'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['nro_habitacion'],kwargs['total'],kwargs['fecha_reserva']])
             case 'room.csv':
                 with open('room.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
@@ -152,6 +161,13 @@ class DiscoDuro():
 
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['movimiento'], kwargs['mail'],kwargs['fecha']])
+            case 'inversion.csv':
+                with open('inversion.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['mail'],kwargs['gasto']])
 
     #ACTUALIZACION CSV DE USUARIOS CON LAS TAREAS        
     def eliminar_personal(self, inputbaja):

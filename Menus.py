@@ -10,8 +10,8 @@ class menuCliente():
         print ("1. Ver habitaciónes")
         print ("2. Ver mis reservas")
         print ("3. Ver Menú del Buffet")
-        print ("4. Modificar mis datos")
-        print ("5. Salir")
+        
+        print ("4. Salir")
         
         opcion_menu = input("Ingrese una opción: ")
         from Index import instance
@@ -55,20 +55,16 @@ class menuCliente():
             if inputpedir=='s':
                 inputalimento=input('Ingrese el alimento que desea pedir: ')
                 inputcant=int(input('Ingrese la cantidad que desea pedir: '))
-                instance.buffet.tomar_pedido(inputemail,inputalimento,inputcant)
+                instance.clienteManager.pedir_comida(inputemail,inputalimento,inputcant)
             else:
                 inputver=input('Desea ver sus pedidos? (s/n): ')
                 if inputver=='s':
                     instance.buffet.mostrar_pedido(inputemail)
             print("-------------------------------------------------------------------------")
         
+
+            print("-------------------------------------------------------------------------")
         elif opcion_menu == "4":
-            print("-------------------------------------------------------------------------")
-            print("Modificar mis datos")
-            print("-------------------------------------------------------------------------")
-            instance.clienteManager.modificar_datos(inputemail)
-            print("-------------------------------------------------------------------------")
-        elif opcion_menu == "5":
             
             print("-------------------------------------------------------------------------")
             #aqui termina el programa
@@ -126,11 +122,13 @@ class menuAdministrador:
             print("Bienvenido al hotel")
             print("-------------------------------------------------------------------------")
             print ("1. Dar de baja personal")
-            print ("2. Recibir informe")
+            print ("2. Recibir informe ocupacion")
             print ("3. Asignar tareas a todos los empleados libres")
             print('4. Crear tarea')
             print ('5. Modificar el buffet')
-            print ("6. Salir")
+            print ('6. Ver ingresos y egresos del personal')
+            print ('7. Ver informe de recaudacion diaria')
+            print ("8. Salir")
             opcion_menu = input("Ingrese una opción: ")
             from Index import instance
             if opcion_menu=='1':
@@ -179,7 +177,17 @@ class menuAdministrador:
                             inputprecio=int(input('Ingrese el nuevo precio del alimento: '))
                             instance.buffet.modificar_precio(inputalimento,inputprecio)
                 print("-------------------------------------------------------------------------")
-            elif opcion_menu == "6":
+            elif opcion_menu=='6':
+                instance.personalManager.mostrar_ingresos()
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu=='7':
+                inputano=int(input('Ingrese el año de busqueda: '))
+                inputmes=int(input('Ingrese el mes de busqueda: '))
+                inputdia=int(input('Ingrese el dia de busqueda: '))
+                inputfecha=datetime.datetime(inputano,inputmes,inputdia)
+                instance.adminManager.informe_recaudacion_diaria(inputfecha)
+                print("-------------------------------------------------------------------------")
+            elif opcion_menu == "8":
                 print("-------------------------------------------------------------------------")
                 #aqui termina el programa
                 return

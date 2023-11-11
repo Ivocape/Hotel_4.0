@@ -64,7 +64,7 @@ class Buffet:
                     precio_unitario = int(self.menu[alimento][0].replace("$",""))
                     total=precio_unitario*self.menu[alimento][1]
                     self.lista_pedidos.append([cliente,alimento,self.menu[alimento][1],datetime.datetime.now()])
-                    print(print(f'{self.menu[alimento][1]} de {alimento} solicitada con exito'))
+                    print(f'{self.menu[alimento][1]} de {alimento} solicitada con exito')
                     from Index import instance
                     instance.discoHotel1.escribir(carpeta='pedidos.csv',cliente=cliente,alimento=alimento,cant_pedida=self.menu[alimento][1],total=total,fecha=datetime.datetime.now())
                     self.menu[alimento]=[self.menu[alimento][0],0]
