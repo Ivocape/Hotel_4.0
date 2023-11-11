@@ -150,7 +150,7 @@ class menuAdministrador:
                 print("-------------------------------------------------------------------------")
             elif opcion_menu=='3':
                 
-                instance.personalManager.asignacion_tareas()
+                instance.personalManager.asignacion_tareas_todos()
                 print("-------------------------------------------------------------------------")
                 print('Se asignaron las tareas a los empleados libres y las restantes son: ')
                 instance.personalManager.mostrar_tareas()
