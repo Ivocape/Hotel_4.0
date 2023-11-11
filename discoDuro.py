@@ -87,6 +87,13 @@ class DiscoDuro():
                         fecha = row[4]
                         from Index import instance
                         instance.buffet.cache_pedidos(cliente, alimento, cant_pedida, total, fecha)
+                case 'ingresos.csv':
+                    for row in reader:
+                        movimiento = row[0]
+                        mail = row[1]
+                        fecha = row[2]
+                        from Index import instance
+                        instance.ingresos_cache(movimiento, mail,fecha)
 
                             
 
@@ -138,6 +145,13 @@ class DiscoDuro():
 
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['cliente'], kwargs['alimento'],kwargs['cant_pedida'],kwargs['total'],kwargs['fecha']])
+            case 'ingresos.csv':
+                with open('ingresos.csv', 'a', newline='') as csvfile:
+                    # Create a CSV writer object
+                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                    # Write the user information to the CSV file
+                    writer.writerow([kwargs['movimiento'], kwargs['mail'],kwargs['fecha']])
 
     #ACTUALIZACION CSV DE USUARIOS CON LAS TAREAS        
     def eliminar_personal(self, inputbaja):

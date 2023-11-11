@@ -84,7 +84,7 @@ class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
         self.lista_tareas=deque() #Yo tengo una lista de tareas
-        self.totalPersonal = []
+        
         self.registros=[]
         self.lista_mails=set()     
     def __str__(self) -> str:
@@ -156,6 +156,7 @@ class personalManager():
         tarea=Tarea(tarea,cargo)
         self.lista_tareas.append(tarea)
         return tarea
+    
     def mostrar_tareas(self):
         print('Tareas disponibles:')
         for tarea in self.lista_tareas:
@@ -176,11 +177,16 @@ class personalManager():
                     else:
                         print('No hay tareas disponibles para el cargo')
            
-                
+    def ingresos_cache(self,movimiento, mail,fecha):
+        self.registros.append([movimiento,mail,fecha])    
     def registrar_ingreso(self,empleado):
         self.registros.append(['Ingreso',empleado,datetime.datetime.now()])
+        from Index import instance
+        instance.discoHotel1.escribir(carpeta = 'ingresos.csv',movimiento = 'Ingreso',mail = empleado,fecha = datetime.datetime.now())
     def registrar_egreso(self,empleado):
         self.registros.append(['Egreso',empleado,datetime.datetime.now()])
+        from Index import instance  
+        instance.discoHotel1.escribir(carpeta = 'ingresos.csv',movimiento = 'Egreso',mail = empleado,fecha = datetime.datetime.now())
     def mostrar_personal(self):
         for empleado in self.lista_empleado:
             print(f'{empleado.name} - {empleado.surname} - {empleado.email} - {empleado.cargo}')
@@ -241,11 +247,7 @@ class clienteManager():
         for cliente in self.lista_cliente:
             if cliente.email == email:
                 return cliente.calcular_total()
-    def modificar_datos(self,email):
-        for cliente in self.lista_cliente:
-            if cliente.email == email:
-                
-                break
+
 
 class roomManager():
     
