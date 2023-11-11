@@ -92,11 +92,8 @@ class DiscoDuro():
                     # Create a CSV writer object
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                     #quiero diferenciar segun el tipo de usuario
-                    if kwargs["typeUser"] == "personal 1234":
-                        writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"],kwargs['cargo'],kwargs['tarea']])
-                    else:
-                    # Write the user information to the CSV file
-                        writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"]])
+                    writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"],kwargs['cargo'],kwargs['tarea']])
+
             case 'reservas.csv':
                 with open('reservas.csv', 'a', newline='') as csvfile:
                     # Create a CSV writer object
@@ -126,12 +123,38 @@ class DiscoDuro():
                     # Write the user information to the CSV file
                     writer.writerow([kwargs['tarea'], kwargs['cargo']])
 
-            
+    #ACTUALIZACION CSV DE USUARIOS CON LAS TAREAS        
     def eliminar_personal(self, inputbaja):
-            df=pd.read_csv('users.csv')
-            df=df[df['email']!= inputbaja]
-            df.to_csv('users.csv',index=False) 
+            df=pd.read_csv('users.csv',header=None)
+            df=df[df[2]!= inputbaja]
+            df.to_csv('users.csv',index=False,header=None)
+    def completar_tarea(self, mail):
+            df=pd.read_csv('users.csv',header=None)
+            df.loc[df.iloc[:, 2] ==mail,6]=''
+            df.to_csv('users.csv',index=False,header=None)
+            
+    def asignar_tarea(self, inputbaja,tarea):
+            df=pd.read_csv('users.csv',header=None)
+            df.loc[df[2]==inputbaja,6]=tarea
+            df.to_csv('users.csv',index=False,header=None)
+    
+    #ACTUALIZACION CSV DE TAREAS ELIMINANDO LAS ASIGNADAS        
+    def eliminar_tarea(self, tarea):
+            df=pd.read_csv('tareas.csv',header=None)
+            df=df[df[0]!= tarea]
+            df.to_csv('tareas.csv',index=False,header=None)
+    
+    #ACTUALIZACION CSV DE BUFFET
     def eliminar_alimento(self, inputbaja):
-            df=pd.read_csv('buffet.csv')
-            df=df[df['alimento']!= inputbaja]
-            df.to_csv('buffet.csv',index=False)
+            df=pd.read_csv('buffet.csv',header=None)
+            df=df[df[0]!= inputbaja]
+            df.to_csv('buffet.csv',index=False,header=None)
+    def cambiar_precio_comida(self,alimento,precio):
+        df=pd.read_csv('buffet.csv',header=None)
+        df.loc[df[0]==alimento,1]=precio
+        df.to_csv('buffet.csv',index=False, header=None)
+    def reponer_cant (self, alimento, cant):
+        df=pd.read_csv('buffet.csv',header=None)
+        df.loc[df[0]==alimento,2]=cant
+        df.to_csv('buffet.csv',index=False, header=None)    
+    

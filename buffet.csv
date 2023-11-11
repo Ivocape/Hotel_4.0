@@ -1,13 +1,13 @@
-Desayuno basico,1000,20
-Desayuno premium,2000,15
-Bebida,200,40
-Medialunas ,450, 36
-Sandwich,600,20
-Tostadas,500,35
-Cena,2000,25
-Cena premium ,3500, 15
-Ivo Con Queso,1,0
-tatiana sin jamon,2,0
-Hamburgesa Hellmann,900,0
-Cookies de DulcesDetalles,650,0
-s,2,0
+Desayuno basico,1000,543
+Desayuno premium,2000,408
+Bebida,200,1083
+Medialunas ,450,975
+Sandwich,600,543
+Tostadas,500,948
+Cena,2000,678
+Cena premium ,3500,408
+Ivo Con Queso,1,3
+tatiana sin jamon,2,3
+Hamburgesa Hellmann,900,3
+Cookies de DulcesDetalles,650,3
+s,5,3

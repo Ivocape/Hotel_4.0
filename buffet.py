@@ -5,7 +5,7 @@ class Buffet:
         self.menu={}
         self.lista_pedidos=[]
     def cache(self, alimento, precio, cant):
-        self.menu[alimento]=("$"+ precio,cant) #esto tambien es una tupla
+        self.menu[alimento]=("$"+ precio,int(cant)) #esto tambien es una tupla
 
         #self.menu[alimento] = ("$"+ precio,cant -1)
       
@@ -13,15 +13,22 @@ class Buffet:
         self.menu [alimento]=("$"+ str(precio),0) 
         from Index import instance
         instance.discoHotel1.escribir(carpeta='buffet.csv',alimento=alimento,precio=precio,cant=0)
-    def reponer_cant (self, alimento, cant):
-        for alimento, (precio, cant) in self.menu.items():
-            self.menu[alimento]=(self.menu[alimento][0],cant)
+    def reponer_cant (self, alimento, agregado):
+        if alimento in self.menu:
+            for alimento, (precio, cant) in self.menu.items():
+                nuevacant=cant+agregado
+                self.menu[alimento]=(self.menu[alimento][0],nuevacant)
+                from Index import instance
+                instance.discoHotel1.reponer_cant(alimento,nuevacant)
+                print('Cantidad de ' + {alimento} + ' reabastecida')
         else:
             print(f"El pedido {alimento} no se encuentra en el menú")
 
     def modificar_precio (self, alimento, precio):
         if alimento in self.menu:
-            self.menu[alimento]=("$"+precio,self.menu[alimento][1])
+            self.menu[alimento]=("$"+str(precio),self.menu[alimento][1])
+            from Index import instance
+            instance.discoHotel1.cambiar_precio_comida(alimento,precio)
         else:
             print("El pedido " + {alimento} + " no se encuentra en el menú")
 

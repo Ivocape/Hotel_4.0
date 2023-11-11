@@ -1,6 +1,7 @@
 from TiposDeUsuarios import *
 from habitacion import *
 import datetime
+from collections import deque
 from reservas import *
 from buffet import *
 from tareas import *
@@ -15,7 +16,7 @@ class adminManager:
         self.lista_mails.add(email)
         from Index import instance 
         carpeta='users.csv'
-        instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
+        instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password,cargo='n/a',tarea='n/a')
         print("Usuario creado con éxito, por favor inicie sesión")
         return admin
     def cache(self,typeUser ,name, surname, email, password):
@@ -82,7 +83,7 @@ class adminManager:
 class personalManager():
     def __init__(self):
         self.lista_empleado=[] #Yo tengo una lista de empleados(La instancia de personalManager)
-        self.lista_tareas=[]
+        self.lista_tareas=deque() #Yo tengo una lista de tareas
         self.totalPersonal = []
         self.registros=[]
         self.lista_mails=set()     
@@ -112,7 +113,11 @@ class personalManager():
             return False, None
 
     def dar_de_baja(self,inputbaja):
-        self.lista_empleado.remove(inputbaja) 
+        for empleado in self.lista_empleado:
+            if empleado.email == inputbaja:
+                self.lista_empleado.remove(empleado)
+                print(f'Empleado {inputbaja} dado de baja con exito')
+                break
         from Index import instance
         instance.discoHotel1.eliminar_personal(inputbaja)
     def nuevatarea(self,tarea,cargo):
@@ -121,12 +126,26 @@ class personalManager():
         from Index import instance
         instance.discoHotel1.escribir(carpeta = 'tareas.csv',tarea = tarea.tarea,cargo = tarea.cargo)
         
+    def completar_tarea(self,email):
+        for empleado in self.lista_empleado:
+            if empleado.email == email:
+                empleado.tarea=''
+                from Index import instance
+                instance.discoHotel1.completar_tarea(email)
+                print('Tarea completada con exito')
+                break
+        
     def asignacion_tareas(self,email): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
         for user in self.lista_empleado:
-            if user.email == email:
-                for i in range(len(self.lista_tareas)):
-                        if user.cargo==self.lista_tareas[i].cargo:
-                            user.tarea=self.lista_tareas.pop(i)
+            if user.email == email and user.tarea == '':
+                for i in self.lista_tareas:
+                        if user.cargo==i.cargo:
+                            
+                            user.tarea=i.tarea
+                            self.lista_tareas.popleft()
+                            from Index import instance
+                            instance.discoHotel1.asignar_tarea(email,user.tarea)
+                            instance.discoHotel1.eliminar_tarea(user.tarea)
                             print(f'Tarea {user.tarea} asignada con exito')
                             break
                         else:
@@ -141,16 +160,19 @@ class personalManager():
             print(f'{tarea.tarea} - {tarea.cargo}')
 
     def asignacion_tareas_todos(self): #Asignarle tareas a todos
-        for i in range(len(self.lista_empleado)):
-            if self.lista_empleado[i].tarea == None:
-                for j in range(len(self.lista_tareas)):
-                    if self.lista_empleado[j].cargo==self.lista_tareas[j].cargo:
-                        self.tarea=self.lista_tareas.pop(j)
+        for empleado in self.lista_empleado:
+            if empleado.tarea == '':
+                for tarea in self.lista_tareas:
+                    if empleado.cargo==tarea.cargo:
+                        empleado.tarea=tarea.tarea
+                        self.lista_tareas.popleft()
+                        from Index import instance
+                        instance.discoHotel1.asignar_tarea(empleado.email,empleado.tarea)
+                        instance.discoHotel1.eliminar_tarea(empleado.tarea)
                         break
                     else:
                         print('No hay tareas disponibles para el cargo')
-            else:
-                print('Empleado {} no disponible'.format(self.lista_empleado[i].nombre))
+           
                 
     def registrar_ingreso(self,empleado):
         self.registros.append(['Ingreso',empleado,datetime.datetime.now()])
@@ -178,7 +200,7 @@ class clienteManager():
             self.lista_mails.add(email)
             from Index import instance 
             carpeta='users.csv'
-            instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password)
+            instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password,cargo='n/a',tarea='n/a')
             print("Usuario creado con éxito, por favor inicie sesión")
 
     def cache (self,typeUser ,name, surname, email, password):
@@ -236,22 +258,6 @@ class roomManager():
         self.head = new_node
       
         
-       
-    def delete(self, value):
-        
-        if self.is_empty():
-            return
-
-        if self.head.valor == value:
-            self.head = self.head.prox
-            return
-
-        current = self.head
-        while current.prox:
-            if current.prox.valor == value:
-                current.prox = current.prox.prox
-                return
-            current = current.prox
             
     def ocupar_habitacion (self,nro_habitacion):
         current=self.head
