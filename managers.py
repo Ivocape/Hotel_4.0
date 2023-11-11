@@ -150,6 +150,8 @@ class personalManager():
                             break
                         else:
                             print('No hay tareas disponibles para el cargo')
+            else:
+                print('El empleado ya tiene una tarea asignada')
     def cache_tarea(self,tarea,cargo):
         tarea=Tarea(tarea,cargo)
         self.lista_tareas.append(tarea)
@@ -169,6 +171,7 @@ class personalManager():
                         from Index import instance
                         instance.discoHotel1.asignar_tarea(empleado.email,empleado.tarea)
                         instance.discoHotel1.eliminar_tarea(empleado.tarea)
+                        print(f'Tarea {empleado.tarea} asignada con exito')
                         break
                     else:
                         print('No hay tareas disponibles para el cargo')

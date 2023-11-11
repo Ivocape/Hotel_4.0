@@ -31,6 +31,7 @@ class Buffet:
             self.menu[alimento]=("$"+str(precio),self.menu[alimento][1])
             from Index import instance
             instance.discoHotel1.cambiar_precio_comida(alimento,precio)
+            print('Precio de ' + {alimento} + ' modificado')
         else:
             print("El pedido " + {alimento} + " no se encuentra en el menú")
 
