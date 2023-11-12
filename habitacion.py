@@ -7,11 +7,11 @@ class Habitacion:
         self.bano=bano
         self.balcon=balcon
         self.ocupacion=False
-    def ocuparhabitacion(self):
+    def ocuparhabitacion(self): #Ocupa una habitacion
         if self.ocupacion==False:
             self.ocupacion == True
     
-    def liberarhabitacion(self):
+    def liberarhabitacion(self): #Libera una habitacion
         self.ocupacion = False
             
             

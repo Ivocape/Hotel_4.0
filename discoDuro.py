@@ -5,20 +5,20 @@ import datetime
 # ESTE DISCO DURO DEBE DE ENCARGARSE DE GUARDAR TODA INFORMACION DE USUARIOS, CLIENTES, PERSONAL, ADMINS,
 #####################################################################################
 class DiscoDuro():
-    # Create a list to store the user information
+    # Crear el disco duro
     def __init__(self) -> None:
         pass
 
     def leerSETUP (self, carpeta):    
-        # Open the CSV file
+        # Abrir el archivo CSV
         with open(carpeta,'r', newline='') as csvfile: 
-            # Create a CSV reader object
+            # Crear un objeto lector CSV
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             match carpeta:
                 case "users.csv":
-                            # Loop through each row in the CSV file
+                            
                     for row in reader:
-                        # Extract the user information from the row
+                        # Extraigo la informacion del usuario de la fila
                         
                         name = row[0]
                         surname = row[1]
@@ -40,7 +40,7 @@ class DiscoDuro():
                 case 'reservas.csv':
                  
                     for row in reader:
-                        # Extract the user information from the row
+                        # Extraigo la informacion de la reserva de la fila
                         nro_reserva = row[0]
                         mail = row[1]
                         nro_habitacion = row[4]
@@ -52,11 +52,10 @@ class DiscoDuro():
                         from Index import instance
                         instance.reservaManager.cache(nro_reserva, mail, fecha_inicio, fecha_fin, nro_habitacion,total,fecha_reserva)
                 case 'room.csv':
-                    #numero de habitacion, tipo, capacidad, baño, balcon, precio de la noche
-                    #nro_habitacion,tipo,capacidad,precio,bano,balcon
-                             # Loop through each row in the CSV file
+                    
+                             
                     for row in reader:
-                        # Extract the user information from the row
+                        # Extraigo la informacion de la habitacion de la fila
                         
                         nro_habitacion = row[0]
                         tipo = row[1]
@@ -110,63 +109,62 @@ class DiscoDuro():
         #Aca importamos la instancia de la clase Hotel
         match carpeta:
             case 'users.csv':
-                # Open the CSV file in append mode
-                #instance.clienteManager.createCliente(kwargs["typeUser"],kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'])
+                
                 
                 with open('users.csv', 'a', newline='') as csvfile:
-                    # Create a CSV writer object
+                    # Crear un objeto escritor CSV
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                    #quiero diferenciar segun el tipo de usuario
+                    #Escrebir la informacion del usuario en el archivo CSV
                     writer.writerow([kwargs['name'], kwargs['surname'], kwargs['email'],kwargs['password'],kwargs["typeUser"],kwargs['cargo'],kwargs['tarea']])
 
             case 'reservas.csv':
                 with open('reservas.csv', 'a', newline='') as csvfile:
-                    # Create a CSV writer object
+                    # Crear un objeto escritor CSV
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-                    # Write the user information to the CSV file
+                    # Escribir la informacion del usuario en el archivo CSV
                     writer.writerow([kwargs['nro_reserva'], kwargs['mail'],kwargs['fecha_inicio'],kwargs['fecha_fin'],kwargs['nro_habitacion'],kwargs['total'],kwargs['fecha_reserva']])
             case 'room.csv':
                 with open('room.csv', 'a', newline='') as csvfile:
-                    # Create a CSV writer object
+                    # CCrear un objeto escritor CSV
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-                    # Write the user information to the CSV file
+                    # Escrbir la informacion del usuario en el archivo CSV
                     writer.writerow([kwargs['nro_habitacion'], kwargs['tipo'],kwargs['capacidad'],kwargs['precio'],kwargs['baño'],kwargs['balcon']])
             case 'buffet.csv':
                 with open('buffet.csv', 'a', newline='') as csvfile:
-                    # Create a CSV writer object
+                    # Crear un objeto escritor CSV
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-                    # Write the user information to the CSV file
+                    # Escrbir la informacion del usuario en el archivo CSV
                     writer.writerow([kwargs['alimento'], kwargs['precio'],kwargs['cant']])
             case 'tareas.csv':
                 with open('tareas.csv', 'a', newline='') as csvfile:
-                    # Create a CSV writer object
+                    # Crear un objeto escritor CSV
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-                    # Write the user information to the CSV file
+                    # Escribir la informacion del usuario en el archivo CSV
                     writer.writerow([kwargs['tarea'], kwargs['cargo']])
             case 'pedidos.csv':
                 with open('pedidos.csv', 'a', newline='') as csvfile:
-                    # Create a CSV writer object
+                    # Crear un objeto escritor CSV
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-                    # Write the user information to the CSV file
+                    # escribir la informacion del usuario en el archivo CSV
                     writer.writerow([kwargs['cliente'], kwargs['alimento'],kwargs['cant_pedida'],kwargs['total'],kwargs['fecha']])
             case 'ingresos.csv':
                 with open('ingresos.csv', 'a', newline='') as csvfile:
-                    # Create a CSV writer object
+                    # Crear un objeto escritor CSV
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-                    # Write the user information to the CSV file
+                    # Escribir la informacion del usuario en el archivo CSV
                     writer.writerow([kwargs['movimiento'], kwargs['mail'],kwargs['fecha']])
             case 'inversion.csv':
                 with open('inversion.csv', 'a', newline='') as csvfile:
-                    # Create a CSV writer object
+                    # Crear un objeto escritor CSV
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-                    # Write the user information to the CSV file
+                    # Escribir la informacion del usuario en el archivo CSV
                     writer.writerow([kwargs['mail'],kwargs['gasto']])
 
     #ACTUALIZACION CSV DE USUARIOS CON LAS TAREAS        
@@ -181,6 +179,7 @@ class DiscoDuro():
             
     def asignar_tarea(self, inputbaja,tarea):
             df=pd.read_csv('users.csv',header=None)
+            df[2]=df[2].astype(str)
             df.loc[df[2]==inputbaja,6]=tarea
             df.to_csv('users.csv',index=False,header=None)
     
@@ -204,3 +203,8 @@ class DiscoDuro():
         df.loc[df[0]==alimento,2]=cant
         df.to_csv('buffet.csv',index=False, header=None)    
     
+    #ELIMINAR RESERVA CANCELADA
+    def eliminar_reserva(self, nro_reserva):
+            df=pd.read_csv('reservas.csv',header=None)
+            df=df[df[0]!= nro_reserva]
+            df.to_csv('reservas.csv',index=False,header=None)

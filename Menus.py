@@ -7,9 +7,9 @@ class menuCliente():
         print("-------------------------------------------------------------------------")
         print("Bienvenido al hotel")
         print("-------------------------------------------------------------------------")
-        print ("1. Ver habitaciónes")
-        print ("2. Ver mis reservas")
-        print ("3. Ver Menú del Buffet")
+        print ("1. Ver habitaciónes") #cliente ve las habitaciones disponibles
+        print ("2. Ver mis reservas") #cliente ve sus reservas
+        print ("3. Ver Menú del Buffet") #cliente ve el menu del buffet
         
         print ("4. Salir")
         
@@ -21,12 +21,22 @@ class menuCliente():
             print("-------------------------------------------------------------------------")
             inputconsulta=input('Quiere realizar una reserva? (s/n): ')
             if inputconsulta=='s':
-                inputanoinicio=int(input('Ingrese el año de inicio de su estadia: '))
-                inputmesinicio=int(input('Ingrese el mes de inicio de su estadia: '))
-                inputdiainicio=int(input('Ingrese el dia de inicio de su estadia: '))
-                inputanofin=int(input('Ingrese el año de fin de su estadia: '))
-                inputmesfin=int(input('Ingrese el mes de fin de su estadia: '))
-                inputdiafin=int(input('Ingrese el dia de fin de su estadia: '))
+                inputanoinicio=(input('Ingrese el año de inicio de su estadia: '))
+                inputmesinicio=(input('Ingrese el mes de inicio de su estadia: '))
+                inputdiainicio=(input('Ingrese el dia de inicio de su estadia: '))
+                inputanofin=(input('Ingrese el año de fin de su estadia: '))
+                inputmesfin=(input('Ingrese el mes de fin de su estadia: '))
+                inputdiafin=(input('Ingrese el dia de fin de su estadia: '))
+                if inputanoinicio.isdigit() and inputmesinicio.isdigit() and inputdiainicio.isdigit() and inputanofin.isdigit() and inputmesfin.isdigit() and inputdiafin.isdigit():
+                    inputanoinicio=int(inputanoinicio)
+                    inputmesinicio=int(inputmesinicio)
+                    inputdiainicio=int(inputdiainicio)
+                    inputanofin=int(inputanofin)
+                    inputmesfin=int(inputmesfin)
+                    inputdiafin=int(inputdiafin)
+                else:
+                    print('Ingrese una fecha valida TODO EN NUMEROS')
+                    return
                 inputtipo=input('Ingrese el tipo de habitacion que desea: ')
                 inputbano=input('Ingrese si desea baño privado (s/n): ')
                 inputbalcon=input('Ingrese si desea balcon (s/n): ')
@@ -63,7 +73,7 @@ class menuCliente():
             print("-------------------------------------------------------------------------")
         
 
-            print("-------------------------------------------------------------------------")
+            
         elif opcion_menu == "4":
             
             print("-------------------------------------------------------------------------")
@@ -121,30 +131,49 @@ class menuAdministrador:
             print("-------------------------------------------------------------------------")
             print("Bienvenido al hotel")
             print("-------------------------------------------------------------------------")
-            print ("1. Dar de baja personal")
-            print ("2. Recibir informe ocupacion")
-            print ("3. Asignar tareas a todos los empleados libres")
-            print('4. Crear tarea')
-            print ('5. Modificar el buffet')
-            print ('6. Ver ingresos y egresos del personal')
-            print ('7. Ver informe de recaudacion diaria')
-            print ("8. Salir")
+            print ("1. Dar de baja personal") #admin da de baja a un empleado
+            print ("2. Recibir informes ") #admin ve los informes de ocupacion, recaudacion y categorizacion de clientes
+            print ("3. Asignar tareas a todos los empleados libres") #admin asigna tareas a todos los empleados libres
+            print('4. Crear tarea') #admin crea una tarea
+            print ('5. Modificar el buffet') #admin modifica el menu del buffet
+            print ('6. Ver ingresos y egresos del personal') #admin ve los ingresos y egresos del personal
+            
+            print ("7. Salir")
+            print("-------------------------------------------------------------------------")
             opcion_menu = input("Ingrese una opción: ")
+            print("-------------------------------------------------------------------------")
             from Index import instance
             if opcion_menu=='1':
                 instance.personalManager.mostrar_personal()
                 inputbaja=input('Ingrese el email del personal que desea dar de baja: ')
-                if inputbaja in instance.personalManager.lista_mails:
-                    instance.personalManager.dar_de_baja(inputbaja) 
-                    print( 'El empleado ha sido dado de baja')
-                else :
-                    print('El email ingresado no corresponde a ningun empleado')
+                instance.personalManager.dar_de_baja(inputbaja) 
                 print("-------------------------------------------------------------------------")   
             elif opcion_menu=='2':
+                
+                print('1. Informe de ocupacion del hotel')
+                print('2. Informe de recaudacion del hotel')
+                print('3. Informe de categorizacion de clientes')
                 print("-------------------------------------------------------------------------")
-                print("Informe")
-                print("-------------------------------------------------------------------------")
-                instance.adminManager.mostrar_informe()
+                opcion_informe=input('Ingrese el informe que desea recibir: ')
+                if opcion_informe=='1':
+                    instance.adminManager.mostrar_informe()
+                elif opcion_informe=='2':
+                    inputano=(input('Ingrese el año de busqueda: '))
+                    inputmes=(input('Ingrese el mes de busqueda: '))
+                    inputdia=(input('Ingrese el dia de busqueda: '))
+                    if inputano.isdigit() and inputmes.isdigit() and inputdia.isdigit():
+                        inputano=int(inputano)
+                        inputmes=int(inputmes)
+                        inputdia=int(inputdia)
+                    else:
+                        print('Ingrese una fecha valida TODO EN NUMEROS')
+                        return
+                    inputfecha=datetime.datetime(inputano,inputmes,inputdia)
+                    instance.adminManager.informe_recaudacion_diaria(inputfecha)
+                elif opcion_informe=='3':
+                    inputprimervalor=int(input('Ingrese el primer valor de la categoria: '))
+                    inputsegundovalor=int(input('Ingrese el segundo valor de la categoria: '))
+                    instance.adminManager.categorizar_cliente(inputprimervalor,inputsegundovalor)
                 print("-------------------------------------------------------------------------")
             elif opcion_menu=='3':
                 
@@ -163,7 +192,7 @@ class menuAdministrador:
                 inputagregar=input('Desea agregar alguna opcion al menu? (s/n): ')
                 if inputagregar=='s':
                     inputalimento=input('Ingrese el alimento que desea agregar: ')
-                    inputprecio=int(input('Ingrese el precio del alimento: '))
+                    inputprecio=int(input('Ingrese el precio del alimento en numeros sin $: '))
                     instance.buffet.agregar_menu(inputalimento,inputprecio)
                 else:
                     inputeliminar=input('Desea eliminar alguna opcion del menu? (s/n): ')
@@ -174,20 +203,13 @@ class menuAdministrador:
                         inputeliminar=input('Desea modificar el precio de alguna opcion del menu? (s/n): ')
                         if inputeliminar=='s':
                             inputalimento=input('Ingrese el alimento que desea modificar: ')
-                            inputprecio=int(input('Ingrese el nuevo precio del alimento: '))
+                            inputprecio=int(input('Ingrese el nuevo precio del alimento en numeros sin $: '))
                             instance.buffet.modificar_precio(inputalimento,inputprecio)
                 print("-------------------------------------------------------------------------")
             elif opcion_menu=='6':
                 instance.personalManager.mostrar_ingresos()
                 print("-------------------------------------------------------------------------")
-            elif opcion_menu=='7':
-                inputano=int(input('Ingrese el año de busqueda: '))
-                inputmes=int(input('Ingrese el mes de busqueda: '))
-                inputdia=int(input('Ingrese el dia de busqueda: '))
-                inputfecha=datetime.datetime(inputano,inputmes,inputdia)
-                instance.adminManager.informe_recaudacion_diaria(inputfecha)
-                print("-------------------------------------------------------------------------")
-            elif opcion_menu == "8":
+            elif opcion_menu == "7":
                 print("-------------------------------------------------------------------------")
                 #aqui termina el programa
                 return

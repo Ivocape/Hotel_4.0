@@ -48,8 +48,8 @@ class Hotel:
                     self.clienteManager.createCliente(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 elif inputtypeuser == "personal 1234":
                     inputcargo=input("Ingrese su cargo: ")
-                    inputtarea=input("Ingrese su tarea: ")
-                    self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword,inputcargo,inputtarea)
+                    
+                    self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword,inputcargo,'')
                 
                 
 

@@ -1,10 +1,8 @@
 
-# User Class that Provides the Structure for a User Object
-# This class is what is created on invoking the createUser() function
+
 class User:
 
-    # User Class Constructor, Defines Variable Names in a Global Reach within the Class Object
-    # Also appends the Object to the __totalUsers array on it's creation
+  
     def __init__(self,name="", surname="", email="", password="",typeUser=""):
         self.typeUser = typeUser
         self.name = name
@@ -14,7 +12,7 @@ class User:
        
     def __str__(self) -> str:
         return (str(self.name) + " " + str(self.surname) + " " + str(self.email) + " " + str(self.password + " " + str(self.typeUser)) )
-    # Returns all info about a given user object
+
 
 
 class Personal(User):
@@ -30,7 +28,7 @@ class Cliente(User):
         super().__init__(name, surname, email, password, typeUser)
         self.head=None
         
-    def apilar(self,valor):
+    def apilar(self,valor): #apila los gastos de un cliente
         from reservas import Nodo_recaudacion
         gasto=Nodo_recaudacion(valor)
         if self.head==None:
@@ -39,7 +37,7 @@ class Cliente(User):
             gasto.prox=self.head
             self.head=gasto
     
-    def calcular_total(self):
+    def calcular_total(self): #calcula el total de gastos de un cliente
         aux=self.head
         totalgastos=0
         while aux!=None:
