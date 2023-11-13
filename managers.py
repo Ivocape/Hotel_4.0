@@ -31,6 +31,7 @@ class adminManager:
         for admin in self.totalAdmins:
             if  password == admin.password and email== admin.email:
                 return True, admin.typeUser
+        return False,None
             
     def mostrar_informe(self):        #porcentaje de ocupacion del hotel
      

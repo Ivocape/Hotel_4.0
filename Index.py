@@ -48,9 +48,15 @@ class Hotel:
                     self.clienteManager.createCliente(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword)
                 elif inputtypeuser == "personal 1234":
                     inputcargo=input("Ingrese su cargo: ")
-                    
                     self.personalManager.createPersonal(inputtypeuser,inputnombre,inputapellido,inputemail,inputpassword,inputcargo,'')
-                
+                else:
+                    print("-------------------------------------------------------------------------")
+                    print("-------------------------------------------------------------------------")
+                    print("Tipo de usuario incorrecto, por favor intente nuevamente. ")
+                    print("*****pista: 'cliente' , 'personal 1234' o 'admin 1234'*****")
+                    print("-------------------------------------------------------------------------")
+                    print("-------------------------------------------------------------------------")
+                    continue
                 
 
                 print(self.clienteManager.lista_cliente)
