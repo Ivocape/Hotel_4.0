@@ -192,21 +192,22 @@ class personalManager():
         
     def asignacion_tareas(self,email): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
         for user in self.lista_empleado:
-            if user.email == email and user.tarea == '':
-                for i in self.lista_tareas:
-                        if user.cargo==i.cargo:
-                            
-                            user.tarea=i.tarea
-                            self.lista_tareas.popleft()
-                            from Index import instance
-                            instance.discoHotel1.asignar_tarea(email,user.tarea)
-                            instance.discoHotel1.eliminar_tarea(user.tarea)
-                            print(f'Tarea {user.tarea} asignada con exito')
-                            break
-                        else:
-                            print('No hay tareas disponibles para el cargo')
-            else:
-                print('El empleado ya tiene una tarea asignada')
+            if user.email == email:
+                if user.tarea == '':
+                    for i in self.lista_tareas:
+                            if user.cargo==i.cargo:
+                                
+                                user.tarea=i.tarea
+                                self.lista_tareas.popleft()
+                                from Index import instance
+                                instance.discoHotel1.asignar_tarea(email,user.tarea)
+                                instance.discoHotel1.eliminar_tarea(user.tarea)
+                                print(f'Tarea {user.tarea} asignada con exito')
+                                break
+                            else:
+                                print('No hay tareas disponibles para el cargo')
+                else:
+                    print('El empleado ya tiene una tarea asignada')
     def cache_tarea(self,tarea,cargo): #Leer el csv de tareas recopilando las tareas pendientes de asignar
         tarea=Tarea(tarea,cargo)
         self.lista_tareas.append(tarea)

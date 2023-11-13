@@ -17,18 +17,18 @@ class Buffet:
         from Index import instance
         instance.discoHotel1.escribir(carpeta='buffet.csv',alimento=alimento,precio=precio,cant=0)
         print('Alimento agregado al menú')
-    def reponer_cant (self, alimento, agregado): #Reabastece la cantidad de un alimento
-        alimento=alimento.lower()
-        print(alimento)
-    
-        if alimento in self.menu:
-                nuevacant=alimento.cant + agregado
-                self.menu[alimento]=(self.menu[alimento][0],nuevacant)
-                from Index import instance
-                instance.discoHotel1.reponer_cant(alimento,nuevacant)
-                print(f'Cantidad de {alimento} reabastecida')
+    def reponer_cant (self, alimentoareponer, agregado): #Reabastece la cantidad de un alimento
+        alimentoareponer=alimentoareponer.lower()
+        if alimentoareponer in self.menu:
+            for alimento, (precio, cant) in self.menu.items():
+                if alimento == alimentoareponer:
+                    nuevacant=cant + agregado
+                    self.menu[alimento]=(precio,nuevacant)
+                    from Index import instance
+                    instance.discoHotel1.reponer_cant(alimento,nuevacant)
+                    print(f'Cantidad de {alimento} reabastecida')
         else:
-            print(f"El pedido {alimento} no se encuentra en el menú")
+                print(f"El pedido {alimento} no se encuentra en el menú")
 
     def modificar_precio (self, alimento, precio): #Modifica el precio de un alimento
         alimento=alimento.lower()
