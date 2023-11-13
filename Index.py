@@ -58,11 +58,6 @@ class Hotel:
                     print("-------------------------------------------------------------------------")
                     continue
                 
-
-                print(self.clienteManager.lista_cliente)
-                print(self.personalManager.lista_empleado)
-                print(self.adminManager.totalAdmins)
-               
             elif opcion == "2":
                 inputemail = input("Ingrese su email: ")
                 inputpassword = input("Ingrese su contraseña: ")

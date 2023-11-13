@@ -1,31 +1,13 @@
   
 import tkinter as tk
-from managers import *
+from Index import *
 
 class HotelGUI:
-    """
-    A class representing the graphical user interface of a hotel management system.
-    """
-
+    
     def __init__(self, master):
-        """
-        Initializes the HotelGUI object.
-
-        Parameters:
-        master (tk.Tk): The root window of the GUI.
-        """
-
-
+   
         self.master = master
-        master.title("Hotel Management System")
-
-        # Initialize the managers for clients, personnel, administrators, rooms, reservations, and users
-        self.clienteManager=clienteManager()
-        self.personalManager=personalManager()
-        self.adminManager=adminManager()
-        self.roomManager=roomManager()
-        self.reservaManager=reservaManager()
-       
+        master.title("Hotel Management System")       
 
         # Create a label with the text "Bienvenido al hotel" and pack it into the master window
         self.label = tk.Label(master, text="Bienvenido al hotel")
@@ -49,9 +31,7 @@ class HotelGUI:
         self.quit_button.pack()
 
     def register(self):
-        """
-        Initializes the registration screen.
-        """
+
 
         # Change the label text to "Registro"
         self.label.config(text="Registro")
@@ -180,16 +160,18 @@ class HotelGUI:
         self.login_button.pack()
 
     def login(self):
-        """
-        Validates the user's login credentials.
-        """
-
-        # Get the username and password from the entry fields
-        email= self.email_entry.get()
-        password = self.password_entry.get()
+   
+        
+        inputemail= self.email_entry.get()
+        inputpassword = self.password_entry.get()
 
         # If the user's credentials are valid, change the label text to "Bienvenido"
-        if self.userManager.validateUser(email, password):
+        flag,typeUser = self.clienteManager.verificacion(inputemail,inputpassword)
+        if flag == False:
+            flag,typeUser = self.personalManager.verificacion(inputemail,inputpassword)
+        if flag == False:
+            flag,typeUser = self.adminManager.verificacion(inputemail,inputpassword)    
+        if flag == True:
             self.label.config(text="Bienvenido")
         # Otherwise, change the label text to "Nombre de usuario o contraseña incorrectos"
         else:

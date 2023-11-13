@@ -263,8 +263,9 @@ class clienteManager():
             from Index import instance 
             carpeta='users.csv'
             instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password,cargo='n/a',tarea='n/a')
+            print("-------------------------------------------------------------------------")
             print("Usuario creado con éxito, por favor inicie sesión")
-
+            print("-------------------------------------------------------------------------")
     def cache (self,typeUser ,name, surname, email, password): #Se lee el csv de usuarios, recopilando los clientes
         cliente = Cliente(name, surname, email, password, typeUser)
         self.lista_cliente.append(cliente)
