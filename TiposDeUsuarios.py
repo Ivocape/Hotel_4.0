@@ -41,7 +41,7 @@ class Cliente(User):
         aux=self.head
         totalgastos=0
         while aux!=None:
-            totalgastos=totalgastos+aux.value
+            totalgastos=totalgastos+int(aux.value)
             aux=aux.prox
         return totalgastos
     def __str__(self) -> str:
