@@ -31,6 +31,7 @@ class adminManager:
         for admin in self.totalAdmins:
             if  password == admin.password and email== admin.email:
                 return True, admin.typeUser
+        return False,None    
             
     def mostrar_informe(self):        #porcentaje de ocupacion del hotel
      
@@ -109,11 +110,11 @@ class adminManager:
         contadortercero=0
         from Index import instance
         for cliente in instance.clienteManager.lista_cliente:
-            if cliente.calcultar_total() < primer:
+            if cliente.calcular_total() < primer:
                 contadorprimero=contadorprimero+1
-            elif cliente.calcultar_total() >= primer and cliente.calcultar_total() < segundo:
+            elif cliente.calcular_total() >= primer and cliente.calcular_total() < segundo:
                 contadorsegundo=contadorsegundo+1
-            elif cliente.calcultar_total() >= segundo:
+            elif cliente.calcular_total() >= segundo:
                 contadortercero=contadortercero+1
                 
         print(f'Clientes con gastos menores a {primer}: {contadorprimero}')
