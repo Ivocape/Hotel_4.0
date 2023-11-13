@@ -11,7 +11,8 @@ class adminManager:
         self.lista_mails=set()
     
     def createAdmin(self,typeUser ,name, surname, email, password): #Se crea un usuario del tipo Admin y se lo agrega a la lista de admins
-        if email in self.lista_mails:
+        from Index import instance
+        if email in self.lista_mails or email in instance.clienteManager.lista_mails or email in instance.personalManager.lista_mails:
             print('El mail ya esta registrado')
         else:         
             admin = Administrador(name, surname, email, password, typeUser)
@@ -21,7 +22,7 @@ class adminManager:
             carpeta='users.csv'
             instance.discoHotel1.escribir(carpeta = carpeta,typeUser = typeUser,name = name, surname = surname, email = email, password = password,cargo='n/a',tarea='n/a')
             print("Usuario creado con éxito, por favor inicie sesión")
-        return admin
+            return admin
     def cache(self,typeUser ,name, surname, email, password): #Se lee el csv de usuarios, recopilando los admins
         admin = Administrador(name, surname, email, password, typeUser)
         self.totalAdmins.append(admin)
@@ -87,19 +88,16 @@ class adminManager:
     def informe_recaudacion_diaria(self,fecha): #recaudacion diaria del hotel segun la fecha
         from Index import instance
         recaudacion = 0
-        for reserva in instance.reservaManager.reservas_en_lista:
-            if isinstance(reserva.fecha_reserva,str):
-                reserva.fecha_reserva = datetime.datetime.strptime(reserva.fecha_reserva,"%Y-%m-%d %H:%M:%S.%f")
-            if reserva.fecha_reserva.date() == fecha.date():
-                recaudacion = recaudacion + reserva.total
-        for pedido in instance.buffet.lista_pedidos:
-            if isinstance(pedido[4],datetime.datetime):
-                pedido[4] = pedido[4].strftime("%Y-%m-%d %H:%M:%S")
-            fecha_pedido=datetime.datetime.strptime(pedido[4],"%Y-%m-%d %H:%M:%S.%f")
-            if fecha_pedido.date() == fecha.date():
-                recaudacion = recaudacion + int(pedido[3])
+        for cliente in instance.clienteManager.lista_cliente:
+            gasto=cliente.head
+            while gasto!=None:
+                if isinstance(gasto.value[1],str):
+                    gasto.value[1] = datetime.datetime.strptime(gasto.value[1],'%Y-%m-%d %H:%M:%S.%f')
+                if gasto.value[1].date() == fecha.date():
+                    recaudacion=recaudacion+int(gasto.value[0])
+                gasto=gasto.prox
         print("La recaudacion diaria es de: " + str(recaudacion))
-        return recaudacion    
+        return recaudacion
     
     def categorizar_cliente(self,primer,segundo): #cantidad de clientes que gastaron menos de x, entre x e y, y mas de y
         if primer>segundo:
@@ -133,7 +131,8 @@ class personalManager():
     def __str__(self) -> str: #Para que me imprima la lista de empleados
         return (str(self.lista_empleado))    
     def createPersonal(self,typeUser ,name, surname, email, password,cargo,tarea): #Se crea un usuario del tipo Personal y se lo agrega a la lista de empleados
-        if email in self.lista_mails:
+        from Index import instance
+        if email in self.lista_mails or email in instance.clienteManager.lista_mails or email in instance.adminManager.lista_mails:
             print('El mail ya esta registrado')
         else:
             personal = Personal(name, surname, email, password, typeUser,cargo,tarea)
@@ -176,6 +175,9 @@ class personalManager():
         print('Tarea agregada con exito')
         
     def completar_tarea(self,email): #Completar una tarea segun cada empleado
+        if empleado.tarea == '':
+            print('El empleado no tiene ninguna tarea asignada')
+            return
         for empleado in self.lista_empleado:
             if empleado.email == email:
                 empleado.tarea=''
@@ -228,11 +230,11 @@ class personalManager():
            
     def ingresos_cache(self,movimiento, mail,fecha): #Leer el csv de ingresos recopilando los ingresos y egresos
         self.registros.append([movimiento,mail,fecha])    
-    def registrar_ingreso(self,empleado): #Registrar un ingreso
+    def registrar_ingreso(self,empleado): #Registrar un ingreso ### SE PUEDE REGISTRAR DOS VECES DE FORMA CONSECUTIVA PARA PREVENIR OLVIDOS
         self.registros.append(['Ingreso',empleado,datetime.datetime.now()])
         from Index import instance
         instance.discoHotel1.escribir(carpeta = 'ingresos.csv',movimiento = 'Ingreso',mail = empleado,fecha = datetime.datetime.now())
-    def registrar_egreso(self,empleado): #Registrar un egreso
+    def registrar_egreso(self,empleado): #Registrar un egreso ### SE PUEDE REGISTRAR DOS VECES DE FORMA CONSECUTIVA PARA PREVENIR OLVIDOS
         self.registros.append(['Egreso',empleado,datetime.datetime.now()])
         from Index import instance  
         instance.discoHotel1.escribir(carpeta = 'ingresos.csv',movimiento = 'Egreso',mail = empleado,fecha = datetime.datetime.now())
@@ -255,7 +257,8 @@ class clienteManager():
     
     def createCliente(self,typeUser ,name, surname, email, password): #Se crea un usuario del tipo Cliente y se lo agrega a la lista de clientes
         cliente = Cliente(name, surname, email, password, typeUser)
-        if email in self.lista_mails:
+        from Index import instance
+        if email in self.lista_mails or email in instance.personalManager.lista_mails or email in instance.adminManager.lista_mails:
             print('El mail ya esta registrado')
         else:
             self.lista_cliente.append(cliente)
@@ -283,17 +286,17 @@ class clienteManager():
     
     def reservar(self, email, fecha_inicio,fecha_fin, tipo_habit,bano,balcon): #Reservar una habitacion
         if fecha_inicio < datetime.datetime.now():
-            print('La fecha de inicio debe ser mayor a la fecha actual')
+            print('La fecha de inicio debe ser posterior a la fecha actual')
             return
         if fecha_fin < fecha_inicio:
-            print('La fecha de fin debe ser mayor a la fecha de inicio')
+            print('La fecha de fin debe ser posterior a la fecha de inicio')
             return
         from Index import instance
         total=instance.reservaManager.reservar(email, fecha_inicio,fecha_fin, tipo_habit,balcon,bano)
         for cliente in self.lista_cliente:
             if cliente.email == email:
-                cliente.apilar(total)
-                instance.discoHotel1.escribir(carpeta = 'inversion.csv',mail = email,gasto=total)
+                cliente.apilar(total,datetime.datetime.now())
+                instance.discoHotel1.escribir(carpeta = 'inversion.csv',mail = email,gasto=total,fecha=datetime.datetime.now())
                 break
     
     def pedir_comida(self, email, alimento, cant_pedida): #Pedir comida
@@ -301,14 +304,14 @@ class clienteManager():
         a=instance.buffet.tomar_pedido(email, alimento, cant_pedida)
         for cliente in self.lista_cliente:
             if cliente.email == email:
-                cliente.apilar(a)
-                instance.discoHotel1.escribir(carpeta = 'inversion.csv',mail = email,gasto=a)
+                cliente.apilar(a,datetime.datetime.now())
+                instance.discoHotel1.escribir(carpeta = 'inversion.csv',mail = email,gasto=a,fecha=datetime.datetime.now())
                 break
     
-    def inversion_cache(self, mail,gasto): #Leer el csv de inversiones recopilando los gastos de los clientes
+    def inversion_cache(self, mail,gasto,fecha): #Leer el csv de inversiones recopilando los gastos de los clientes
         for cliente in self.lista_cliente:
             if cliente.email == mail:
-                cliente.apilar(gasto)
+                cliente.apilar(gasto,fecha)
                 break
             
 
@@ -408,21 +411,24 @@ class reservaManager():
             
         print(f'No hay habitaciones disponibles para el tipo {tipo_habit} con las caracteristicas solicitadas')
         
-    def cancelar_reserva(self,nro_reserva): #Cancelar una reserva
+    def cancelar_reserva(self,cliente,nro_reserva): #Cancelar una reserva
         if nro_reserva in self.reservas:
             from Index import instance
             reserva = self.reservas[nro_reserva]
             nro_habitacion = reserva.nro_habitacion
-            current=instance.roomManager.head
-            while current is not None:
-                if current.habitacion.nro_habitacion == nro_habitacion:
-                    current.habitacion.liberarhabitacion()
-                    break
-                current=current.prox
-            del self.reservas[nro_reserva]
-            instance.discoHotel1.eliminar_reserva(nro_reserva)
-            
-            print('La reserva se cancelo con exito')
+            if reserva.email in cliente.email:
+                current=instance.roomManager.head
+                while current is not None:
+                    if current.habitacion.nro_habitacion == nro_habitacion:
+                        current.habitacion.liberarhabitacion()
+                        break
+                    current=current.prox
+                del self.reservas[nro_reserva]
+                instance.discoHotel1.eliminar_reserva(nro_reserva)
+                
+                print('La reserva se cancelo con exito')
+            else:
+                print('No tiene permiso para cancelar la reserva')
         else:
             print(f'No existe hay una reserva con el numero {nro_reserva}')
     def mostrar_reservas(self,cliente): #Mostrar las reservas de un cliente

@@ -54,7 +54,7 @@ class menuCliente():
             inputcancelar=input('Desea cancelar alguna reserva? (s/n): ')
             if inputcancelar=='s':
                 inputnroreserva=input('Ingrese el numero de reserva que desea cancelar: ')
-                instance.reservaManager.cancelar_reserva(inputnroreserva)
+                instance.reservaManager.cancelar_reserva(inputemail,inputnroreserva)
             print("-------------------------------------------------------------------------")
         elif opcion_menu == "3":
             print("-------------------------------------------------------------------------")
@@ -90,7 +90,7 @@ class menuPersonal:
             pass
         def bienvenida(self, inputemail):
             print("-------------------------------------------------------------------------")
-            print(f"Good morning Vietnam! Hola {inputemail}! Has accedido como personal del hotel y estas son sus opciones:")
+            print(f"Hola {inputemail}! Has accedido como personal del hotel y estas son sus opciones:")
             print("-------------------------------------------------------------------------")
             print ("1. Registrar Ingreso") #empleado ingresa en el dia a trabajar en el hotel
             print ("2. Tomar tarea") #empleado toma una tarea para realizar

@@ -100,9 +100,10 @@ class DiscoDuro():
                         mail = row[0]
                         
                         gasto = row[1]
+                        fecha = row[2]
                         
                         from Index import instance
-                        instance.clienteManager.inversion_cache(mail,gasto)
+                        instance.clienteManager.inversion_cache(mail,gasto,fecha)
                             
 
     def escribir (self, carpeta, **kwargs):
@@ -165,7 +166,7 @@ class DiscoDuro():
                     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
                     # Escribir la informacion del usuario en el archivo CSV
-                    writer.writerow([kwargs['mail'],kwargs['gasto']])
+                    writer.writerow([kwargs['mail'],kwargs['gasto'],kwargs['fecha']])
 
     #ACTUALIZACION CSV DE USUARIOS CON LAS TAREAS        
     def eliminar_personal(self, inputbaja):

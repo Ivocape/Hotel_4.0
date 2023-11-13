@@ -3,14 +3,15 @@ Instrucciones para correr el codigo:
     + pip install pillow (Cartel del hotel 4.0)
     + pip install pandas (Manejo de datos)
   - Para correr el codigo se haces desde HOTEL 4.0.py
-  - Existen 4 usuarios creados para poder ingresar al sistema:
+  - Existen 4 usuarios creados para poder ingresar al sistema: 
     + Administradores: tati , 123 o aby , 123
     + Personal: dustin , 123
     + Cliente: ivo , 123
   - Para poder ingresar al sistema se debe ingresar el usuario y la contraseña.
+  - Para registrarse como admin o personal, se ingresa 'admin 1234' o 'personal 1234'
 
   - Tambien puede crear su propio usuario registrandose en el sistema.
 
-  - Para esta entrega no llegamos a armar la GUI de interfas grafica por falta de tiempo,
+  - Para esta entrega no llegamos a armar la GUI de interfaz grafica por falta de tiempo,
     aunque puede correrse una pequeña parte de la GUI en el archivo GUIPRUEBA.py 
     (no esta terminado, solo es para que se vea que lo intentamos :"(  

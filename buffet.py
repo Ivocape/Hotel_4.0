@@ -25,7 +25,7 @@ class Buffet:
                 self.menu[alimento]=(self.menu[alimento][0],nuevacant)
                 from Index import instance
                 instance.discoHotel1.reponer_cant(alimento,nuevacant)
-                print('Cantidad de ' + {alimento} + ' reabastecida')
+                print(f'Cantidad de {alimento} reabastecida')
         else:
             print(f"El pedido {alimento} no se encuentra en el menú")
 
@@ -35,9 +35,9 @@ class Buffet:
             self.menu[alimento]=("$"+str(precio),self.menu[alimento][1])
             from Index import instance
             instance.discoHotel1.cambiar_precio_comida(alimento,precio)
-            print('Precio de ' + {alimento} + ' modificado')
+            print(f'Precio de {alimento} modificado')
         else:
-            print("El pedido " + {alimento} + " no se encuentra en el menú")
+            print(f"El pedido {alimento} no se encuentra en el menú")
 
     def eliminar_alimento (self, alimento): #Elimina un alimento del menu
         alimento=alimento.lower()

@@ -28,9 +28,10 @@ class Cliente(User):
         super().__init__(name, surname, email, password, typeUser)
         self.head=None
         
-    def apilar(self,valor): #apila los gastos de un cliente
+    def apilar(self,valor,fecha): #apila los gastos de un cliente
         from reservas import Nodo_recaudacion
-        gasto=Nodo_recaudacion(valor)
+        
+        gasto=Nodo_recaudacion([valor,fecha])
         if self.head==None:
             self.head=gasto
         else:
@@ -41,7 +42,7 @@ class Cliente(User):
         aux=self.head
         totalgastos=0
         while aux!=None:
-            totalgastos=totalgastos+int(aux.value)
+            totalgastos=totalgastos+int(aux.value[0])
             aux=aux.prox
         return totalgastos
     def __str__(self) -> str:
