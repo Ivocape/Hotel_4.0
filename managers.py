@@ -75,10 +75,10 @@ class adminManager:
         porcentaje_ocupacion_dobles = (HabitacionesDoblesOcupadas/HabitacionesDobles)*100
         porcentaje_ocupacion_suite = (HabitacionesSuiteOcupadas/HabitacionesSuite)*100
 
-        print("El porcentaje de ocupacion es de: " + str(porcentaje_ocupacion) + "%")
-        print("El porcentaje de ocupacion de habitaciones simples es de: " + str(porcentaje_ocupacion_simples) + "%")
-        print("El porcentaje de ocupacion de habitaciones dobles es de: " + str(porcentaje_ocupacion_dobles) + "%")
-        print("El porcentaje de ocupacion de habitaciones suite es de: " + str(porcentaje_ocupacion_suite) + "%")
+        print("El porcentaje de ocupacion de hoy es de: " + str(porcentaje_ocupacion) + "%")
+        print("El porcentaje de ocupacion de hoy en habitaciones simples es de: " + str(porcentaje_ocupacion_simples) + "%")
+        print("El porcentaje de ocupacion de hoy en habitaciones dobles es de: " + str(porcentaje_ocupacion_dobles) + "%")
+        print("El porcentaje de ocupacion de hoy en habitaciones suite es de: " + str(porcentaje_ocupacion_suite) + "%")
 
         return porcentaje_ocupacion, porcentaje_ocupacion_simples, porcentaje_ocupacion_dobles, porcentaje_ocupacion_suite
      

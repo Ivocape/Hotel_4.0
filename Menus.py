@@ -5,7 +5,7 @@ class menuCliente():
     def bienvenida(self, inputemail):
         
         print("-------------------------------------------------------------------------")
-        print("Bienvenido al hotel")
+        print(f"Bienvenido al hotel del futuro {inputemail}! Usted a accedido como cliente y estas son sus opciones:")
         print("-------------------------------------------------------------------------")
         print ("1. Ver habitaciónes") #cliente ve las habitaciones disponibles
         print ("2. Ver mis reservas") #cliente ve sus reservas
@@ -64,7 +64,12 @@ class menuCliente():
             inputpedir=input('Desea realizar algun pedido? (s/n): ')
             if inputpedir=='s':
                 inputalimento=input('Ingrese el alimento que desea pedir: ')
-                inputcant=int(input('Ingrese la cantidad que desea pedir: '))
+                inputcant=input('Ingrese la cantidad que desea pedir: ')
+                if inputcant.isdigit():
+                    inputcant=int(inputcant)
+                else:
+                    print('Ingrese una cantidad valida, USANDO SOLO NUMEROS')
+                    return
                 instance.clienteManager.pedir_comida(inputemail,inputalimento,inputcant)
             else:
                 inputver=input('Desea ver sus pedidos? (s/n): ')
@@ -85,13 +90,13 @@ class menuPersonal:
             pass
         def bienvenida(self, inputemail):
             print("-------------------------------------------------------------------------")
-            print("Bienvenido al hotel")
+            print(f"Good morning Vietnam! Hola {inputemail}! Has accedido como personal del hotel y estas son sus opciones:")
             print("-------------------------------------------------------------------------")
-            print ("1. Ingresar") #empleado ingresa en el dia a trabajar en el hotel
+            print ("1. Registrar Ingreso") #empleado ingresa en el dia a trabajar en el hotel
             print ("2. Tomar tarea") #empleado toma una tarea para realizar
             print ("3. Reponer cantidad en el buffet")#empleado repone la cantidad de un alimento en el buffet
             print('4. Completar tarea') #empleado completa una tarea que tenia asignada     
-            print ("5. Egreso") #empleado egresa del hotel
+            print ("5. Registrar Egreso") #empleado egresa del hotel
             print ("6. Salir") #empleado cierra sesion 
             
             opcion_menu = input("Ingrese una opción: ")
@@ -106,7 +111,12 @@ class menuPersonal:
             elif opcion_menu == "3":
                 instance.buffet.mostrar_menu()
                 inputalimento=input('Ingrese el alimento que desea reponer: ')
-                inputcant=int(input('Ingrese la cantidad que desea reponer: '))
+                inputcant=input('Ingrese la cantidad que desea reponer: ')
+                if inputcant.isdigit():
+                    inputcant=int(inputcant)
+                else:
+                    print('Ingrese una cantidad valida, USANDO SOLO NUMEROS')
+                    return
 
                 instance.buffet.reponer_cant(inputalimento,inputcant)
                 print("-------------------------------------------------------------------------")
@@ -129,7 +139,7 @@ class menuAdministrador:
             pass
         def inicio(self, inputemail):
             print("-------------------------------------------------------------------------")
-            print("Bienvenido al hotel")
+            print(f"Buenos dias Jefe {inputemail}! En que puedo servirte? Estas son sus opciones:")
             print("-------------------------------------------------------------------------")
             print ("1. Dar de baja personal") #admin da de baja a un empleado
             print ("2. Recibir informes ") #admin ve los informes de ocupacion, recaudacion y categorizacion de clientes
@@ -171,8 +181,14 @@ class menuAdministrador:
                     inputfecha=datetime.datetime(inputano,inputmes,inputdia)
                     instance.adminManager.informe_recaudacion_diaria(inputfecha)
                 elif opcion_informe=='3':
-                    inputprimervalor=int(input('Ingrese el primer valor de la categoria: '))
-                    inputsegundovalor=int(input('Ingrese el segundo valor de la categoria: '))
+                    inputprimervalor=input('Ingrese el primer valor de la categoria: ')
+                    inputsegundovalor=input('Ingrese el segundo valor de la categoria: ')
+                    if inputprimervalor.isdigit() and inputsegundovalor.isdigit():
+                        inputprimervalor=int(inputprimervalor)
+                        inputsegundovalor=int(inputsegundovalor)
+                    else:
+                        print('Ingrese un valor valido TODO EN NUMEROS')
+                        return
                     instance.adminManager.categorizar_cliente(inputprimervalor,inputsegundovalor)
                 print("-------------------------------------------------------------------------")
             elif opcion_menu=='3':
@@ -192,7 +208,12 @@ class menuAdministrador:
                 inputagregar=input('Desea agregar alguna opcion al menu? (s/n): ')
                 if inputagregar=='s':
                     inputalimento=input('Ingrese el alimento que desea agregar: ')
-                    inputprecio=int(input('Ingrese el precio del alimento en numeros sin $: '))
+                    inputprecio=input('Ingrese el precio del alimento en numeros sin $: ')
+                    if inputprecio.isdigit():
+                        inputprecio=int(inputprecio)
+                    else:
+                        print('Ingrese un precio valido, USANDO SOLO NUMEROS')
+                        return
                     instance.buffet.agregar_menu(inputalimento,inputprecio)
                 else:
                     inputeliminar=input('Desea eliminar alguna opcion del menu? (s/n): ')
@@ -203,7 +224,12 @@ class menuAdministrador:
                         inputeliminar=input('Desea modificar el precio de alguna opcion del menu? (s/n): ')
                         if inputeliminar=='s':
                             inputalimento=input('Ingrese el alimento que desea modificar: ')
-                            inputprecio=int(input('Ingrese el nuevo precio del alimento en numeros sin $: '))
+                            inputprecio=input('Ingrese el nuevo precio del alimento en numeros sin $: ')
+                            if inputprecio.isdigit():
+                                inputprecio=int(inputprecio)
+                            else:
+                                print('Ingrese un precio valido, USANDO SOLO NUMEROS')
+                                return
                             instance.buffet.modificar_precio(inputalimento,inputprecio)
                 print("-------------------------------------------------------------------------")
             elif opcion_menu=='6':
