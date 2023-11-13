@@ -13,7 +13,9 @@ class adminManager:
     def createAdmin(self,typeUser ,name, surname, email, password): #Se crea un usuario del tipo Admin y se lo agrega a la lista de admins
         from Index import instance
         if email in self.lista_mails or email in instance.clienteManager.lista_mails or email in instance.personalManager.lista_mails:
+            print("-------------------------------------------------------------------------")
             print('El mail ya esta registrado')
+            print("-------------------------------------------------------------------------")
         else:         
             admin = Administrador(name, surname, email, password, typeUser)
             self.totalAdmins.append(admin)
@@ -133,7 +135,9 @@ class personalManager():
     def createPersonal(self,typeUser ,name, surname, email, password,cargo,tarea): #Se crea un usuario del tipo Personal y se lo agrega a la lista de empleados
         from Index import instance
         if email in self.lista_mails or email in instance.clienteManager.lista_mails or email in instance.adminManager.lista_mails:
+            print("-------------------------------------------------------------------------")
             print('El mail ya esta registrado')
+            print("-------------------------------------------------------------------------")
         else:
             personal = Personal(name, surname, email, password, typeUser,cargo,tarea)
             self.lista_empleado.append(personal)
@@ -175,11 +179,11 @@ class personalManager():
         print('Tarea agregada con exito')
         
     def completar_tarea(self,email): #Completar una tarea segun cada empleado
-        if empleado.tarea == '':
-            print('El empleado no tiene ninguna tarea asignada')
-            return
         for empleado in self.lista_empleado:
             if empleado.email == email:
+                if empleado.tarea == '':
+                    print('El empleado no tiene ninguna tarea asignada')
+                    return
                 empleado.tarea=''
                 from Index import instance
                 instance.discoHotel1.completar_tarea(email)
@@ -259,7 +263,9 @@ class clienteManager():
         cliente = Cliente(name, surname, email, password, typeUser)
         from Index import instance
         if email in self.lista_mails or email in instance.personalManager.lista_mails or email in instance.adminManager.lista_mails:
+            print("-------------------------------------------------------------------------")
             print('El mail ya esta registrado')
+            print("-------------------------------------------------------------------------")
         else:
             self.lista_cliente.append(cliente)
             self.lista_mails.add(email)
@@ -399,7 +405,7 @@ class reservaManager():
                 if not superpuesta:
                     nro_habitacion=current.habitacion.nro_habitacion
                     total=int(current.habitacion.precio)*int(((fecha_fin-fecha_inicio).days+1))
-                    nro_reserva=cliente+str(fecha_inicio.date())
+                    nro_reserva= cliente + current.habitacion.nro_habitacion + str(fecha_inicio.date())
                     reserva=Reserva(nro_reserva,cliente, fecha_inicio, fecha_fin, nro_habitacion,total,datetime.datetime.now())
                     instance.discoHotel1.escribir(carpeta = 'reservas.csv',nro_reserva = nro_reserva,mail = cliente,nro_habitacion = nro_habitacion,fecha_inicio = fecha_inicio,fecha_fin = fecha_fin,total = total,fecha_reserva = datetime.datetime.now())
                     self.agregar_reserva(reserva)
@@ -416,7 +422,7 @@ class reservaManager():
             from Index import instance
             reserva = self.reservas[nro_reserva]
             nro_habitacion = reserva.nro_habitacion
-            if reserva.email in cliente.email:
+            if reserva.mail in cliente:
                 current=instance.roomManager.head
                 while current is not None:
                     if current.habitacion.nro_habitacion == nro_habitacion:

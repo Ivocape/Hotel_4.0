@@ -19,9 +19,10 @@ class Buffet:
         print('Alimento agregado al menú')
     def reponer_cant (self, alimento, agregado): #Reabastece la cantidad de un alimento
         alimento=alimento.lower()
+        print(alimento)
+    
         if alimento in self.menu:
-            for alimento, (precio, cant) in self.menu.items():
-                nuevacant=cant+agregado
+                nuevacant=alimento.cant + agregado
                 self.menu[alimento]=(self.menu[alimento][0],nuevacant)
                 from Index import instance
                 instance.discoHotel1.reponer_cant(alimento,nuevacant)
@@ -65,7 +66,7 @@ class Buffet:
                     self.lista_pedidos.append([cliente,alimento,cant_pedida,total,datetime.datetime.now()])
                     from Index import instance
                     instance.discoHotel1.escribir(carpeta='pedidos.csv',cliente=cliente,alimento=alimento,cant_pedida=cant_pedida,total=total,fecha=datetime.datetime.now())
-                    print(f'{cant_pedida} de {alimento} solicitada con exito')
+                    print(f'{cant_pedida} {alimento} solicitada con exito')
                     return total
             elif self.menu[alimento][1]<cant_pedida and self.menu[alimento][1]>0: 
                     precio_unitario = int(self.menu[alimento][0].replace("$",""))

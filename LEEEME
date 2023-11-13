@@ -12,6 +12,11 @@ Instrucciones para correr el codigo:
 
   - Tambien puede crear su propio usuario registrandose en el sistema.
 
+  - Nuestra politica de cancelacion es FUERTE, no devolvemos el dinero de reservas canceladas.
+
+  - No es necesario que el personal registre su egreso del hotel para marcar el ingreso nuevamente
+    (se puede hacer, pero no es necesario).
+
   - Para esta entrega no llegamos a armar la GUI de interfaz grafica por falta de tiempo,
     aunque puede correrse una pequeña parte de la GUI en el archivo GUIPRUEBA.py 
     (no esta terminado, solo es para que se vea que lo intentamos :"(  
