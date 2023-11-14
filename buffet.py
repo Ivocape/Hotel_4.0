@@ -28,7 +28,7 @@ class Buffet:
                     instance.discoHotel1.reponer_cant(alimento,nuevacant)
                     print(f'Cantidad de {alimento} reabastecida')
         else:
-                print(f"El pedido {alimento} no se encuentra en el menú")
+            print(f"El pedido {alimentoareponer} no se encuentra en el menú")
 
     def modificar_precio (self, alimento, precio): #Modifica el precio de un alimento
         alimento=alimento.lower()
@@ -55,6 +55,12 @@ class Buffet:
         for alimento, (precio, cant) in self.menu.items():
             
             print(f"{alimento} -  {precio}")
+    
+    def mostrar_menu_con_cantidades(self): #Muestra el menu
+        print('Alimento -  Precio - Cantidad')
+        for alimento, (precio, cant) in self.menu.items():
+            
+            print(f"{alimento} -  {precio} - {cant}")
 
     def tomar_pedido(self, cliente, alimento, cant_pedida): #Toma un pedido
         alimento=alimento.lower()

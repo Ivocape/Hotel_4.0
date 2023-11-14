@@ -191,6 +191,7 @@ class personalManager():
                 break
         
     def asignacion_tareas(self,email): #Asignarle una tarea a un determinado empleado y Guardarla en el CSV
+        task = False
         for user in self.lista_empleado:
             if user.email == email:
                 if user.tarea == '':
@@ -203,9 +204,11 @@ class personalManager():
                                 instance.discoHotel1.asignar_tarea(email,user.tarea)
                                 instance.discoHotel1.eliminar_tarea(user.tarea)
                                 print(f'Tarea {user.tarea} asignada con exito')
+                                task = True
                                 break
-                            else:
-                                print('No hay tareas disponibles para el cargo')
+                    if task == False:
+                        print('No hay tareas disponibles para el cargo')
+                                
                 else:
                     print('El empleado ya tiene una tarea asignada')
     def cache_tarea(self,tarea,cargo): #Leer el csv de tareas recopilando las tareas pendientes de asignar

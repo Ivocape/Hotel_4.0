@@ -109,7 +109,7 @@ class menuPersonal:
                 instance.personalManager.asignacion_tareas(inputemail)
                 print("-------------------------------------------------------------------------")
             elif opcion_menu == "3":
-                instance.buffet.mostrar_menu()
+                instance.buffet.mostrar_menu_con_cantidades()
                 inputalimento=input('Ingrese el alimento que desea reponer: ')
                 inputcant=input('Ingrese la cantidad que desea reponer: ')
                 if inputcant.isdigit():
@@ -181,8 +181,8 @@ class menuAdministrador:
                     inputfecha=datetime.datetime(inputano,inputmes,inputdia)
                     instance.adminManager.informe_recaudacion_diaria(inputfecha)
                 elif opcion_informe=='3':
-                    inputprimervalor=input('Ingrese el primer valor de la categoria: ')
-                    inputsegundovalor=input('Ingrese el segundo valor de la categoria: ')
+                    inputprimervalor=input('Ingrese el primer valor para la division entre categorias para los clientes: ')
+                    inputsegundovalor=input('Ingrese el segundo valor para la division entre categorias para los clientes: ')
                     if inputprimervalor.isdigit() and inputsegundovalor.isdigit():
                         inputprimervalor=int(inputprimervalor)
                         inputsegundovalor=int(inputsegundovalor)
@@ -204,7 +204,7 @@ class menuAdministrador:
                 instance.personalManager.nuevatarea(inputtarea,inputcargo)
                 print("-------------------------------------------------------------------------")
             elif opcion_menu=='5':
-                instance.buffet.mostrar_menu()
+                instance.buffet.mostrar_menu_con_cantidades()
                 inputagregar=input('Desea agregar alguna opcion al menu? (s/n): ')
                 if inputagregar=='s':
                     inputalimento=input('Ingrese el alimento que desea agregar: ')
